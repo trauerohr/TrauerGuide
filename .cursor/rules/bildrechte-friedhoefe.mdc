@@ -1,0 +1,68 @@
+---
+description: Bildrechte und Quellenregeln fuer Friedhofsbilder
+alwaysApply: true
+---
+
+# Bildrechte fuer Friedhofsbilder
+
+Diese Regeln sind verbindlich fuer TrauerOhr-Kompasse.
+
+## Grundsatz
+
+Bilder duerfen nur oeffentlich eingebunden werden, wenn Quelle, Lizenz oder Freigabe nachvollziehbar dokumentiert sind.
+
+## Erlaubte Bildarten
+
+- Eigene Fotos von TrauerOhr
+- Bilder mit schriftlicher Freigabe
+- Wikimedia-Commons-Bilder mit einzeln gepruefter Lizenz
+- Offizielle städtische Bilder nur, wenn Nutzungsrechte/Freigabe klar sind
+
+## Nicht automatisch erlaubt
+
+- Bilder von Bestatter-Webseiten
+- Bilder von Friedhofsgaertner-Webseiten
+- Bilder von Verlagen
+- Bilder von Zeitungen
+- Screenshots aus fremden Webseiten
+- Stadt-Stuttgart-Bilder ohne klaren Freigabehinweis
+
+Diese Bilder duerfen als Recherchekandidat notiert werden, aber nicht einfach in `index.html` eingebaut werden.
+
+## Quellenangabe
+
+Quellen gehoeren als gut lesbare Bildunterschrift oder in eine separate Quellenliste. Sie duerfen nicht als abgeschnittener Rest im Bild stehen.
+
+Mindestangaben:
+
+- Titel oder Beschreibung
+- Urheber/Rechteinhaber
+- Quelle/URL
+- Lizenz/Freigabestatus
+- Hinweis, wenn das Bild bearbeitet oder zugeschnitten wurde
+
+## Wikimedia Commons
+
+Jedes Wikimedia-Bild einzeln pruefen. Commons selbst ist nicht der Urheber. Die Lizenz steht auf der jeweiligen Dateiseite.
+
+Bei Creative-Commons-Lizenzen typischerweise noetig:
+
+- Urheber nennen
+- Lizenz nennen und verlinken
+- Quelle verlinken
+- Bearbeitung/Zuschnitt kenntlich machen
+
+Bei Public-Domain-Bildern trotzdem Quelle nennen.
+
+## Friedhoefe und Sensibilitaet
+
+Bei Friedhoefen keine Trauerfeiern, Angehoerigen, Besucher oder gut lesbare persoenliche Grabdaten zeigen. Juedische Friedhoefe und Sonderbereiche besonders vorsichtig behandeln und im Zweifel keine Bilder verwenden, bis der Traeger zugestimmt hat.
+
+## Bildbearbeitung
+
+- Bilddatei selbst: nur Motiv, Plan oder Foto.
+- Keine PDF-Seitenraender.
+- Keine Seitennummern.
+- Keine abgeschnittenen Quellenreste.
+- Keine unlesbaren Wasserzeichen als vermeintliche Quellenangabe.
+- Wenn zugeschnitten wurde, in der Quellenangabe `zugeschnitten` vermerken.

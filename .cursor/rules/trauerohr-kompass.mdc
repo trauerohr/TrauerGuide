@@ -1,0 +1,59 @@
+---
+description: TrauerOhr Regeln fuer Bestatter-Kompass-Projekte
+alwaysApply: true
+---
+
+# TrauerOhr Grundregeln
+
+Arbeite in deutscher Sprache. Erklaere technische Aenderungen verstaendlich und vermeide unnoetigen Fachjargon.
+
+TrauerOhr steht fuer Leben, Abschied, Erinnerung und Begegnung. Der Stil ist ruhig, professionell, vertrauensvoll und modern. Keine kitschigen, lauten oder ueberladenen Designs.
+
+Vor Weiterarbeit zuerst `CURSOR_START_HERE.md` lesen. Bei Friedhofsbildern zusaetzlich `.cursor/rules/bildrechte-friedhoefe.mdc` und `friedhof-bildrecherche-stuttgart.md` beachten.
+
+## Markenwerte
+
+- Gruen: `#79A83B`
+- Blau: `#1C00CC`
+- Text: `#3F3F3F`
+- Gestaltung: klar, ruhig, sachlich, warm
+- Keine dominanten Werbeflaechen im ersten Blick, wenn der lokale Kompass die Hauptfunktion ist
+
+## Technische Leitlinien
+
+- Bevorzuge einfache, stabile und langfristig wartbare Loesungen.
+- Keine neue Plattform, kein Backend und keine laufenden Kosten einfuehren, wenn eine statische Seite reicht.
+- Code sauber strukturieren und nur noetige Aenderungen vornehmen.
+- Bestehendes Erscheinungsbild respektieren.
+- Vor groesseren Umbauten kurz erklaeren: Was wird geaendert, warum, und welche Auswirkung hat es?
+
+## Datenschutz / DSGVO
+
+- Datensparsamkeit zuerst.
+- Keine sensiblen Daten unnoetig sammeln.
+- Wenn spaeter Formulare entstehen: Loeschbarkeit, Export und Backup von Anfang an beruecksichtigen.
+- Nutzerrollen immer strikt trennen: Superadmin, Partner/Bestatter, Trauerbegleiter, Angehoerige, Besucher.
+
+## Kompass-Regeln
+
+- Jede Stadt soll aus derselben stabilen Grundstruktur entstehen.
+- Stadtname, Subdomain, Bestatterdaten, Friedhoefe, Gebuehren und Ratgebertexte muessen je Stadt sauber angepasst werden.
+- Externe Links in neuem Tab mit `rel="noopener noreferrer"` oeffnen.
+- Telefonnummern als `tel:` verlinken.
+- E-Mail-Adressen als `mailto:` verlinken.
+- Lokale Gebuehren nur mit Quellenstand verwenden und sichtbar als Orientierung kennzeichnen.
+- Werbung fuer Digitale Bestattungsvorsorge ist ergaenzend, nicht die Hauptfunktion des Kompasses.
+- Friedhofsbilder nie ohne Quellen- und Freigabestatus veroeffentlichen.
+- Lageplaene und echte Grabfeldfotos klar unterscheiden.
+- Wenn Bildrechte unklar sind, Bild als Arbeitsmaterial markieren oder durch eigenes Foto ersetzen.
+- Fuer den Stuttgart-Kompass sind die aktiven bereinigten Lageplaene in `assets/friedhoefe/lageplaene-clean/`.
+- Alte Arbeitszuschnitte in `assets/friedhoefe/lageplaene/` nicht neu verlinken, wenn eine bereinigte Version vorhanden ist.
+- Quellenhinweise lesbar im HTML anzeigen; keine abgeschnittenen Quellenreste im Bild belassen.
+
+## Deployment-Regeln
+
+- Fuer GitHub und Cloudflare Pages ist die einfachste statische Variante bevorzugt.
+- Kein Build-Schritt, solange die Seite aus `index.html` besteht.
+- Cloudflare Pages: Framework `None`, Build command leer, Output directory `/`.
+- Subdomains sollen exportierbar und unabhaengig vom Code bleiben.
+- Vor GitHub/Cloudflare-Deployment `CLOUDFLARE_GITHUB_DEPLOYMENT.md` pruefen.
