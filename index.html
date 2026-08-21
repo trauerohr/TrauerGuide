@@ -114,7 +114,7 @@
             border-radius: 10px;
             padding: 10px 14px;
             box-shadow: none;
-            border: 1px solid var(--sand-200);
+            border: 1px solid #1C00CC;
         }
 
         .btn-blue-action {
@@ -460,7 +460,7 @@
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900" style="margin: 0;">Friedhöfe in Stuttgart</h2>
-            <p class="text-gray-600 text-sm mt-0.5">Übersicht der Stuttgarter Friedhöfe und Sonderbereiche mit Adresse, Stadtteil und Grabarten.</p>
+            <p class="text-gray-600 text-sm mt-0.5">Textübersicht mit Adresse, Stadtteil und optionalem Kartenlink. Lagepläne und Grabfeldbilder sind hier nicht eingebunden.</p>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-2">
                             <!-- Search Input -->
@@ -575,28 +575,71 @@
                     </div>
 
                     <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
-                        <h3 class="font-bold text-primary-700 text-lg mb-3" style="color: var(--primary);"><i class="fa-solid fa-phone-volume mr-2"></i>Stuttgarter Kontakte</h3>
+                        <h3 class="font-bold text-primary-700 text-lg mb-3" style="color: var(--primary);"><i class="fa-solid fa-phone-volume mr-2"></i>Wichtige Telefonnummern</h3>
                         <div class="text-sm text-gray-600 space-y-3">
                             <div class="bg-white p-3 rounded-lg border border-gray-200">
-                                <p class="font-bold text-gray-900" style="margin: 0;">Städtischer Bestattungsdienst:</p>
-                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Marktplatz 4, 70173 Stuttgart</p>
-                                <a href="tel:071121691200" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
-                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-91200
+                                <p class="font-bold text-gray-900" style="margin: 0;">Notruf Rettungsdienst / Feuerwehr:</p>
+                                <a href="tel:112" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
+                                    <i class="fa-solid fa-phone mr-1"></i>112
                                 </a>
                             </div>
                             <div class="bg-white p-3 rounded-lg border border-gray-200">
-                                <p class="font-bold text-gray-900" style="margin: 0;">Zentrale Friedhofsverwaltung Stuttgart:</p>
-                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Garten-, Friedhofs- und Forstamt</p>
-                                <a href="tel:071121693800" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
-                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-93800
+                                <p class="font-bold text-gray-900" style="margin: 0;">Polizei:</p>
+                                <a href="tel:110" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
+                                    <i class="fa-solid fa-phone mr-1"></i>110
+                                </a>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="font-bold text-gray-900" style="margin: 0;">Ärztlicher Bereitschaftsdienst:</p>
+                                <a href="tel:116117" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
+                                    <i class="fa-solid fa-phone mr-1"></i>116 117
+                                </a>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="font-bold text-gray-900" style="margin: 0;">Städtischer Bestattungsdienst:</p>
+                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Marktplatz 4, 70173 Stuttgart · auch nachts und am Wochenende</p>
+                                <a href="tel:071121698000" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
+                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-98000
+                                </a>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="font-bold text-gray-900" style="margin: 0;">Standesamt Stuttgart:</p>
+                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Eberhardstraße 6, 70173 Stuttgart · Sterbefälle und Sterbeurkunden</p>
+                                <a href="tel:071121688852" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
+                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-88852
+                                </a>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="font-bold text-gray-900" style="margin: 0;">Garten-, Friedhofs- und Forstamt:</p>
+                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Maybachstraße 3, 70192 Stuttgart</p>
+                                <a href="tel:071121693801" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
+                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-93801
+                                </a>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="font-bold text-gray-900" style="margin: 0;">Krematorium Pragfriedhof:</p>
+                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Friedhofstraße 46/3, 70191 Stuttgart</p>
+                                <a href="tel:071121698247" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
+                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-98247
+                                </a>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="font-bold text-gray-900" style="margin: 0;">Amt für Soziales und Teilhabe:</p>
+                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Eberhardstraße 33, 70173 Stuttgart · Hilfe bei Bestattungskosten</p>
+                                <a href="tel:071121659000" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
+                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-59000
                                 </a>
                             </div>
                             <div class="bg-white p-3 rounded-lg border border-gray-200">
                                 <p class="font-bold text-gray-900" style="margin: 0;">Telefonseelsorge (24h kostenlos):</p>
-                                <a href="tel:08001110111" class="inline-block text-xs font-bold hover:underline" style="color: var(--brandblue);">
+                                <a href="tel:08001110111" class="inline-block text-xs font-bold hover:underline mr-3" style="color: var(--brandblue);">
                                     <i class="fa-solid fa-phone mr-1"></i>0800 111 0 111
                                 </a>
+                                <a href="tel:08001110222" class="inline-block text-xs font-bold hover:underline" style="color: var(--brandblue);">
+                                    <i class="fa-solid fa-phone mr-1"></i>0800 111 0 222
+                                </a>
                             </div>
+                            <p class="text-[11px] text-gray-500" style="margin: 0;">Angaben zur Orientierung, Stand August 2026. Quelle: Landeshauptstadt Stuttgart und bundesweite Notrufnummern.</p>
                         </div>
                     </div>
                 </div>
@@ -655,13 +698,13 @@
                 phone: "0711 2318120",
                 email: "bestattungen@haefner-zuefle.de",
                 website: "https://bestattungen-haefner-zuefle.de",
-                desc: "Inhabergeführtes Bestattungshaus von Chantal Häfner & Ute Züfle. Eigene Feierhalle, Abschiedsräume und 6 Parkplätze im Hof.",
-                tags: ["Inhabergeführt", "Abschiedsräume", "Hauseigene Kapelle", "24h Service"],
+                desc: "Inhabergeführtes Bestattungshaus von Chantal Häfner & Ute Züfle. Eigene Feierhallen in Stuttgart-West und Plieningen, Abschiedsräume und 6 Parkplätze im Hof.",
+                tags: ["Inhabergeführt", "Abschiedsräume", "Feierhallen West & Plieningen", "24h Service"],
                 features: ["hall", "24h", "multi_branch"],
                 branches: [
-                    { name: "Filiale Stuttgart-West (Zentrale)", address: "Breitscheidstraße 44 & 44a, 70176 Stuttgart", note: "Mit Feierraum & 6 Parkplätzen im Hof" },
+                    { name: "Filiale Stuttgart-West (Zentrale)", address: "Breitscheidstraße 44 & 44a, 70176 Stuttgart", note: "Mit Feierhalle und 6 Parkplätzen im Hof" },
                     { name: "Filiale Stuttgart-Möhringen", address: "Hechinger Straße 24, 70567 Stuttgart", note: "Filiale & Beratungsbüro" },
-                    { name: "Filiale Stuttgart-Plieningen", address: "Filderhauptstraße 7, 70599 Stuttgart", note: "Beratung & Abschiedsmöglichkeit" },
+                    { name: "Filiale Stuttgart-Plieningen", address: "Filderhauptstraße 7, 70599 Stuttgart", note: "Mit Feierhalle" },
                     { name: "Stuttgart-Wangen (Mobil)", address: "Telefonische Beratung & Hausbesuche in Wangen", note: "Mobil erreichbar unter 0711 2318120 (derzeit kein festes Büro vor Ort)" }
                 ]
             },
@@ -694,7 +737,7 @@
                 districtsAll: ["Mitte", "Stuttgart"],
                 established: "Kommunal",
                 address: "Marktplatz 4 (Rathaus), 70173 Stuttgart",
-                phone: "0711 21691200",
+                phone: "0711 21698000",
                 email: "friedhof@stuttgart.de",
                 website: "https://www.stuttgart.de",
                 desc: "Eigenbetrieb der Landeshauptstadt Stuttgart. Öffentlicher Bestattungsdienst direkt im Rathaus.",
@@ -1229,7 +1272,7 @@
                                 <span>${b.phone} (Tag &amp; Nacht)</span>
                             </a>
                             ${b.website ? `
-                            <a href="${b.website}" target="_blank" class="btn-outline">
+                            <a href="${b.website}" target="_blank" rel="noopener noreferrer" class="btn-outline">
                                 <i class="fa-solid fa-globe"></i>
                                 <span>Webseite</span>
                             </a>

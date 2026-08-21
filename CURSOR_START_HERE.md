@@ -21,7 +21,7 @@ Der aktuelle Kompass ist fuer Stuttgart. Er soll sauber weitergefuehrt werden un
 - 51 Friedhofs- und Sondereintraege fuer Stuttgart als Textuebersicht
 - Keine Lageplaene oder Grabfeldbilder auf der oeffentlichen Seite
 - Vorhandene Bilddateien unter `assets/friedhoefe/` bleiben liegen fuer die spaetere App **Friedhofs To Go**
-- Vorsorge-Hinweis bleibt unten, klein und ruhig (kein blaues Hauptbanner)
+- Vorsorge-Hinweis bleibt unten, klein und ruhig, mit dezentem blauen Rahmen `#1C00CC` (kein blaues Hauptbanner)
 - Subdomain-Text: `bestatter-kompass-stuttgart.trauerohr.com`
 
 ## Arbeitsweise
