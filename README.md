@@ -22,9 +22,9 @@ Der Stuttgart-Kompass bleibt die Vorlage fuer weitere regionale Kompasse. Das Er
 
 ## Zurueckgestellt: Friedhofs To Go
 
-Friedhofsbilder, Lageplaene und die detaillierte Bildrecherche gehoeren nicht in diesen Kompass. Die vorhandenen Dateien unter `assets/friedhoefe/` bleiben erhalten, werden hier aber nicht angezeigt.
+Friedhofsbilder und Grabfeldbilder wurden für eine spätere separate Friedhofs To Go App zurückgestellt.
 
-Spaetere eigene App-Idee: **Friedhofs To Go**.
+Die vorhandenen Dateien unter `assets/friedhoefe/` bleiben erhalten, werden hier aber nicht angezeigt.
 
 ## GitHub / Cloudflare Pages
 
