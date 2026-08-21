@@ -25,9 +25,15 @@ Empfohlene Struktur im Repository:
 
 Einstellungen:
 
+- Pages-Projektname: `bestatter-kompass-stuttgart`
 - Framework preset: `None`
 - Build command: leer lassen
 - Output directory: `/`
+
+GitHub Actions (`.github/workflows/deploy.yml`) deployt in genau dieses vorhandene Projekt. Benoetigte Repo-Secrets:
+
+- `CLOUDFLARE_API_TOKEN` (Account-Berechtigung: Cloudflare Pages Edit)
+- `CLOUDFLARE_ACCOUNT_ID`
 
 ## Subdomain
 
