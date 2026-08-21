@@ -206,27 +206,6 @@
             backdrop-filter: blur(2px);
         }
 
-        #image-modal {
-            background-color: rgba(0, 0, 0, 0.72) !important;
-            backdrop-filter: blur(2px);
-        }
-
-        .friedhof-plan-button {
-            border: 0;
-            background: #ffffff;
-            cursor: zoom-in;
-            padding: 0;
-            width: 100%;
-            display: block;
-        }
-
-        .friedhof-plan-button img {
-            transition: transform 0.2s ease;
-        }
-
-        .friedhof-plan-button:hover img {
-            transform: scale(1.015);
-        }
     </style>
 </head>
 <body>
@@ -361,22 +340,6 @@
             </div>
         </div>
 
-        <!-- MODAL FOR FRIEDHOF PLAN IMAGES -->
-        <div id="image-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 hidden" onclick="if(event.target === this) closeImageModal()">
-            <div class="bg-white rounded-2xl max-w-6xl w-full p-4 shadow-2xl max-h-[92vh] overflow-y-auto relative">
-                <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
-                    <div>
-                        <h3 id="image-modal-title" class="text-lg font-bold text-gray-900" style="margin: 0;"></h3>
-                        <p id="image-modal-source" class="text-xs text-gray-500 mt-1" style="margin: 2px 0 0 0;"></p>
-                    </div>
-                    <button onclick="closeImageModal()" class="text-gray-400 hover:text-gray-600 text-2xl p-1 leading-none rounded-lg hover:bg-gray-100">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <img id="image-modal-img" src="" alt="" class="w-full max-h-[72vh] object-contain bg-white rounded-xl border border-sand-200">
-            </div>
-        </div>
-
         <!-- TAB 2: KOSTENRECHNER -->
         <section id="tab-rechner" class="tab-content hidden">
             <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-sand-200">
@@ -496,8 +459,8 @@
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <div>
-                            <h2 class="text-2xl font-bold text-gray-900" style="margin: 0;">Alle 51 Friedhofs- und Sondereinträge in Stuttgart</h2>
-                            <p class="text-gray-600 text-sm mt-0.5">Arbeitsstand Stuttgart: Friedhöfe, Sonderbereiche, Trägerhinweise, Lagepläne und Grabfeld-Fotostatus.</p>
+                            <h2 class="text-2xl font-bold text-gray-900" style="margin: 0;">Friedhöfe in Stuttgart</h2>
+            <p class="text-gray-600 text-sm mt-0.5">Übersicht der Stuttgarter Friedhöfe und Sonderbereiche mit Adresse, Stadtteil und Grabarten.</p>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-2">
                             <!-- Search Input -->
@@ -1096,57 +1059,57 @@
 
         // Stuttgart cemetery working list from the TrauerOhr PDF, including special sections.
         const friedhofData = [
-            { name: "Hauptfriedhof Bad Cannstatt (Steinhaldenfeldfriedhof)", district: "Bad Cannstatt", group: "Cannstatt", address: "Steinhaldenstraße 52, 70378 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Großer Friedhofsstandort in Bad Cannstatt mit betrieblichen Kontakten zur Hauptfriedhof-Verwaltung.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-hauptfriedhof-bad-cannstatt-lageplan.png", imageType: "Lageplan", imageSource: "Stadt Stuttgart / Garten-, Friedhofs- und Forstamt; öffentliche Nutzung prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Steigfriedhof Bad Cannstatt", district: "Bad Cannstatt", group: "Cannstatt", address: "Sparrhärmlingweg 1, 70376 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Stadtteilfriedhof in Bad Cannstatt; Lageplan liegt als Arbeitsbild vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-steigfriedhof-lageplan.png", imageType: "Lageplan", imageSource: "Wikimedia Commons / Garten-, Friedhofs- und Forstamt; Lizenz prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Steigfriedhof (jüdischer Teil)", district: "Bad Cannstatt", group: "Cannstatt", address: "Sparrhärmlingweg, 70376 Stuttgart", types: ["Jüdischer Bereich", "Foto offen"], desc: "Sonderbereich mit separatem Bild- und Quellenstatus.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Uff Kirchhof", district: "Bad Cannstatt", group: "Cannstatt", address: "Wildunger Straße 59, 70372 Stuttgart", types: ["Historisch", "Lageplan vorhanden"], desc: "Historischer Kirchhof in Bad Cannstatt; Planmaterial ist vorhanden.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-uff-kirchhof-lageplan.png", imageType: "Lageplan", imageSource: "Wikimedia/Wikipedia: OpenStreetMap, Gerd Leibrock, CC BY-SA 3.0; Namensnennung nötig", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Israelitischer Friedhof Bad Cannstatt", district: "Bad Cannstatt", group: "Cannstatt", address: "Sparrhärmlingweg, 70376 Stuttgart", types: ["Jüdischer Friedhof", "Foto offen"], desc: "Jüdischer Friedhofsbereich; öffentliche Bildnutzung besonders sorgfältig prüfen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Israelitischer Friedhof Steinhaldenfeld", district: "Bad Cannstatt", group: "Cannstatt", address: "Ziegelbrennerstraße 23, 70374 Stuttgart", types: ["Jüdischer Friedhof", "Foto offen"], desc: "Sonderfriedhof in Bad Cannstatt; Bild- und Rechteklärung noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Birkach", district: "Birkach", group: "Fildern", address: "Welfenstraße 31, 70599 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Stadtteilfriedhof im Filderbereich; bisher ohne eigenes Grabfeldbild.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Botnang", district: "Botnang", group: "West", address: "Bauernwaldstraße 46, 70195 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Stadtteilfriedhof in Botnang; Bildmaterial muss noch recherchiert oder selbst erstellt werden.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Alter Friedhof Degerloch", district: "Degerloch", group: "Degerloch", address: "Jahnstraße 24, 70597 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Alter Friedhof im Ortsbereich Degerloch; Lageplan aus der Arbeits-PDF vorhanden.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-alter-friedhof-degerloch-lageplan.png", imageType: "Lageplan", imageSource: "Gärtnerei Haag / Mammut-Verlag; öffentliche Nutzung prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Neuer Friedhof Degerloch", district: "Degerloch", group: "Degerloch", address: "Schöttlestraße 50, 70597 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Neuer Friedhof Degerloch; Lageplan und Grundorientierung liegen vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-neuer-friedhof-degerloch-lageplan.png", imageType: "Lageplan", imageSource: "Gärtnerei Haag / Mammut-Verlag; öffentliche Nutzung prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Dornhaldenfriedhof", district: "Degerloch", group: "Degerloch", address: "Auf der Dornhalde, 70597 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Friedhof auf der Dornhalde; Lageplan liegt als Arbeitsbild vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-dornhaldenfriedhof-lageplan.png", imageType: "Lageplan", imageSource: "Wikimedia/Wikipedia; Public-Domain-Status laut PDF prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Waldfriedhof Stuttgart", district: "Degerloch", group: "Degerloch", address: "Eugen-Dolmetsch-Platz, 70597 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Großer Waldfriedhof mit besonderem Park- und Waldcharakter.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-waldfriedhof-lageplan.png", imageType: "Lageplan", imageSource: "Wikimedia Commons / Garten-, Friedhofs- und Forstamt; Lizenz prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Friedhof Feuerbach", district: "Feuerbach", group: "Feuerbach", address: "Feuerbacher-Tal-Straße 90, 70469 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Großer Stadtteilfriedhof in Feuerbach; externe Fotoseiten sind als Recherchekandidaten notiert.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Hedelfingen", district: "Hedelfingen", group: "Neckartal", address: "Friedrichshafener Straße 9, 70329 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Stadtteilfriedhof im Neckartal; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Rohracker", district: "Rohracker", group: "Neckartal", address: "Rohrackerstraße 190, 70329 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Ortsteilfriedhof Rohracker; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Möhringen", district: "Möhringen", group: "Fildern", address: "Schneewittchenweg 31, 70567 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Friedhof im Stadtbezirk Möhringen; Lageplan aus der Arbeits-PDF vorhanden.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-moehringen-lageplan.png", imageType: "Lageplan", imageSource: "Gärtnerei Haag / Mammut-Verlag; öffentliche Nutzung prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Friedhof Hofen", district: "Hofen", group: "Mühlhausen", address: "Ruitlenstraße 24, 70378 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Stadtteilfriedhof Hofen; Bildmaterial muss noch geklärt werden.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Mühlhausen", district: "Mühlhausen", group: "Mühlhausen", address: "Veitstraße 82, 70378 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Friedhof Mühlhausen; Bildmaterial muss noch geklärt werden.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Münster", district: "Münster", group: "Mühlhausen", address: "Burgholzstraße 62, 70376 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Friedhof Münster; Lageplan liegt als Arbeitsbild vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-muenster-lageplan.png", imageType: "Lageplan", imageSource: "Widmann Bestattungen / Mammut-Verlag; öffentliche Nutzung prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Friedhof Obertürkheim", district: "Obertürkheim", group: "Neckartal", address: "Kirchsteige 16, 70329 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Stadtteilfriedhof Obertürkheim; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Uhlbach", district: "Uhlbach", group: "Neckartal", address: "Asangstraße 236, 70329 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Friedhof Uhlbach; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Evangelischer Kirchhof Uhlbach", district: "Uhlbach", group: "Neckartal", address: "bei Andreaskirche Uhlbach", types: ["Kirchlich", "Foto offen"], desc: "Kirchlicher Sonderbereich in Uhlbach; Träger- und Bildstatus separat prüfen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Plieningen", district: "Plieningen / Hohenheim", group: "Fildern", address: "Leypoldtstraße 12, 70599 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Friedhof Plieningen; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Hohenheim", district: "Plieningen / Hohenheim", group: "Fildern", address: "Kirchnerstraße, 70599 Stuttgart", types: ["Universität Hohenheim", "Foto offen"], desc: "Friedhof im Hohenheimer Umfeld; Trägerhinweis und Bildstatus separat prüfen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Universität Hohenheim", district: "Plieningen / Hohenheim", group: "Fildern", address: "Botanischer Garten / Park, 70599 Stuttgart", types: ["Universität Hohenheim", "Foto offen"], desc: "Sondereintrag der Universität Hohenheim; Bild- und Nutzungsrechte noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Alter Friedhof Sillenbuch", district: "Sillenbuch", group: "Fildern", address: "Treiberstraße 8, 70619 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Alter Friedhof Sillenbuch; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Ostfilderfriedhof Sillenbuch", district: "Sillenbuch", group: "Fildern", address: "Kirchheimer Straße 125, 70619 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Ostfilderfriedhof in Sillenbuch; Lageplan liegt vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-ostfilderfriedhof-lageplan.png", imageType: "Lageplan", imageSource: "Wikimedia Commons / Garten-, Friedhofs- und Forstamt; Lizenz prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Friedhof Heumaden", district: "Heumaden", group: "Fildern", address: "Bockelstraße 4, 70619 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Friedhof Heumaden; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Riedenberg", district: "Riedenberg", group: "Fildern", address: "Birkacher Straße 25, 70619 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Friedhof Riedenberg; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Stuttgart Stammheim", district: "Stammheim", group: "Zuffenhausen", address: "Ehniweg 20, 70439 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Friedhof Stammheim; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Pragfriedhof Stuttgart Nord", district: "Nord / Mitte", group: "Nord", address: "Friedhofstraße 44, 70191 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Zentraler Großfriedhof mit historischem Charakter und guter Orientierung für Bestatter.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-pragfriedhof-lageplan.png", imageType: "Lageplan", imageSource: "Wikimedia Commons / Garten-, Friedhofs- und Forstamt; Lizenz prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Pragfriedhof (jüdischer Teil)", district: "Nord / Mitte", group: "Nord", address: "Friedhofstraße 44, 70191 Stuttgart", types: ["Jüdischer Bereich", "Foto offen"], desc: "Jüdischer Sonderbereich am Pragfriedhof; Bild- und Quellenfreigabe separat prüfen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Hoppenlaufriedhof Stuttgart West", district: "Stuttgart-West", group: "West", address: "Rosenbergstraße 7, 70174 Stuttgart", types: ["Historisch", "Lageplan vorhanden"], desc: "Historischer Friedhof im Stuttgarter Westen; Lageplan liegt vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-hoppenlaufriedhof-lageplan.png", imageType: "Lageplan", imageSource: "Wikimedia Commons / Garten-, Friedhofs- und Forstamt; Lizenz prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Hoppenlaufriedhof (jüdischer Teil)", district: "Stuttgart-West", group: "West", address: "Rosenbergstraße 7, 70174 Stuttgart", types: ["Jüdischer Bereich", "Foto offen"], desc: "Historischer jüdischer Sonderbereich; Bildnutzung gesondert prüfen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Bergfriedhof Stuttgart Berg", district: "Stuttgart-Ost", group: "Ost", address: "Hackstraße 84, 70190 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Hangfriedhof in Stuttgart-Berg; Lageplan liegt als Arbeitsbild vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-bergfriedhof-lageplan.png", imageType: "Lageplan", imageSource: "Wikimedia/Wikipedia; Public-Domain-Status laut PDF prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Friedhof Gablenberg", district: "Stuttgart-Ost", group: "Ost", address: "Gablenberger Hauptstraße 82, 70186 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Friedhof Gablenberg; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Gaisburg", district: "Stuttgart-Ost", group: "Ost", address: "Hornbergstraße 140, 70186 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Friedhof Gaisburg; Lageplan liegt als Arbeitsbild vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-gaisburg-lageplan.png", imageType: "Lageplan", imageSource: "Wikimedia/Wikipedia; Public-Domain-Status laut PDF prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Fangelsbachfriedhof Lehenviertel", district: "Stuttgart-Süd", group: "Süd", address: "Cottastraße 34, 70180 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Friedhof im Lehenviertel; Lageplan aus der Arbeits-PDF vorhanden.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-fangelsbachfriedhof-lageplan.png", imageType: "Lageplan", imageSource: "Wikimedia Commons / Garten-, Friedhofs- und Forstamt; Lizenz prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Friedhof Heslach", district: "Stuttgart-Süd", group: "Süd", address: "Benckendorffstraße 27, 70199 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Friedhof in Heslach; Lageplan liegt als Arbeitsbild vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-heslach-lageplan.png", imageType: "Lageplan", imageSource: "Gärtnerei Haag / Mammut-Verlag; öffentliche Nutzung prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Friedhof Kaltental", district: "Stuttgart-Süd", group: "Süd", address: "Feldbergstraße 100, 70569 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Friedhof Kaltental; Lageplan liegt als Arbeitsbild vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-kaltental-lageplan.png", imageType: "Lageplan", imageSource: "Gärtnerei Haag / Mammut-Verlag; öffentliche Nutzung prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Friedhof Untertürkheim", district: "Untertürkheim", group: "Neckartal", address: "Gehrenwaldstraße 40, 70327 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Friedhof Untertürkheim; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Rotenberg", district: "Rotenberg", group: "Neckartal", address: "Rainstraße 15, 70327 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Friedhof Rotenberg; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Buchrainfriedhof (neu)", district: "Vaihingen", group: "Fildern", address: "Pascalstraße 70, 70569 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Neuer Buchrainfriedhof in Vaihingen; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Vaihingen (alt)", district: "Vaihingen", group: "Fildern", address: "Holzhauserstraße 10, 70563 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Alter Friedhof Vaihingen; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Rohr", district: "Vaihingen / Rohr", group: "Fildern", address: "Schönbuchstraße 31, 70565 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Friedhof Rohr; Lageplan liegt als Arbeitsbild vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-rohr-lageplan.png", imageType: "Lageplan", imageSource: "Wikipedia / Garten-, Friedhofs- und Forstamt; Lizenz prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Friedhof Wangen", district: "Wangen", group: "Neckartal", address: "Im Kirchweinberg, 70327 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Friedhof Wangen; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Weilimdorf (alt)", district: "Weilimdorf", group: "Feuerbach", address: "Sickingenstraße 8, 70499 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Alter Friedhof Weilimdorf; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Weilimdorf (neu)", district: "Weilimdorf", group: "Feuerbach", address: "Köstlinstraße 189, 70499 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Neuer Friedhof Weilimdorf; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Solitude (Soldatenfriedhof Solitude)", district: "Weilimdorf", group: "Feuerbach", address: "Schloss Solitude, 70488 Stuttgart", types: ["Sonderfriedhof", "Foto offen"], desc: "Soldatenfriedhof Solitude; Zuständigkeit und Bildrechte gesondert prüfen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" },
-            { name: "Friedhof Zuffenhausen", district: "Zuffenhausen", group: "Zuffenhausen", address: "Marbacher Straße 62, 70435 Stuttgart", types: ["Städtisch", "Lageplan vorhanden"], desc: "Friedhof Zuffenhausen; Lageplan liegt als Arbeitsbild vor.", image: "assets/friedhoefe/lageplaene-clean/stuttgart-zuffenhausen-lageplan.png", imageType: "Lageplan", imageSource: "Stadt Stuttgart / Garten-, Friedhofs- und Forstamt; öffentliche Nutzung prüfen", grabfeldStatus: "Grabfeld-Foto fehlt / eigenes Foto empfohlen" },
-            { name: "Friedhof Zazenhausen", district: "Zazenhausen", group: "Zuffenhausen", address: "Kirchäckerstraße 24B, 70437 Stuttgart", types: ["Städtisch", "Foto offen"], desc: "Friedhof Zazenhausen; Bildmaterial noch offen.", grabfeldStatus: "Bild fehlt / Foto oder Freigabe recherchieren" }
+            { name: "Hauptfriedhof Bad Cannstatt (Steinhaldenfeldfriedhof)", district: "Bad Cannstatt", group: "Cannstatt", address: "Steinhaldenstraße 52, 70378 Stuttgart", types: ["Städtisch"], desc: "Großer Friedhofsstandort in Bad Cannstatt mit betrieblichen Kontakten zur Hauptfriedhof-Verwaltung." },
+            { name: "Steigfriedhof Bad Cannstatt", district: "Bad Cannstatt", group: "Cannstatt", address: "Sparrhärmlingweg 1, 70376 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof in Bad Cannstatt." },
+            { name: "Steigfriedhof (jüdischer Teil)", district: "Bad Cannstatt", group: "Cannstatt", address: "Sparrhärmlingweg, 70376 Stuttgart", types: ["Jüdischer Bereich"], desc: "Jüdischer Sonderbereich am Steigfriedhof." },
+            { name: "Uff Kirchhof", district: "Bad Cannstatt", group: "Cannstatt", address: "Wildunger Straße 59, 70372 Stuttgart", types: ["Historisch"], desc: "Historischer Kirchhof in Bad Cannstatt." },
+            { name: "Israelitischer Friedhof Bad Cannstatt", district: "Bad Cannstatt", group: "Cannstatt", address: "Sparrhärmlingweg, 70376 Stuttgart", types: ["Jüdischer Friedhof"], desc: "Jüdischer Friedhofsbereich in Bad Cannstatt." },
+            { name: "Israelitischer Friedhof Steinhaldenfeld", district: "Bad Cannstatt", group: "Cannstatt", address: "Ziegelbrennerstraße 23, 70374 Stuttgart", types: ["Jüdischer Friedhof"], desc: "Jüdischer Sonderfriedhof in Bad Cannstatt." },
+            { name: "Friedhof Birkach", district: "Birkach", group: "Fildern", address: "Welfenstraße 31, 70599 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof im Filderbereich." },
+            { name: "Friedhof Botnang", district: "Botnang", group: "West", address: "Bauernwaldstraße 46, 70195 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof in Botnang." },
+            { name: "Alter Friedhof Degerloch", district: "Degerloch", group: "Degerloch", address: "Jahnstraße 24, 70597 Stuttgart", types: ["Städtisch"], desc: "Alter Friedhof im Ortsbereich Degerloch." },
+            { name: "Neuer Friedhof Degerloch", district: "Degerloch", group: "Degerloch", address: "Schöttlestraße 50, 70597 Stuttgart", types: ["Städtisch"], desc: "Neuer Friedhof Degerloch." },
+            { name: "Dornhaldenfriedhof", district: "Degerloch", group: "Degerloch", address: "Auf der Dornhalde, 70597 Stuttgart", types: ["Städtisch"], desc: "Friedhof auf der Dornhalde." },
+            { name: "Waldfriedhof Stuttgart", district: "Degerloch", group: "Degerloch", address: "Eugen-Dolmetsch-Platz, 70597 Stuttgart", types: ["Städtisch"], desc: "Großer Waldfriedhof mit besonderem Park- und Waldcharakter." },
+            { name: "Friedhof Feuerbach", district: "Feuerbach", group: "Feuerbach", address: "Feuerbacher-Tal-Straße 90, 70469 Stuttgart", types: ["Städtisch"], desc: "Großer Stadtteilfriedhof in Feuerbach." },
+            { name: "Friedhof Hedelfingen", district: "Hedelfingen", group: "Neckartal", address: "Friedrichshafener Straße 9, 70329 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof im Neckartal." },
+            { name: "Friedhof Rohracker", district: "Rohracker", group: "Neckartal", address: "Rohrackerstraße 190, 70329 Stuttgart", types: ["Städtisch"], desc: "Ortsteilfriedhof Rohracker." },
+            { name: "Friedhof Möhringen", district: "Möhringen", group: "Fildern", address: "Schneewittchenweg 31, 70567 Stuttgart", types: ["Städtisch"], desc: "Friedhof im Stadtbezirk Möhringen." },
+            { name: "Friedhof Hofen", district: "Hofen", group: "Mühlhausen", address: "Ruitlenstraße 24, 70378 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof Hofen." },
+            { name: "Friedhof Mühlhausen", district: "Mühlhausen", group: "Mühlhausen", address: "Veitstraße 82, 70378 Stuttgart", types: ["Städtisch"], desc: "Friedhof Mühlhausen." },
+            { name: "Friedhof Münster", district: "Münster", group: "Mühlhausen", address: "Burgholzstraße 62, 70376 Stuttgart", types: ["Städtisch"], desc: "Friedhof Münster." },
+            { name: "Friedhof Obertürkheim", district: "Obertürkheim", group: "Neckartal", address: "Kirchsteige 16, 70329 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof Obertürkheim." },
+            { name: "Friedhof Uhlbach", district: "Uhlbach", group: "Neckartal", address: "Asangstraße 236, 70329 Stuttgart", types: ["Städtisch"], desc: "Friedhof Uhlbach." },
+            { name: "Evangelischer Kirchhof Uhlbach", district: "Uhlbach", group: "Neckartal", address: "bei Andreaskirche Uhlbach", types: ["Kirchlich"], desc: "Kirchlicher Sonderbereich an der Andreaskirche Uhlbach." },
+            { name: "Friedhof Plieningen", district: "Plieningen / Hohenheim", group: "Fildern", address: "Leypoldtstraße 12, 70599 Stuttgart", types: ["Städtisch"], desc: "Friedhof Plieningen." },
+            { name: "Friedhof Hohenheim", district: "Plieningen / Hohenheim", group: "Fildern", address: "Kirchnerstraße, 70599 Stuttgart", types: ["Universität Hohenheim"], desc: "Friedhof im Hohenheimer Umfeld." },
+            { name: "Friedhof Universität Hohenheim", district: "Plieningen / Hohenheim", group: "Fildern", address: "Botanischer Garten / Park, 70599 Stuttgart", types: ["Universität Hohenheim"], desc: "Sondereintrag der Universität Hohenheim." },
+            { name: "Alter Friedhof Sillenbuch", district: "Sillenbuch", group: "Fildern", address: "Treiberstraße 8, 70619 Stuttgart", types: ["Städtisch"], desc: "Alter Friedhof Sillenbuch." },
+            { name: "Ostfilderfriedhof Sillenbuch", district: "Sillenbuch", group: "Fildern", address: "Kirchheimer Straße 125, 70619 Stuttgart", types: ["Städtisch"], desc: "Ostfilderfriedhof in Sillenbuch." },
+            { name: "Friedhof Heumaden", district: "Heumaden", group: "Fildern", address: "Bockelstraße 4, 70619 Stuttgart", types: ["Städtisch"], desc: "Friedhof Heumaden." },
+            { name: "Friedhof Riedenberg", district: "Riedenberg", group: "Fildern", address: "Birkacher Straße 25, 70619 Stuttgart", types: ["Städtisch"], desc: "Friedhof Riedenberg." },
+            { name: "Friedhof Stuttgart Stammheim", district: "Stammheim", group: "Zuffenhausen", address: "Ehniweg 20, 70439 Stuttgart", types: ["Städtisch"], desc: "Friedhof Stammheim." },
+            { name: "Pragfriedhof Stuttgart Nord", district: "Nord / Mitte", group: "Nord", address: "Friedhofstraße 44, 70191 Stuttgart", types: ["Städtisch"], desc: "Zentraler Großfriedhof mit historischem Charakter und guter Orientierung für Bestatter." },
+            { name: "Pragfriedhof (jüdischer Teil)", district: "Nord / Mitte", group: "Nord", address: "Friedhofstraße 44, 70191 Stuttgart", types: ["Jüdischer Bereich"], desc: "Jüdischer Sonderbereich am Pragfriedhof." },
+            { name: "Hoppenlaufriedhof Stuttgart West", district: "Stuttgart-West", group: "West", address: "Rosenbergstraße 7, 70174 Stuttgart", types: ["Historisch"], desc: "Historischer Friedhof im Stuttgarter Westen." },
+            { name: "Hoppenlaufriedhof (jüdischer Teil)", district: "Stuttgart-West", group: "West", address: "Rosenbergstraße 7, 70174 Stuttgart", types: ["Jüdischer Bereich"], desc: "Historischer jüdischer Sonderbereich." },
+            { name: "Bergfriedhof Stuttgart Berg", district: "Stuttgart-Ost", group: "Ost", address: "Hackstraße 84, 70190 Stuttgart", types: ["Städtisch"], desc: "Hangfriedhof in Stuttgart-Berg." },
+            { name: "Friedhof Gablenberg", district: "Stuttgart-Ost", group: "Ost", address: "Gablenberger Hauptstraße 82, 70186 Stuttgart", types: ["Städtisch"], desc: "Friedhof Gablenberg." },
+            { name: "Friedhof Gaisburg", district: "Stuttgart-Ost", group: "Ost", address: "Hornbergstraße 140, 70186 Stuttgart", types: ["Städtisch"], desc: "Friedhof Gaisburg." },
+            { name: "Fangelsbachfriedhof Lehenviertel", district: "Stuttgart-Süd", group: "Süd", address: "Cottastraße 34, 70180 Stuttgart", types: ["Städtisch"], desc: "Friedhof im Lehenviertel." },
+            { name: "Friedhof Heslach", district: "Stuttgart-Süd", group: "Süd", address: "Benckendorffstraße 27, 70199 Stuttgart", types: ["Städtisch"], desc: "Friedhof in Heslach." },
+            { name: "Friedhof Kaltental", district: "Stuttgart-Süd", group: "Süd", address: "Feldbergstraße 100, 70569 Stuttgart", types: ["Städtisch"], desc: "Friedhof Kaltental." },
+            { name: "Friedhof Untertürkheim", district: "Untertürkheim", group: "Neckartal", address: "Gehrenwaldstraße 40, 70327 Stuttgart", types: ["Städtisch"], desc: "Friedhof Untertürkheim." },
+            { name: "Friedhof Rotenberg", district: "Rotenberg", group: "Neckartal", address: "Rainstraße 15, 70327 Stuttgart", types: ["Städtisch"], desc: "Friedhof Rotenberg." },
+            { name: "Buchrainfriedhof (neu)", district: "Vaihingen", group: "Fildern", address: "Pascalstraße 70, 70569 Stuttgart", types: ["Städtisch"], desc: "Neuer Buchrainfriedhof in Vaihingen." },
+            { name: "Friedhof Vaihingen (alt)", district: "Vaihingen", group: "Fildern", address: "Holzhauserstraße 10, 70563 Stuttgart", types: ["Städtisch"], desc: "Alter Friedhof Vaihingen." },
+            { name: "Friedhof Rohr", district: "Vaihingen / Rohr", group: "Fildern", address: "Schönbuchstraße 31, 70565 Stuttgart", types: ["Städtisch"], desc: "Friedhof Rohr." },
+            { name: "Friedhof Wangen", district: "Wangen", group: "Neckartal", address: "Im Kirchweinberg, 70327 Stuttgart", types: ["Städtisch"], desc: "Friedhof Wangen." },
+            { name: "Friedhof Weilimdorf (alt)", district: "Weilimdorf", group: "Feuerbach", address: "Sickingenstraße 8, 70499 Stuttgart", types: ["Städtisch"], desc: "Alter Friedhof Weilimdorf." },
+            { name: "Friedhof Weilimdorf (neu)", district: "Weilimdorf", group: "Feuerbach", address: "Köstlinstraße 189, 70499 Stuttgart", types: ["Städtisch"], desc: "Neuer Friedhof Weilimdorf." },
+            { name: "Friedhof Solitude (Soldatenfriedhof Solitude)", district: "Weilimdorf", group: "Feuerbach", address: "Schloss Solitude, 70488 Stuttgart", types: ["Sonderfriedhof"], desc: "Soldatenfriedhof Solitude." },
+            { name: "Friedhof Zuffenhausen", district: "Zuffenhausen", group: "Zuffenhausen", address: "Marbacher Straße 62, 70435 Stuttgart", types: ["Städtisch"], desc: "Friedhof Zuffenhausen." },
+            { name: "Friedhof Zazenhausen", district: "Zazenhausen", group: "Zuffenhausen", address: "Kirchäckerstraße 24B, 70437 Stuttgart", types: ["Städtisch"], desc: "Friedhof Zazenhausen." }
         ];
 
         function renderFriedhoefe(items) {
@@ -1168,28 +1131,12 @@
             items.forEach(f => {
                 const card = document.createElement('div');
                 card.className = "border border-sand-200 rounded-xl p-5 bg-sand-50 flex flex-col justify-between hover:shadow-sm transition";
-
-                const typesHtml = f.types.map(t => `<span class="inline-block text-[11px] bg-white border border-gray-200 px-2 py-0.5 rounded-md text-gray-700 mr-1 mb-1">${t}</span>`).join('');
-                const sourceText = f.imageSource || 'Quelle prüfen';
-                const imageHtml = f.image ? `
-                    <figure class="mb-4 overflow-hidden rounded-xl border border-sand-200 bg-white">
-                        <button type="button" class="friedhof-plan-button" onclick="openImageModalFromButton(this)" data-image="${f.image}" data-title="${f.name}" data-source="${sourceText}">
-                            <img src="${f.image}" alt="${f.imageType || 'Bild'} ${f.name}" class="w-full h-44 object-contain bg-white" loading="lazy">
-                        </button>
-                        <figcaption class="px-3 py-2 text-[10px] text-gray-500 border-t border-sand-200 leading-relaxed">
-                            ${f.imageType || 'Bild'} - ${sourceText} · Anklicken zum Vergrößern
-                        </figcaption>
-                    </figure>
-                ` : `
-                    <div class="mb-4 rounded-xl border border-dashed border-gray-300 bg-white p-4 text-xs text-gray-500 flex items-center gap-2">
-                        <i class="fa-solid fa-image text-gray-400"></i>
-                        <span>Bild fehlt - Recherche oder eigenes Foto offen</span>
-                    </div>
-                `;
+                const types = f.types || [];
+                const typesHtml = types.map(t => `<span class="inline-block text-[11px] bg-white border border-gray-200 px-2 py-0.5 rounded-md text-gray-700 mr-1 mb-1">${t}</span>`).join('');
+                const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(f.name + ', ' + f.address);
 
                 card.innerHTML = `
                     <div>
-                        ${imageHtml}
                         <div class="flex justify-between items-start mb-1">
                             <span class="text-xs font-bold text-primary-600 uppercase tracking-wider" style="color: var(--primary);">${f.district}</span>
                             <span class="text-[10px] text-gray-400 font-medium bg-white px-2 py-0.5 rounded border">Stuttgart</span>
@@ -1197,38 +1144,17 @@
                         <h3 class="text-lg font-bold text-gray-900" style="margin: 0 0 4px 0;">${f.name}</h3>
                         <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-location-dot mr-1 text-brandblue-600" style="color: var(--brandblue);"></i>${f.address}</p>
                         <p class="text-xs text-gray-600 mt-2 leading-relaxed">${f.desc}</p>
-                        <p class="text-[11px] text-amber-800 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mt-3">
-                            <i class="fa-solid fa-camera mr-1"></i>${f.grabfeldStatus || 'Grabfeld-Fotostatus prüfen'}
-                        </p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-sand-200">
                         <div class="flex flex-wrap">${typesHtml}</div>
+                        <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="btn-outline mt-3 w-full">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <span>Karte öffnen</span>
+                        </a>
                     </div>
                 `;
                 grid.appendChild(card);
             });
-        }
-
-        function openImageModalFromButton(button) {
-            const modal = document.getElementById('image-modal');
-            const modalImg = document.getElementById('image-modal-img');
-            const modalTitle = document.getElementById('image-modal-title');
-            const modalSource = document.getElementById('image-modal-source');
-
-            if(!modal || !modalImg || !modalTitle || !modalSource) return;
-
-            modalImg.src = button.dataset.image || '';
-            modalImg.alt = 'Lageplan ' + (button.dataset.title || 'Friedhof');
-            modalTitle.textContent = button.dataset.title || 'Lageplan';
-            modalSource.textContent = button.dataset.source || 'Quelle prüfen';
-            modal.classList.remove('hidden');
-        }
-
-        function closeImageModal() {
-            const modal = document.getElementById('image-modal');
-            const modalImg = document.getElementById('image-modal-img');
-            if(modal) modal.classList.add('hidden');
-            if(modalImg) modalImg.src = '';
         }
 
         function filterFriedhoefe() {

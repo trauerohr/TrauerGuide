@@ -30,10 +30,7 @@ Einstellungen:
 - Build command: leer lassen
 - Output directory: `/`
 
-GitHub Actions (`.github/workflows/deploy.yml`) deployt in genau dieses vorhandene Projekt. Benoetigte Repo-Secrets:
-
-- `CLOUDFLARE_API_TOKEN` (Account-Berechtigung: Cloudflare Pages Edit)
-- `CLOUDFLARE_ACCOUNT_ID`
+GitHub ist direkt mit Cloudflare Pages verbunden. Die Seite wird bei Push auf `main` ohne Build-Schritt veroeffentlicht.
 
 ## Subdomain
 
@@ -52,9 +49,6 @@ Wenn Cloudflare Pages verbunden ist:
 
 Vor dem Livegang pruefen:
 
-- Sind alle Bilder lokal vorhanden?
-- Ist bei jedem Bild Quelle/Freigabe dokumentiert?
-- Sind unsichere Bilder nicht eingebunden?
-- Funktioniert die Bildvergroesserung?
+- Funktioniert `index.html` als statische Seite?
 - Ist die Vorsorge-Werbung unten und nicht dominant?
 - Stimmen Impressum-/Hauptseitenlinks?
