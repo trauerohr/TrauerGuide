@@ -20,4 +20,4 @@ jobs:
       - name: Confirm static site
         run: |
           test -f index.html
-          echo "Static root OK. Cloudflare Pages Git integration deploys this repo to project bestatter-kompass-stuttgart."
+          echo "Static root OK. Cloudflare Pages Git integration deploys this repo to trauerguide.trauerohr.com."

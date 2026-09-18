@@ -1,10 +1,10 @@
-# Cursor Start Here - Bestatter-Kompass Stuttgart
+# Cursor Start Here - TrauerGuide Stuttgart
 
 Dies ist die Uebergabe fuer Cursor.
 
 ## Ziel
 
-Der aktuelle Kompass ist fuer Stuttgart. Er soll sauber weitergefuehrt werden und spaeter als Vorlage fuer weitere regionale TrauerOhr-Kompasse dienen.
+Der aktuelle Leitfaden ist der TrauerGuide Stuttgart. Er soll sauber weitergefuehrt werden und spaeter als Vorlage fuer weitere regionale TrauerOhr-TrauerGuides dienen.
 
 ## Wichtigste Datei
 
@@ -17,12 +17,18 @@ Der aktuelle Kompass ist fuer Stuttgart. Er soll sauber weitergefuehrt werden un
 
 ## Aktueller Stand
 
-- Bestatter-Suche steht im Mittelpunkt.
-- 51 Friedhofs- und Sondereintraege fuer Stuttgart als Textuebersicht
-- Keine Lageplaene oder Grabfeldbilder auf der oeffentlichen Seite
-- Vorhandene Bilddateien unter `assets/friedhoefe/` bleiben liegen fuer die spaetere App **Friedhofs To Go**
-- Vorsorge-Hinweis bleibt unten, klein und ruhig, mit dezentem blauen Rahmen `#1C00CC` (kein blaues Hauptbanner)
-- Subdomain-Text: `bestatter-kompass-stuttgart.trauerohr.com`
+- Die Seite heisst **TrauerGuide Stuttgart**.
+- Bestatter: nur Häfner & Züfle plus eine Beispielkarte Mustermann Bestattungen (Werbung moeglich).
+- Kein Kostenrechner, keine Preise, keine Gebuehrentabelle.
+- Friedhof TO GO: Klick oeffnet Grabfelder; Karte bleibt erreichbar.
+- 19 zugeschnittene Lageplaene aus der TrauerOhr-PDF liegen in `assets/friedhoefe/lageplaene-clean/` und sind den jeweiligen Friedhoefen zugeordnet.
+- Juedische Sonderbereiche bleiben ohne eigenes Bild.
+- Wikimedia-Grabfeldfotos bleiben zusaetzlich bei Hauptfriedhof und Waldfriedhof.
+- Vorsorge-Hinweis bleibt unten, klein und ruhig, mit dezentem blauen Rahmen `#1C00CC`.
+- Oeffentliche Adresse: `trauerguide.trauerohr.com`
+- Fusszeile: `© 2026 TrauerGuide Stuttgart. Ein Projekt von TrauerOhr.`
+- Keine Kosten-, Preis- oder Satzungssaetze auf der oeffentlichen Seite.
+- Wenn eine Funktion entfaellt, immer auch Footer, Tabellen, Hinweise und verwandte Saetze mitpruefen.
 
 ## Arbeitsweise
 

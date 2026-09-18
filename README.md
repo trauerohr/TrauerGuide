@@ -1,6 +1,6 @@
-# Bestatter-Kompass Stuttgart
+# TrauerGuide Stuttgart
 
-Statische Startversion fuer den TrauerOhr Bestatter-Kompass Stuttgart.
+Statische Startversion fuer den TrauerOhr TrauerGuide Stuttgart.
 
 ## Dateien
 
@@ -11,20 +11,15 @@ Statische Startversion fuer den TrauerOhr Bestatter-Kompass Stuttgart.
 
 ## Ziel
 
-Der Stuttgart-Kompass bleibt die Vorlage fuer weitere regionale Kompasse. Das Erscheinungsbild soll ruhig, professionell und nah an TrauerOhr bleiben. Im Mittelpunkt stehen die Bestatter-Suche, der Kostenrechner und eine schlichte Friedhofsuebersicht.
+Der Stuttgart-Kompass bleibt die Vorlage fuer weitere regionale Kompasse. Das Erscheinungsbild soll ruhig, professionell und nah an TrauerOhr bleiben. Im Mittelpunkt stehen Orientierung, Friedhof TO GO und der Ratgeber.
 
 ## Aktueller Stand
 
-- Navigation, Bestatter-Suche, Kostenrechner, Friedhoefe und Ratgeber sind in einer einzelnen HTML-Datei enthalten.
+- Navigation, Bestatter, Friedhoefe und Ratgeber sind in einer einzelnen HTML-Datei enthalten.
+- Der Kostenrechner ist entfernt.
+- Sichtbar sind Häfner & Züfle sowie eine Beispielkarte fuer weitere Bestatter-Werbung.
 - Die Werbung fuer die Digitale Bestattungsvorsorge steht unten unter den Bestatter-Karten als kleiner Hinweis, nicht als Hauptbanner.
-- Der Friedhofsbereich ist eine textbasierte Uebersicht (Name, Stadtteil, Adresse, kurze Beschreibung, Grabarten, Kartenlink).
-- Lageplaene und Grabfeldbilder sind in dieser Version nicht oeffentlich eingebunden.
-
-## Zurueckgestellt: Friedhofs To Go
-
-Friedhofsbilder und Grabfeldbilder wurden für eine spätere separate Friedhofs To Go App zurückgestellt.
-
-Die vorhandenen Dateien unter `assets/friedhoefe/` bleiben erhalten, werden hier aber nicht angezeigt.
+- Der Friedhofsbereich ist Friedhof TO GO: Name, Stadtteil, Adresse, Grabfelder, Lageplan wo vorhanden, Kartenlink.
 
 ## GitHub / Cloudflare Pages
 
@@ -33,8 +28,8 @@ Einfachste stabile Variante:
 - Framework preset: `None`
 - Build command: leer lassen
 - Output directory: `/`
-- Pages-Projekt: `bestatter-kompass-stuttgart`
-- Subdomain: `bestatter-kompass-stuttgart.trauerohr.com`
+- Pages-Projekt: bestehendes Git-Projekt (ein Projekt, nicht zwei)
+- Oeffentliche Adresse: `trauerguide.trauerohr.com`
 
 ## Wichtige Pflege-Regeln
 

@@ -25,7 +25,7 @@ Empfohlene Struktur im Repository:
 
 Einstellungen:
 
-- Pages-Projektname: `bestatter-kompass-stuttgart`
+- Pages-Projektname: bestehendes Git-Projekt, oeffentliche Domain `trauerguide.trauerohr.com`
 - Framework preset: `None`
 - Build command: leer lassen
 - Output directory: `/`
@@ -34,9 +34,11 @@ GitHub ist direkt mit Cloudflare Pages verbunden. Die Seite wird bei Push auf `m
 
 ## Subdomain
 
-Ziel:
+Oeffentliche Adresse:
 
-`bestatter-kompass-stuttgart.trauerohr.com`
+`trauerguide.trauerohr.com`
+
+Die alte Adresse `bestatter-kompass-stuttgart.trauerohr.com` wird nicht weiter genutzt. Es bleibt ein Cloudflare-Pages-Projekt.
 
 Wenn Cloudflare Pages verbunden ist:
 

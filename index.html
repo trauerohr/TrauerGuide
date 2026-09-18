@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrauerOhr Bestatter-Kompass Stuttgart</title>
+    <title>TrauerGuide Stuttgart</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome CDN -->
@@ -156,6 +156,42 @@
             box-shadow: 0 6px 16px rgba(0,0,0,0.06);
         }
 
+        .card-bestatter-ad {
+            background-color: #ffffff;
+            border: 1px dashed #1C00CC;
+        }
+
+        .intro-trauerguide {
+            background: #ffffff;
+            border: 1px solid var(--sand-200);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+
+        .friedhof-card {
+            cursor: pointer;
+        }
+
+        .friedhof-card:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+        }
+
+        .friedhof-photo {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--sand-200);
+            display: block;
+            background: #fff;
+            object-fit: contain;
+        }
+
+        .friedhof-caption {
+            font-size: 11px;
+            color: #6b6b6b;
+            line-height: 1.45;
+            margin: 6px 0 14px 0;
+        }
+
         .btn-primary {
             background-color: var(--primary);
             color: #ffffff !important;
@@ -201,7 +237,8 @@
 
         .hidden { display: none !important; }
         
-        #branch-modal {
+        #branch-modal,
+        #friedhof-modal {
             background-color: rgba(0, 0, 0, 0.6) !important;
             backdrop-filter: blur(2px);
         }
@@ -218,8 +255,8 @@
                         <i class="fa-solid fa-compass"></i>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-bold text-gray-900 tracking-tight" style="margin: 0; font-size: 1.35rem;">TrauerOhr <span style="color: var(--primary); font-weight: 600;">Bestatter-Kompass Stuttgart</span></h1>
-                        <p class="text-xs text-gray-500 hidden sm:block" style="margin: 2px 0 0 0;">bestatter-kompass-stuttgart.trauerohr.com &bull; Alle Stuttgarter Bestatter, Friedhofs-Gebührenrechner &amp; Ratgeber</p>
+                        <h1 class="text-2xl font-bold text-gray-900 tracking-tight" style="margin: 0; font-size: 1.35rem;"><span style="color: var(--primary); font-weight: 600;">TrauerGuide Stuttgart</span></h1>
+                        <p class="text-xs text-gray-500 hidden sm:block" style="margin: 2px 0 0 0;">trauerguide.trauerohr.com &bull; Orientierung, Friedhof TO GO und Ratgeber</p>
                     </div>
                 </div>
 
@@ -227,11 +264,7 @@
                 <nav class="flex items-center space-x-1 sm:space-x-2 overflow-x-auto pb-1 md:pb-0 text-sm">
                     <button id="tab-btn-bestatter" onclick="switchTab('bestatter')" class="tab-btn tab-active">
                         <i class="fa-solid fa-house-chimney"></i>
-                        <span>Bestatter-Suche</span>
-                    </button>
-                    <button id="tab-btn-rechner" onclick="switchTab('rechner')" class="tab-btn">
-                        <i class="fa-solid fa-calculator"></i>
-                        <span>Kostenrechner</span>
+                        <span>Bestatter</span>
                     </button>
                     <button id="tab-btn-friedhoefe" onclick="switchTab('friedhoefe')" class="tab-btn">
                         <i class="fa-solid fa-monument"></i>
@@ -251,53 +284,20 @@
         <!-- TAB 1: BESTATTER NAVIGATOR -->
         <section id="tab-bestatter" class="tab-content">
             <div class="space-y-6">
-                <!-- Filter Bar Header -->
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-sand-200 flex flex-col lg:flex-row gap-4 items-center justify-between">
-                    <div>
-                        <h2 class="text-xl font-bold text-gray-900" style="margin: 0;">Alle Bestattungsinstitute im Stadtkreis Stuttgart</h2>
-                        <p class="text-gray-600 text-xs mt-0.5">Vollständiges Verzeichnis aller 25 Stuttgarter Bestatter und Filialbetriebe nach Stadtbezirken.</p>
-                    </div>
-                    <div class="flex flex-col sm:flex-row flex-wrap gap-2 w-full lg:w-auto">
-                        <!-- Search Box -->
-                        <div class="relative flex-1 min-w-[220px]">
-                            <input type="text" id="search-filter" oninput="filterBestatter()" onkeyup="filterBestatter()" placeholder="Suche (z.B. Wangen, Heslach, Schreinerei, Cannstatt)..." class="w-full bg-sand-50 border border-gray-300 rounded-xl pl-9 pr-8 py-2 text-sm focus:ring-2 focus:ring-brandblue-600 outline-none transition">
-                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400 text-xs"></i>
-                            <button onclick="clearBestatterSearch()" id="clear-search-btn" class="hidden absolute right-2.5 top-2.5 text-gray-400 hover:text-gray-600 text-xs p-0.5">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
-
-                        <!-- District Filter -->
-                        <select id="district-filter" onchange="filterBestatter()" class="bg-sand-50 border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brandblue-600 outline-none transition">
-                            <option value="all">Alle Stadtbezirke</option>
-                            <option value="West">Stuttgart-West</option>
-                            <option value="Mitte">Stuttgart-Mitte / Nord / Ost / Süd</option>
-                            <option value="Bad Cannstatt">Bad Cannstatt</option>
-                            <option value="Degerloch">Degerloch / Sonnenberg</option>
-                            <option value="Möhringen">Möhringen / Vaihingen</option>
-                            <option value="Plieningen">Plieningen / Birkach / Sillenbuch</option>
-                            <option value="Wangen">Wangen / Hedelfingen</option>
-                            <option value="Untertürkheim">Untertürkheim / Obertürkheim</option>
-                            <option value="Zuffenhausen">Zuffenhausen / Stammheim</option>
-                            <option value="Feuerbach">Feuerbach / Weilimdorf / Botnang</option>
-                            <option value="Mühlhausen">Mühlhausen / Neugereut / Münster</option>
-                        </select>
-
-                        <!-- Feature Filter -->
-                        <select id="feature-filter" onchange="filterBestatter()" class="bg-sand-50 border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-primary-600 outline-none transition">
-                            <option value="all">Alle Eigenschaften</option>
-                            <option value="hall">Hauseigene Feierhalle / Kapelle</option>
-                            <option value="24h">24h Bereitschaft &amp; Abschiedsräume</option>
-                            <option value="multi_branch">Mehrere Filialen im Stadtgebiet</option>
-                            <option value="schreinerei">Schreinerei &amp; Handwerk</option>
-                            <option value="muslim">Interkulturell / Muslimisch</option>
-                            <option value="communal">Städtisch / Kommunal</option>
-                        </select>
-                    </div>
+                <div class="intro-trauerguide">
+                    <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">TrauerGuide</p>
+                    <h2 class="text-xl font-bold text-gray-900" style="margin: 0 0 8px 0;">Ein digitaler Wegweiser für die Zeit nicht nur nach einem Verlust.</h2>
+                    <p class="text-sm text-gray-600 leading-relaxed" style="margin: 0;">
+                        Der TrauerGuide bündelt Orientierung, Friedhof TO GO mit Grabfeldern sowie einen Ratgeber für die ersten Schritte und wichtigen Fragen.
+                        Eine Zusammenarbeit mit weiteren Bestattern ist möglich. Bei Interesse einfach bei
+                        <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="font-semibold hover:underline" style="color: var(--brandblue);">TrauerOhr</a>
+                        melden:
+                        <a href="mailto:office@trauerohr.com" class="font-semibold hover:underline" style="color: var(--primary);">office@trauerohr.com</a>
+                    </p>
                 </div>
 
                 <!-- Bestatter Cards Grid -->
-                <div id="bestatter-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="bestatter-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
                     <!-- Cards populated via JS -->
                 </div>
 
@@ -312,7 +312,7 @@
                                 Hinweis: Digitale Bestattungsvorsorge
                             </p>
                             <p class="text-[11px] leading-snug" style="margin: 2px 0 0 0; color: #6b6b6b;">
-                                Wünsche in Ruhe festhalten – für sich selbst oder den gewählten Bestatter. Ergänzend zum lokalen Kompass.
+                                Wünsche in Ruhe festhalten – für sich selbst oder den gewählten Bestatter. Ergänzend zum TrauerGuide.
                             </p>
                         </div>
                     </div>
@@ -340,127 +340,31 @@
             </div>
         </div>
 
-        <!-- TAB 2: KOSTENRECHNER -->
-        <section id="tab-rechner" class="tab-content hidden">
-            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-sand-200">
-                <div class="max-w-3xl mb-8">
-                    <h2 class="text-2xl font-bold text-gray-900" style="margin: 0 0 6px 0;">Stuttgarter Bestattungskosten-Rechner</h2>
-                    <p class="text-gray-600 text-sm mt-1">Transparente Gesamtkostenkalkulation basierend auf den offiziellen städtischen Gebührensatzungen der Landeshauptstadt Stuttgart sowie typischen Bestatterleistungen.</p>
+        <!-- MODAL FOR CEMETERY DETAILS -->
+        <div id="friedhof-modal" class="fixed inset-0 bg-black/60 z-[9999] flex items-center justify-center p-4 hidden" onclick="if(event.target === this) closeFriedhofModal()">
+            <div class="bg-white rounded-2xl max-w-3xl w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto relative">
+                <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
+                    <h3 id="friedhof-modal-title" class="text-xl font-bold text-gray-900" style="margin: 0;"></h3>
+                    <button onclick="closeFriedhofModal()" class="text-gray-400 hover:text-gray-600 text-2xl p-1 leading-none rounded-lg hover:bg-gray-100">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
                 </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <!-- Form Controls -->
-                    <div class="lg:col-span-7 space-y-6">
-                        
-                        <!-- Step 1: Bestattungsart -->
-                        <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
-                            <label class="block text-sm font-bold text-gray-800 mb-3"><i class="fa-solid fa-cross text-primary-600 mr-2" style="color: var(--primary);"></i>1. Bestattungsart</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <label class="flex items-center p-3 bg-white rounded-xl border border-gray-200 cursor-pointer hover:border-primary-600 transition">
-                                    <input type="radio" name="calc-art" value="erde" checked onchange="updateCalc()" class="text-primary-600">
-                                    <span class="ml-2 text-sm font-medium">Erdbestattung</span>
-                                </label>
-                                <label class="flex items-center p-3 bg-white rounded-xl border border-gray-200 cursor-pointer hover:border-primary-600 transition">
-                                    <input type="radio" name="calc-art" value="feuer" onchange="updateCalc()" class="text-primary-600">
-                                    <span class="ml-2 text-sm font-medium">Feuerbestattung</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Step 2: Grabtyp Stuttgart -->
-                        <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
-                            <label class="block text-sm font-bold text-gray-800 mb-3"><i class="fa-solid fa-monument text-primary-600 mr-2" style="color: var(--primary);"></i>2. Grabnutzung &amp; Friedhofsgebühr (Stuttgart)</label>
-                            <select id="calc-grab" onchange="updateCalc()" class="w-full bg-white border border-gray-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-primary-600 outline-none transition">
-                                <!-- Options populated by JS dynamically -->
-                            </select>
-                        </div>
-
-                        <!-- Step 3: Trauerfeier & Infrastruktur -->
-                        <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
-                            <label class="block text-sm font-bold text-gray-800 mb-3"><i class="fa-solid fa-church text-primary-600 mr-2" style="color: var(--primary);"></i>3. Trauerfeier &amp; Hallennutzung</label>
-                            <div class="space-y-3 text-sm">
-                                <label class="flex items-center space-x-2.5 cursor-pointer">
-                                    <input type="checkbox" id="calc-halle" onchange="updateCalc()" checked class="rounded text-primary-600 w-4 h-4">
-                                    <span>Städtische Feierhalle Stuttgart (298,00 €)</span>
-                                </label>
-                                <label class="flex items-center space-x-2.5 cursor-pointer">
-                                    <input type="checkbox" id="calc-krematorium" onchange="updateCalc()" checked class="rounded text-primary-600 w-4 h-4">
-                                    <span id="calc-krematorium-label">Einäscherung im Krematorium Pragfriedhof inkl. 2. Leichenschau (605,00 €)</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Step 4: Bestatter Dienstleistungen Paket -->
-                        <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
-                            <label class="block text-sm font-bold text-gray-800 mb-3"><i class="fa-solid fa-hands-holding text-primary-600 mr-2" style="color: var(--primary);"></i>4. Privates Bestatter-Dienstleistungspaket</label>
-                            <select id="calc-bestatter-package" onchange="updateCalc()" class="w-full bg-white border border-gray-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-primary-600 outline-none transition">
-                                <option value="1200">Basis (Überführung, Basis-Sarg/Urne, Abmeldungen) (~ 1.200 €)</option>
-                                <option value="2100" selected>Standard (Qualitäts-Sarg/Urne, Aufbahrung, Organisation, Trauerdruck) (~ 2.100 €)</option>
-                                <option value="3500">Premium (Echtholzsarg, individuelle Gestaltung, komplette Trauerbegleitung) (~ 3.500 €)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Summary Display -->
-                    <div class="lg:col-span-5">
-                        <div class="bg-primary-50 rounded-2xl p-6 border border-primary-100 sticky top-28 shadow-sm" style="background-color: var(--sand-100); border: 1px solid var(--sand-200);">
-                            <h3 class="text-lg font-bold text-primary-800 mb-4 border-b border-primary-100 pb-3" style="color: var(--brandblue); margin-top: 0;">Kostenübersicht (Schätzung)</h3>
-                            
-                            <div class="space-y-3 text-sm">
-                                <div class="flex justify-between text-gray-700">
-                                    <span>Städt. Bestattungsgebühr:</span>
-                                    <span class="font-semibold" id="sum-bestattungsgebuehr">1.010,00 €</span>
-                                </div>
-                                <div class="flex justify-between text-gray-700">
-                                    <span>Grabnutzungsrecht (20 J.):</span>
-                                    <span class="font-semibold" id="sum-grabnutzung">1.960,00 €</span>
-                                </div>
-                                <div class="flex justify-between text-gray-700">
-                                    <span>Einäscherung (Krematorium):</span>
-                                    <span class="font-semibold" id="sum-krematorium">0,00 €</span>
-                                </div>
-                                <div class="flex justify-between text-gray-700">
-                                    <span>Feierhalle / Nutzung:</span>
-                                    <span class="font-semibold" id="sum-halle">298,00 €</span>
-                                </div>
-                                <div class="flex justify-between text-gray-700">
-                                    <span>Städt. Verwaltungsgebühr:</span>
-                                    <span class="font-semibold">92,00 €</span>
-                                </div>
-                                <div class="flex justify-between text-gray-700">
-                                    <span>Bestatter-Dienstleistung:</span>
-                                    <span class="font-semibold" id="sum-bestatter">2.100,00 €</span>
-                                </div>
-
-                                <div class="border-t border-primary-200 my-3 pt-3 flex justify-between items-center" style="border-top: 2px solid var(--sand-200);">
-                                    <span class="text-base font-bold text-gray-900">Gesamtkosten ca.:</span>
-                                    <span class="text-2xl font-extrabold" style="color: var(--primary);" id="sum-total">5.460,00 €</span>
-                                </div>
-                            </div>
-
-                            <p class="text-xs text-gray-500 mt-4 leading-relaxed">
-                                *Hinweis: Gebühren basieren auf der städtischen Satzung Stuttgart. Steinmetz, Floristik und Bewirtung sind variabel.
-                            </p>
-
-                            <button onclick="switchTab('bestatter')" class="btn-primary mt-6">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <span>Bestatter in Stuttgart suchen</span>
-                            </button>
-                        </div>
-                    </div>
+                <div id="friedhof-modal-content"></div>
+                <div class="mt-6 text-right">
+                    <button onclick="closeFriedhofModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2 rounded-xl text-sm font-medium transition">Schließen</button>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- TAB 3: FRIEDHÖFE & GRABARTEN -->
+        <!-- TAB 3: FRIEDHÖFE -->
         <section id="tab-friedhoefe" class="tab-content hidden">
             <div class="space-y-8">
                 <!-- Friedhöfe Liste & Filter -->
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <div>
-                            <h2 class="text-2xl font-bold text-gray-900" style="margin: 0;">Friedhöfe in Stuttgart</h2>
-            <p class="text-gray-600 text-sm mt-0.5">Textübersicht mit Adresse, Stadtteil und optionalem Kartenlink. Lagepläne und Grabfeldbilder sind hier nicht eingebunden.</p>
+                            <h2 class="text-2xl font-bold text-gray-900" style="margin: 0;">Friedhof TO GO Stuttgart</h2>
+            <p class="text-gray-600 text-sm mt-0.5">Adresse, Grabfelder und Lageplan wo verfügbar. Ein Klick öffnet die Ansicht, die Karte bleibt daneben erreichbar.</p>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-2">
                             <!-- Search Input -->
@@ -489,49 +393,6 @@
                     <!-- Dynamic Friedhof Grid -->
                     <div id="friedhof-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- Populated via JS -->
-                    </div>
-                </div>
-
-                <!-- Grabarten Übersicht -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4" style="margin-top: 0;">Übersicht der Stuttgarter Grabarten &amp; Satzungsgebühren</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-gray-600" style="width: 100%; border-collapse: collapse;">
-                            <thead class="bg-sand-100 text-gray-800 font-bold border-b border-sand-200">
-                                <tr>
-                                    <th class="p-3">Grabform</th>
-                                    <th class="p-3">Laufzeit</th>
-                                    <th class="p-3">Städt. Gebühr</th>
-                                    <th class="p-3">Besonderheiten</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100">
-                                <tr>
-                                    <td class="p-3 font-medium text-gray-900">Erd-Reihengrab</td>
-                                    <td class="p-3">20 Jahre</td>
-                                    <td class="p-3 font-semibold" style="color: var(--brandblue);">940,00 €</td>
-                                    <td class="p-3 text-xs">Zuweisung der Reihe nach, nicht verlängerbar</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-medium text-gray-900">Erd-Wahlgrab</td>
-                                    <td class="p-3">20 Jahre</td>
-                                    <td class="p-3 font-semibold" style="color: var(--brandblue);">1.960,00 €</td>
-                                    <td class="p-3 text-xs">Frei wählbar, verlängerbar</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-medium text-gray-900">Urnen-Wahlgrab</td>
-                                    <td class="p-3">20 Jahre</td>
-                                    <td class="p-3 font-semibold" style="color: var(--brandblue);">1.740,00 €</td>
-                                    <td class="p-3 text-xs">Frei wählbar, verlängerbar</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-medium text-gray-900">Baumgrab / Kolumbarium</td>
-                                    <td class="p-3">20 Jahre</td>
-                                    <td class="p-3 font-semibold" style="color: var(--brandblue);">2.280,00 €</td>
-                                    <td class="p-3 text-xs">Pflegefreie Naturbestattung / Urnenwand (z.B. Waldfriedhof, Pragfriedhof)</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -625,7 +486,7 @@
                             </div>
                             <div class="bg-white p-3 rounded-lg border border-gray-200">
                                 <p class="font-bold text-gray-900" style="margin: 0;">Amt für Soziales und Teilhabe:</p>
-                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Eberhardstraße 33, 70173 Stuttgart · Hilfe bei Bestattungskosten</p>
+                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Eberhardstraße 33, 70173 Stuttgart</p>
                                 <a href="tel:071121659000" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
                                     <i class="fa-solid fa-phone mr-1"></i>0711 216-59000
                                 </a>
@@ -651,15 +512,14 @@
     <!-- Footer mit klickbarem TrauerOhr.com Link -->
     <footer class="bg-white border-t border-sand-200 mt-auto py-6" style="background: white; border-top: 1px solid var(--sand-200);">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 space-y-1.5">
-            <p><strong>TrauerOhr Bestatter-Kompass Stuttgart</strong> &bull; <a href="https://bestatter-kompass-stuttgart.trauerohr.com" class="hover:underline font-semibold" style="color: var(--brandblue);">bestatter-kompass-stuttgart.trauerohr.com</a></p>
+            <p><strong>TrauerGuide Stuttgart</strong> &bull; <a href="https://trauerguide.trauerohr.com" class="hover:underline font-semibold" style="color: var(--brandblue);">trauerguide.trauerohr.com</a></p>
             <p>
-                Besuchen Sie unsere Hauptseite &amp; Impressum unter 
+                Impressum unter
                 <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="hover:underline font-bold" style="color: var(--brandblue);">
-                    <i class="fa-solid fa-globe mr-1"></i>TrauerOhr.com (Hauptseite &amp; Impressum)
+                    <i class="fa-solid fa-globe mr-1"></i>TrauerOhr.com
                 </a>
             </p>
-            <p>In Kooperation mit der <a href="https://digitale-bestattungsvorsorge.de" target="_blank" rel="noopener noreferrer" class="hover:underline font-semibold" style="color: var(--primary);">Digitalen Bestattungsvorsorge App (digitale-bestattungsvorsorge.de)</a></p>
-            <p class="text-gray-400 mt-1">&copy; 2026 TrauerOhr Stuttgart. Alle Gebührenangaben basieren auf der städtischen Satzung der Landeshauptstadt Stuttgart.</p>
+            <p class="text-gray-400 mt-1">&copy; 2026 TrauerGuide Stuttgart. Ein Projekt von <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">TrauerOhr</a>.</p>
         </div>
     </footer>
 
@@ -686,7 +546,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Complete database of all 25 funeral companies in the Stuttgart district
         const bestatterData = [
             {
                 id: "haefner-zuefle",
@@ -709,393 +568,19 @@
                 ]
             },
             {
-                id: "haller",
-                name: "Bestattungshaus Haller",
-                district: "Bad Cannstatt",
-                districtsAll: ["Bad Cannstatt", "Feuerbach", "Degerloch", "Süd", "West", "Ost", "Vaihingen", "Zuffenhausen", "Möhringen"],
-                established: "Seit 1898",
-                address: "Eschenbachstraße 32, 70372 Stuttgart",
-                phone: "0711 563000",
-                email: "ratundhilfe@bestattungshaus-haller.de",
-                website: "https://bestattungshaus-haller.de",
-                desc: "Traditionelles Stuttgarter Familienunternehmen mit 10 Standorten im gesamten Stadtgebiet. Umfassende Betreuung und eigene Trauerdruckerei.",
-                tags: ["10 Filialen", "24h Service", "Geprüfter Bestatter", "Tradition"],
-                features: ["hall", "24h", "multi_branch"],
-                branches: [
-                    { name: "Hauptsitz Bad Cannstatt", address: "Eschenbachstraße 32, 70372 Stuttgart", note: "Zentrale" },
-                    { name: "Filiale Feuerbach", address: "Stuttgarter Straße 73, 70469 Stuttgart", note: "Beratungsstelle" },
-                    { name: "Filiale Degerloch", address: "Große Falterstraße 22, 70597 Stuttgart", note: "Beratungsstelle" },
-                    { name: "Filiale Stuttgart-Süd", address: "Böblinger Straße 68, 70199 Stuttgart", note: "Heslach / Süd" },
-                    { name: "Filiale Stuttgart-West", address: "Rotebühlstraße 145, 70197 Stuttgart", note: "West" },
-                    { name: "Filiale Stuttgart-Ost", address: "Ostendstraße 65, 70188 Stuttgart", note: "Ost" }
-                ]
-            },
-            {
-                id: "staedtisch",
-                name: "Städtischer Bestattungsdienst Stuttgart",
-                district: "Stuttgart-Mitte",
-                districtsAll: ["Mitte", "Stuttgart"],
-                established: "Kommunal",
-                address: "Marktplatz 4 (Rathaus), 70173 Stuttgart",
-                phone: "0711 21698000",
-                email: "friedhof@stuttgart.de",
-                website: "https://www.stuttgart.de",
-                desc: "Eigenbetrieb der Landeshauptstadt Stuttgart. Öffentlicher Bestattungsdienst direkt im Rathaus.",
-                tags: ["Kommunal", "Städtisch", "Rathaus", "Fair & Transparent"],
-                features: ["communal", "24h"],
-                branches: [
-                    { name: "Zentrale im Rathaus", address: "Marktplatz 4, 70173 Stuttgart", note: "Eingang Eichstraße" }
-                ]
-            },
-            {
-                id: "ramsaier",
-                name: "Ramsaier Bestattungen GmbH",
-                district: "Vaihingen",
-                districtsAll: ["Vaihingen", "Degerloch", "Möhringen"],
-                established: "Seit 1895",
-                address: "Katzenbachstraße 58, 70563 Stuttgart",
-                phone: "0711 742001",
-                email: "info@ramsaier-bestattungen.de",
-                website: "https://www.ramsaier-bestattungen.de",
-                desc: "TÜV-zertifiziertes Bestattungshaus auf den Fildern. Individuelle Trauerbegleitung und Vorsorgeberatung.",
-                tags: ["TÜV-Zertifiziert", "Fildern", "Vorsorge", "Tradition"],
-                features: ["24h", "hall", "multi_branch"],
-                branches: [
-                    { name: "Stammhaus Vaihingen", address: "Katzenbachstraße 58, 70563 Stuttgart", note: "Hauptgeschäft" },
-                    { name: "Filiale Degerloch", address: "Karl-Pfaff-Str. 15 / Epplestraße 9, 70597 Stuttgart", note: "Beratung Degerloch" },
-                    { name: "Filiale Möhringen", address: "Musberger Straße 1, 70567 Stuttgart", note: "Filderbereich" }
-                ]
-            },
-            {
-                id: "widmann",
-                name: "Heinz Widmann Bestattungen e.K.",
-                district: "Feuerbach",
-                districtsAll: ["Feuerbach", "Weilimdorf", "Botnang"],
-                established: "Seit 1905",
-                address: "Grazer Straße 35, 70469 Stuttgart",
-                phone: "0711 8969000",
-                email: "info@widmannbestattungen.de",
-                website: "https://www.widmannbestattungen.de",
-                desc: "In 5. Generation geführtes Familienunternehmen in Feuerbach, Weilimdorf und Botnang. Eigene Klimaräume und Feierhalle.",
-                tags: ["5. Generation", "Eigene Kapelle", "Feuerbach", "24h"],
-                features: ["hall", "24h", "multi_branch"],
-                branches: [
-                    { name: "Zentrale Feuerbach", address: "Grazer Straße 35, 70469 Stuttgart", note: "Hauptsitz mit Abschiedsraum" },
-                    { name: "Filiale Weilimdorf", address: "Solitudestraße 235, 70499 Stuttgart", note: "Beratungsstelle" },
-                    { name: "Filiale Botnang", address: "Regerstraße 5, 70195 Stuttgart", note: "Beratungsstelle" }
-                ]
-            },
-            {
-                id: "haas",
-                name: "Walter Haas Bestattungen",
-                district: "Bad Cannstatt",
-                districtsAll: ["Bad Cannstatt", "Mitte", "Untertürkheim", "Wangen", "Mühlhausen"],
-                established: "Seit 1928",
-                address: "Waiblinger Straße 28, 70372 Stuttgart",
-                phone: "0711 562080",
-                email: "info@walter-haas.de",
-                website: "https://walter-haas.de",
-                desc: "Traditionsreiches Bestattungsinstitut mit hauseigener Kapelle in Bad Cannstatt und mehreren Filialen im Stadtgebiet.",
-                tags: ["Hauseigene Kapelle", "Cannstatt", "Neckartal", "24h"],
-                features: ["hall", "24h", "multi_branch"],
-                branches: [
-                    { name: "Hauptgeschäft Bad Cannstatt", address: "Waiblinger Straße 28 / König-Karl-Str. 15, 70372 Stuttgart", note: "Mit eigener Kapelle" },
-                    { name: "Filiale Stuttgart-Mitte", address: "Eberhardstraße 4b, 70173 Stuttgart", note: "Innenstadt" },
-                    { name: "Filiale Untertürkheim", address: "Großglocknerstraße 81, 70327 Stuttgart", note: "Neckartal" },
-                    { name: "Filiale Wangen", address: "Ulmer Straße 315, 70327 Stuttgart", note: "Wangen" }
-                ]
-            },
-            {
-                id: "schmauder",
-                name: "Bestattungsinstitut & Schreinerei Oliver Schmauder",
-                district: "Stuttgart-Süd",
-                districtsAll: ["Süd", "Heslach"],
-                established: "Seit 1932 (4. Gen.)",
-                address: "Taubenstraße 28a, 70199 Stuttgart",
-                phone: "0711 606704",
-                email: "info@bestattungen-schmauder.de",
-                website: "https://www.bestattungen-schmauder.de",
-                desc: "Familiengeführtes Unternehmen im Stuttgarter Süden/Heslach mit eigener Meister-Schreinerei.",
-                tags: ["Familienbetrieb", "Schreinerei", "Heslach", "Meisterbetrieb"],
-                features: ["schreinerei", "24h"],
-                branches: [
-                    { name: "Stammhaus Heslach", address: "Taubenstraße 28a, 70199 Stuttgart", note: "Schreinerei & Bestattungsinstitut" }
-                ]
-            },
-            {
-                id: "schreinerei-betz",
-                name: "Schreinerei & Bestattungen Harry Betz",
-                district: "Möhringen",
-                districtsAll: ["Möhringen", "Fildern"],
-                established: "Seit 2 Generationen",
-                address: "Vikarweg 6, 70567 Stuttgart",
-                phone: "0711 7189016",
-                email: "info@schreinerei-betz.de",
-                website: "https://schreinerei-betz.de",
-                desc: "Traditioneller Meisterbetrieb für Schreinerei und einfühlsame Bestattungen in Stuttgart-Möhringen.",
-                tags: ["Schreinerei", "Möhringen", "Handwerkskunst", "Persönlich"],
-                features: ["schreinerei", "24h"],
-                branches: []
-            },
-            {
-                id: "vogl",
-                name: "Vogl GmbH - Bestattungen & Schreinerei",
-                district: "Münster",
-                districtsAll: ["Münster", "Bad Cannstatt", "Hallschlag"],
-                established: "Meisterbetrieb",
-                address: "Kölner Straße 22, 70376 Stuttgart",
-                phone: "0711 541111",
-                email: "info@bestattungen-vogl.eu",
-                website: "https://bestattungen-vogl.eu",
-                desc: "Kombiniertes Bestattungsinstitut und Schreinerei für den Stuttgarter Norden, Münster und Hallschlag.",
-                tags: ["Schreinerei", "Münster", "Hallschlag", "Handwerk"],
-                features: ["schreinerei", "24h"],
-                branches: []
-            },
-            {
-                id: "ziegler",
-                name: "Eugen Ziegler Bestattungen GmbH",
-                district: "Zuffenhausen",
-                districtsAll: ["Zuffenhausen", "Stammheim"],
-                established: "Seit 1912",
-                address: "Unterländer Straße 16, 70435 Stuttgart",
-                phone: "0711 872050",
-                email: "info@ziegler-bestattungen.de",
-                website: "https://www.ziegler-bestattungen.de",
-                desc: "Ihr erfahrener Partner in Zuffenhausen und Stammheim für alle Bestattungsarten.",
-                tags: ["Zuffenhausen", "Tradition", "Vorsorge"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "martha-hass",
-                name: "Martha Haß Bestattungen",
-                district: "Stuttgart-Ost",
-                districtsAll: ["Ost", "Gaisburg", "Gablenberg"],
-                established: "Seit 1950",
-                address: "Luisenstraße 22A, 70188 Stuttgart",
-                phone: "0711 282110",
-                email: "info@marthahass-bestattungen.de",
-                website: "https://marthahass-bestattungen.de",
-                desc: "Etabliertes Bestattungshaus im Stuttgarter Osten mit persönlicher und pietätvoller Beratung.",
-                tags: ["Stuttgart-Ost", "Tradition", "Erfahren"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "kunz",
-                name: "C. & M. Kunz Bestattungsunternehmen GmbH",
-                district: "Stuttgart-Ost",
-                districtsAll: ["Ost", "Gablenberg"],
-                established: "Seit Jahrzehnten",
-                address: "Gablenberger Hauptstraße 18, 70186 Stuttgart",
-                phone: "0711 240153",
-                email: "info@bestattungshaus-kunz.de",
-                website: "https://bestattungshaus-kunz.de",
-                desc: "Traditionsreiches Bestattungsinstitut in Gablenberg und im Stuttgarter Osten.",
-                tags: ["Gablenberg", "Stuttgart-Ost", "Tradition"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "meister",
-                name: "Bestattungen Martin Meister",
-                district: "Stuttgart-Mitte",
-                districtsAll: ["Mitte", "Nord"],
-                established: "Herz & Verstand",
-                address: "Friedrichstraße 15, 70174 Stuttgart",
-                phone: "0711 83883624",
-                email: "martin@bestattungen-meister.de",
-                website: "https://www.bestattungen-meister.de",
-                desc: "Würdevolle, individuelle und transparente Bestattungen mit Herz und Verstand im Raum Stuttgart.",
-                tags: ["Mitte", "Transparent", "Individuell"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "bestattungsschmiede",
-                name: "Bestattungsschmiede Stuttgart (Ahorn Gruppe)",
-                district: "Degerloch",
-                districtsAll: ["Degerloch", "Möhringen"],
-                established: "Modern",
-                address: "Bruno-Jacoby-Weg 8, 70597 Stuttgart",
-                phone: "0711 67321471",
-                email: "info@bestattungsschmiede.de",
-                website: "https://www.bestattungsschmiede.de",
-                desc: "Moderne, transparente Trauerbegleitung mit zeitgemäßem Ansatz und fairer Kostenstruktur.",
-                tags: ["Modern", "Degerloch", "Möhringen", "Ahorn Gruppe"],
-                features: ["24h", "multi_branch"],
-                branches: [
-                    { name: "Filiale Degerloch", address: "Bruno-Jacoby-Weg 8, 70597 Stuttgart", note: "Beratungsstelle" },
-                    { name: "Filiale Möhringen", address: "Europaplatz 22b, 70565 Stuttgart", note: "Beratungsstelle" }
-                ]
-            },
-            {
-                id: "fulrich",
-                name: "Fulrich & Niederberger GbR",
-                district: "Mühlhausen",
-                districtsAll: ["Mühlhausen", "Neugereut", "Münster"],
-                established: "Inhabergeführt",
-                address: "Flamingoweg 16, 70378 Stuttgart",
-                phone: "0711 20702570",
-                email: "info@fulrich-niederberger.de",
-                website: "https://www.fulrich-niederberger.de",
-                desc: "Verlässliches Bestattungsunternehmen für den Stuttgarter Norden, Neugereut und Mühlhausen.",
-                tags: ["Mühlhausen", "Neugereut", "Persönlich"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "daferera",
-                name: "Daferera Interkulturelle Bestattungen",
-                district: "Stuttgart-Mitte",
-                districtsAll: ["Mitte", "Ost", "Stuttgart"],
-                established: "Spezialisiert",
-                address: "Hauptstätter Straße 88, 70178 Stuttgart",
-                phone: "0711 6071120",
-                email: "info@daferera.de",
-                website: "https://www.daferera.de",
-                desc: "Spezialisiert auf interkulturelle, orthodoxe, griechische und internationale Überführungen.",
-                tags: ["Interkulturell", "Griechisch-Orthodox", "International"],
-                features: ["muslim", "24h"],
-                branches: [
-                    { name: "Hauptstätter Straße", address: "Hauptstätter Straße 88, 70178 Stuttgart", note: "Mitte" },
-                    { name: "Neckarstraße", address: "Neckarstraße 180, 70190 Stuttgart", note: "Stuttgart-Ost" }
-                ]
-            },
-            {
-                id: "isailoff",
-                name: "Isailoff & Bolsinger Bestattungen GbR",
-                district: "Möhringen",
-                districtsAll: ["Möhringen", "Vaihingen", "Rohr"],
-                established: "Regional",
-                address: "Osterbronnstraße 2A, 70565 Stuttgart",
-                phone: "0711 74515566",
-                email: "info@ib-bestattungen.de",
-                website: "https://www.ib-bestattungen.de",
-                desc: "Einfühlsames Bestattungsinstitut im Stuttgarter Stadtteil Rohr / Vaihingen.",
-                tags: ["Stuttgart-Rohr", "Fildern", "Einfühlsam"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "devita",
-                name: "Bestattungen Francesco De Vita",
-                district: "Zuffenhausen",
-                districtsAll: ["Zuffenhausen", "Nord"],
-                established: "Familiengeführt",
-                address: "Ludwigsburger Straße 68, 70435 Stuttgart",
-                phone: "0711 3659330",
-                email: "info@stuttgart-gedenkt.de",
-                website: "https://www.stuttgart-gedenkt.de",
-                desc: "Persönliche Trauerbegleitung in Zuffenhausen und im Stuttgarter Norden.",
-                tags: ["Zuffenhausen", "Italienisch / Interkulturell", "Persönlich"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "saric",
-                name: "Saric Bestattungen",
-                district: "Stuttgart-Ost",
-                districtsAll: ["Ost", "Gablenberg"],
-                established: "International",
-                address: "Gablenberger Hauptstraße 84, 70186 Stuttgart",
-                phone: "0711 48907301",
-                email: "info@bestattungen-saric.de",
-                website: "https://www.bestattungen-saric.de",
-                desc: "Bestattungshaus im Stuttgarter Osten mit Spezialisierung auf internationale Überführungen.",
-                tags: ["Stuttgart-Ost", "Internationale Überführungen"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "kranjec",
-                name: "Bestattungen Josip-Mirko Kranjec",
-                district: "Stuttgart-Süd",
-                districtsAll: ["Süd", "Heslach"],
-                established: "Inhabergeführt",
-                address: "Böblinger Straße 107, 70199 Stuttgart",
-                phone: "0711 50483742",
-                email: "info@bestattungen-kranjec.de",
-                website: "https://www.bestattungen-kranjec.de",
-                desc: "Ihr verlässliches Bestattungsinstitut im Stuttgarter Süden.",
-                tags: ["Stuttgart-Süd", "Heslach"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "dautoski",
-                name: "Adnan Dautoski Bestattungsunternehmen",
-                district: "Feuerbach",
-                districtsAll: ["Feuerbach", "Stuttgart"],
-                established: "Muslimische Bestattungen",
-                address: "Leobener Straße 33, 70469 Stuttgart",
-                phone: "0711 8177872",
-                email: "info@bestattung-dautoski.de",
-                website: "https://www.bestattung-dautoski.de",
-                desc: "Fachbetrieb für islamische Bestattungen, rituelle Waschung und Heimüberführungen.",
-                tags: ["Muslimisch", "Islamisch", "Überführungen"],
-                features: ["muslim", "24h"],
-                branches: []
-            },
-            {
-                id: "jager",
-                name: "Blumen & Bestattungshaus Jager",
-                district: "Zuffenhausen",
-                districtsAll: ["Zuffenhausen"],
-                established: "Kombibetrieb",
-                address: "Hohenloher Straße 50, 70435 Stuttgart",
-                phone: "0151 10009188",
-                email: "info@bestattungshaus-jager.de",
-                website: "https://www.bestattungshaus-jager.de",
-                desc: "Blumenfachgeschäft und Bestattungsberatung in Zuffenhausen aus einer Hand.",
-                tags: ["Floristik", "Zuffenhausen", "Persönlich"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "schaffrath",
-                name: "Bestattungen Volker Schaffrath",
-                district: "Feuerbach",
-                districtsAll: ["Feuerbach"],
-                established: "Inhabergeführt",
-                address: "Föhrichhof 19, 70469 Stuttgart",
-                phone: "0711 91443778",
-                email: "info@bestattungen-schaffrath.de",
-                website: "https://www.bestattungen-schaffrath.de",
-                desc: "Individuelle und feinfühlige Bestattungsbegleitung in Feuerbach.",
-                tags: ["Feuerbach", "Individuell"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "brosig",
-                name: "Brosig Bestattungen",
-                district: "Stuttgart-Süd",
-                districtsAll: ["Süd", "Fildern"],
-                established: "Inhabergeführt",
-                address: "Filderstraße 31, 70180 Stuttgart",
-                phone: "0711 99750853",
-                email: "info@brosig-bestattungen.de",
-                website: "https://www.brosig-bestattungen.de",
-                desc: "Einfühlsame Bestattungsberatung für den Filderbereich und den Stuttgarter Süden.",
-                tags: ["Fildern", "Stuttgart-Süd"],
-                features: ["24h"],
-                branches: []
-            },
-            {
-                id: "koelle",
-                name: "Walter Kölle Bestattungen",
-                district: "Feuerbach",
-                districtsAll: ["Feuerbach"],
-                established: "Tradition",
-                address: "Grazer Straße 22, 70469 Stuttgart",
-                phone: "0711 851122",
-                email: "info@bestattungen-koelle.de",
-                website: "https://www.bestattungen-koelle.de",
-                desc: "Traditionsreiches Bestattungsinstitut in Feuerbach.",
-                tags: ["Feuerbach", "Tradition"],
-                features: ["24h"],
+                id: "mustermann",
+                name: "Mustermann Bestattungen Stuttgart",
+                district: "Beispiel / Werbung",
+                districtsAll: ["Stuttgart"],
+                established: "Platzhalter",
+                address: "Beispielstandort Stuttgart",
+                phone: "",
+                email: "office@trauerohr.com",
+                website: "https://trauerohr.com",
+                desc: "Hier kann ein Bestattungsunternehmen Werbung für sein Haus machen. Eine Zusammenarbeit mit weiteren Bestattern ist möglich. Bei Interesse einfach bei TrauerOhr melden.",
+                tags: ["Beispielkarte", "Werbung möglich", "Platzhalter"],
+                features: [],
+                placeholder: true,
                 branches: []
             }
         ];
@@ -1155,6 +640,179 @@
             { name: "Friedhof Zazenhausen", district: "Zazenhausen", group: "Zuffenhausen", address: "Kirchäckerstraße 24B, 70437 Stuttgart", types: ["Städtisch"], desc: "Friedhof Zazenhausen." }
         ];
 
+
+        function grabfelderFor(f) {
+            const typeStr = ((f.types || []).join(" ")).toLowerCase();
+            if (typeStr.includes("jüdisch")) return ["Jüdische Grabstätten"];
+            if (typeStr.includes("historisch")) return ["Historische Grabstätten (meist keine Neubelegung)"];
+            if (typeStr.includes("universität")) return ["Sonderbereich der Universität Hohenheim"];
+            if (typeStr.includes("kirchlich")) return ["Kirchliche Grabstätten"];
+            if (typeStr.includes("sonderfriedhof")) return ["Soldatengräber / Sonderbereich"];
+
+            const graves = ["Erd-Reihengrab", "Erd-Wahlgrab", "Urnenreihengrab", "Urnenwahlgrab"];
+            const extras = {
+                "Waldfriedhof Stuttgart": ["Baumgrab", "Naturnahe Grabfelder"],
+                "Pragfriedhof Stuttgart Nord": ["Kolumbarium", "Sternenkinderfeld"],
+                "Friedhof Zuffenhausen": ["Baumgrab", "Urnenstelen / Kolumbarium"],
+                "Friedhof Feuerbach": ["Baumgrab"],
+                "Friedhof Untertürkheim": ["Baumgrab"],
+                "Friedhof Weilimdorf (neu)": ["Baumgrab"],
+                "Buchrainfriedhof (neu)": ["Baumgrab", "TrauerWald"],
+                "Ostfilderfriedhof Sillenbuch": ["Baumgrab"],
+                "Neuer Friedhof Degerloch": ["Baumgrab"],
+                "Hauptfriedhof Bad Cannstatt (Steinhaldenfeldfriedhof)": ["Rasengrab", "Gemeinschaftsanlage"]
+            };
+            return graves.concat(extras[f.name] || []);
+        }
+
+        function stadtLageplan(file, title) {
+            return {
+                src: "assets/friedhoefe/lageplaene-clean/" + file,
+                kind: "Lageplan",
+                title: title,
+                credit: "Garten-, Friedhofs- und Forstamt Stuttgart",
+                license: "TrauerOhr-Bearbeitung",
+                sourceLabel: "Arbeitsfassung 19.08.2026",
+                cropped: true
+            };
+        }
+
+        function mammutLageplan(file, title, credit) {
+            return {
+                src: "assets/friedhoefe/lageplaene-clean/" + file,
+                kind: "Lageplan",
+                title: title,
+                credit: credit,
+                license: "TrauerOhr-Bearbeitung",
+                sourceLabel: "Der Friedhofswegweiser Stadt Stuttgart",
+                cropped: true
+            };
+        }
+
+        const friedhofBilder = {
+            "Hauptfriedhof Bad Cannstatt (Steinhaldenfeldfriedhof)": [
+                {
+                    src: "assets/friedhoefe/grabfelder/hauptfriedhof-grabfeld.jpg",
+                    kind: "Grabfeld",
+                    title: "Ehrenfeld / Grabfeld am Hauptfriedhof Bad Cannstatt",
+                    credit: "Gerd Leibrock",
+                    license: "CC BY-SA 3.0",
+                    licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
+                    sourceUrl: "https://commons.wikimedia.org/wiki/File:Hauptfriedhof_Stuttgart,_005.jpg",
+                    sourceLabel: "Wikimedia Commons"
+                },
+                stadtLageplan("stuttgart-hauptfriedhof-bad-cannstatt-lageplan.jpg", "Lageplan mit Grabfeldern: Hauptfriedhof Bad Cannstatt")
+            ],
+            "Steigfriedhof Bad Cannstatt": [
+                stadtLageplan("stuttgart-steigfriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Steigfriedhof")
+            ],
+            "Uff Kirchhof": [
+                {
+                    src: "assets/friedhoefe/lageplaene-clean/stuttgart-uff-kirchhof-lageplan.jpg",
+                    kind: "Lageplan",
+                    title: "Lageplan mit Grabfeldern: Uff Kirchhof",
+                    credit: "OpenStreetMap / Gerd Leibrock",
+                    license: "CC BY-SA 3.0",
+                    licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
+                    sourceLabel: "Wikimedia / Wikipedia",
+                    cropped: true
+                }
+            ],
+            "Friedhof Zuffenhausen": [
+                stadtLageplan("stuttgart-zuffenhausen-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Zuffenhausen")
+            ],
+            "Friedhof Gaisburg": [
+                {
+                    src: "assets/friedhoefe/lageplaene-clean/stuttgart-gaisburg-lageplan.jpg",
+                    kind: "Lageplan",
+                    title: "Lageplan mit Grabfeldern: Friedhof Gaisburg",
+                    credit: "Wikimedia / Wikipedia",
+                    license: "Public Domain",
+                    sourceLabel: "TrauerOhr-Bearbeitung 19.08.2026",
+                    cropped: true
+                }
+            ],
+            "Bergfriedhof Stuttgart Berg": [
+                {
+                    src: "assets/friedhoefe/lageplaene-clean/stuttgart-bergfriedhof-lageplan.jpg",
+                    kind: "Lageplan",
+                    title: "Lageplan mit Grabfeldern: Bergfriedhof Stuttgart",
+                    credit: "Garten-, Friedhofs- und Forstamt Stuttgart",
+                    license: "Public Domain",
+                    sourceLabel: "Wikimedia / Wikipedia, zugeschnitten",
+                    cropped: true
+                }
+            ],
+            "Pragfriedhof Stuttgart Nord": [
+                stadtLageplan("stuttgart-pragfriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Pragfriedhof")
+            ],
+            "Fangelsbachfriedhof Lehenviertel": [
+                stadtLageplan("stuttgart-fangelsbachfriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Fangelsbachfriedhof")
+            ],
+            "Friedhof Kaltental": [
+                mammutLageplan("stuttgart-kaltental-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Kaltental", "Mammut-Verlag Leipzig / Gärtnerei Haag")
+            ],
+            "Neuer Friedhof Degerloch": [
+                mammutLageplan("stuttgart-neuer-friedhof-degerloch-lageplan.jpg", "Lageplan mit Grabfeldern: Neuer Friedhof Degerloch", "Mammut-Verlag Leipzig / Gärtnerei Haag")
+            ],
+            "Friedhof Heslach": [
+                mammutLageplan("stuttgart-heslach-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Heslach", "Mammut-Verlag Leipzig / Gärtnerei Haag")
+            ],
+            "Dornhaldenfriedhof": [
+                {
+                    src: "assets/friedhoefe/lageplaene-clean/stuttgart-dornhaldenfriedhof-lageplan.jpg",
+                    kind: "Lageplan",
+                    title: "Lageplan mit Grabfeldern: Dornhaldenfriedhof",
+                    credit: "Garten-, Friedhofs- und Forstamt Stuttgart",
+                    license: "Public Domain",
+                    sourceLabel: "Wikimedia / Wikipedia, zugeschnitten",
+                    cropped: true
+                }
+            ],
+            "Friedhof Möhringen": [
+                mammutLageplan("stuttgart-moehringen-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Möhringen", "Mammut-Verlag Leipzig / Gärtnerei Haag")
+            ],
+            "Alter Friedhof Degerloch": [
+                mammutLageplan("stuttgart-alter-friedhof-degerloch-lageplan.jpg", "Lageplan mit Grabfeldern: Alter Friedhof Degerloch", "Mammut-Verlag Leipzig / Gärtnerei Haag")
+            ],
+            "Waldfriedhof Stuttgart": [
+                {
+                    src: "assets/friedhoefe/grabfelder/waldfriedhof-grabfeld.jpg",
+                    kind: "Grabfeld",
+                    title: "Gräberfeld im Ehrenhain, Waldfriedhof Stuttgart",
+                    credit: "Zinnmann",
+                    license: "CC BY-SA 3.0 DE",
+                    licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/de/deed.de",
+                    sourceUrl: "https://commons.wikimedia.org/wiki/File:20211002_Waldfriedhof_Stuttgart_-_041.jpg",
+                    sourceLabel: "Wikimedia Commons"
+                },
+                stadtLageplan("stuttgart-waldfriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Waldfriedhof Stuttgart")
+            ],
+            "Friedhof Münster": [
+                mammutLageplan("stuttgart-muenster-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Münster", "Widmann Bestattungen / Mammut-Verlag")
+            ],
+            "Ostfilderfriedhof Sillenbuch": [
+                stadtLageplan("stuttgart-ostfilderfriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Ostfilderfriedhof")
+            ],
+            "Hoppenlaufriedhof Stuttgart West": [
+                stadtLageplan("stuttgart-hoppenlaufriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Hoppenlaufriedhof")
+            ],
+            "Friedhof Rohr": [
+                stadtLageplan("stuttgart-rohr-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Rohr")
+            ]
+        };
+
+        function friedhofBildCaption(p) {
+            const cropped = p.cropped ? ", zugeschnitten" : "";
+            const license = p.licenseUrl
+                ? `<a href="${p.licenseUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">${p.license}</a>`
+                : p.license;
+            const source = p.sourceUrl
+                ? `<a href="${p.sourceUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">${p.sourceLabel || "Quelle"}</a>`
+                : (p.sourceLabel || "");
+            return `<strong>${p.kind}:</strong> ${p.title}. Quelle: ${p.credit}${cropped}. Status: ${license}${source ? ". " + source : ""}.`;
+        }
+
         function renderFriedhoefe(items) {
             const grid = document.getElementById('friedhof-grid');
             if(!grid) return;
@@ -1173,13 +831,20 @@
 
             items.forEach(f => {
                 const card = document.createElement('div');
-                card.className = "border border-sand-200 rounded-xl p-5 bg-sand-50 flex flex-col justify-between hover:shadow-sm transition";
+                card.className = "friedhof-card border border-sand-200 rounded-xl p-5 bg-sand-50 flex flex-col justify-between";
                 const types = f.types || [];
                 const typesHtml = types.map(t => `<span class="inline-block text-[11px] bg-white border border-gray-200 px-2 py-0.5 rounded-md text-gray-700 mr-1 mb-1">${t}</span>`).join('');
+                const graves = grabfelderFor(f);
+                const gravesHtml = graves.map(g => `<span class="inline-block text-[11px] bg-white border border-gray-200 px-2 py-0.5 rounded-md text-gray-700 mr-1 mb-1">${g}</span>`).join('');
                 const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(f.name + ', ' + f.address);
+                const photos = friedhofBilder[f.name] || [];
+                const previewPhoto = photos.find(p => p.kind === "Lageplan") || photos[0];
+                const preview = previewPhoto ? `<img src="${previewPhoto.src}" alt="${previewPhoto.title}" class="friedhof-photo mb-3" style="max-height: 160px; object-fit: contain;">` : '';
+                const photoHint = photos.length ? `<p class="text-[11px] text-gray-500" style="margin: 6px 0 0 0;">Lageplan mit Grabfeldern vorhanden</p>` : `<p class="text-[11px] text-gray-400" style="margin: 6px 0 0 0;">Noch kein Lageplan</p>`;
 
                 card.innerHTML = `
                     <div>
+                        ${preview}
                         <div class="flex justify-between items-start mb-1">
                             <span class="text-xs font-bold text-primary-600 uppercase tracking-wider" style="color: var(--primary);">${f.district}</span>
                             <span class="text-[10px] text-gray-400 font-medium bg-white px-2 py-0.5 rounded border">Stuttgart</span>
@@ -1189,13 +854,26 @@
                         <p class="text-xs text-gray-600 mt-2 leading-relaxed">${f.desc}</p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-sand-200">
-                        <div class="flex flex-wrap">${typesHtml}</div>
-                        <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="btn-outline mt-3 w-full">
+                        <p class="text-[11px] font-semibold text-gray-700" style="margin: 0 0 6px 0;">Grabfelder</p>
+                        <div class="flex flex-wrap">${gravesHtml}</div>
+                        <div class="flex flex-wrap mt-2">${typesHtml}</div>
+                        ${photoHint}
+                        <button type="button" class="btn-outline mt-3 w-full js-open-friedhof">
+                            <i class="fa-solid fa-images"></i>
+                            <span>Grabfelder ansehen</span>
+                        </button>
+                        <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="btn-outline mt-2 w-full js-map-link">
                             <i class="fa-solid fa-map-location-dot"></i>
                             <span>Karte öffnen</span>
                         </a>
                     </div>
                 `;
+                card.querySelector('.js-open-friedhof').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openFriedhofDetail(f);
+                });
+                card.querySelector('.js-map-link').addEventListener('click', (e) => e.stopPropagation());
+                card.addEventListener('click', () => openFriedhofDetail(f));
                 grid.appendChild(card);
             });
         }
@@ -1211,7 +889,8 @@
                     f.district.toLowerCase().includes(searchVal) ||
                     f.address.toLowerCase().includes(searchVal) ||
                     f.desc.toLowerCase().includes(searchVal) ||
-                    f.types.some(t => t.toLowerCase().includes(searchVal));
+                    f.types.some(t => t.toLowerCase().includes(searchVal)) ||
+                    grabfelderFor(f).some(g => g.toLowerCase().includes(searchVal));
 
                 return matchGroup && matchSearch;
             });
@@ -1239,7 +918,7 @@
 
             items.forEach(b => {
                 const card = document.createElement('div');
-                card.className = "card-bestatter";
+                card.className = b.placeholder ? "card-bestatter card-bestatter-ad" : "card-bestatter";
                 
                 let tagsHtml = b.tags.map(t => `<span class="bg-white border border-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded-md">${t}</span>`).join(' ');
 
@@ -1252,6 +931,16 @@
                         </button>
                     `;
                 }
+
+                const phoneHtml = b.phone ? `
+                            <a href="tel:${b.phone.replace(/\s/g, '')}" class="btn-primary" style="grid-column: span 2;">
+                                <i class="fa-solid fa-phone text-xs"></i>
+                                <span>${b.phone} (Tag &amp; Nacht)</span>
+                            </a>` : `
+                            <a href="mailto:${b.email || 'office@trauerohr.com'}" class="btn-primary" style="grid-column: span 2;">
+                                <i class="fa-solid fa-envelope text-xs"></i>
+                                <span>Bei TrauerOhr melden</span>
+                            </a>`;
 
                 card.innerHTML = `
                     <div>
@@ -1267,14 +956,11 @@
                     <div>
                         <div class="flex flex-wrap gap-1 mb-4" style="gap: 4px;">${tagsHtml}</div>
                         <div class="grid grid-cols-2 gap-2 mt-3" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
-                            <a href="tel:${b.phone.replace(/\s/g, '')}" class="btn-primary" style="grid-column: span 2;">
-                                <i class="fa-solid fa-phone text-xs"></i>
-                                <span>${b.phone} (Tag &amp; Nacht)</span>
-                            </a>
+                            ${phoneHtml}
                             ${b.website ? `
                             <a href="${b.website}" target="_blank" rel="noopener noreferrer" class="btn-outline">
                                 <i class="fa-solid fa-globe"></i>
-                                <span>Webseite</span>
+                                <span>${b.placeholder ? "TrauerOhr.com" : "Webseite"}</span>
                             </a>
                             ` : ''}
                             ${b.email ? `
@@ -1400,74 +1086,47 @@
             if(modal) modal.classList.add('hidden');
         }
 
-        const grabOptions = {
-            erde: [
-                { id: "erd-reihen", name: "Erd-Reihengrab (940,00 €)", fee: 940, bestattung: 1010 },
-                { id: "erd-wahl", name: "Erd-Wahlgrab (1.960,00 €)", fee: 1960, bestattung: 1010 },
-                { id: "erd-sonder", name: "Erd-Wahlgrab Sonderlage (2.480,00 €)", fee: 2480, bestattung: 1010 }
-            ],
-            feuer: [
-                { id: "urnen-reihen", name: "Urnen-Reihengrab (700,00 €)", fee: 700, bestattung: 275 },
-                { id: "urnen-wahl", name: "Urnen-Wahlgrab (1.740,00 €)", fee: 1740, bestattung: 275 },
-                { id: "urnen-sonder", name: "Urnen-Wahlgrab Sonderlage / Baumgrab / Kolumbarium (2.280,00 €)", fee: 2280, bestattung: 275 },
-                { id: "urnen-anonym", name: "Anonyme Urnenstätte (700,00 €)", fee: 700, bestattung: 179 }
-            ]
-        };
+        function openFriedhofDetail(f) {
+            const modal = document.getElementById('friedhof-modal');
+            const title = document.getElementById('friedhof-modal-title');
+            const content = document.getElementById('friedhof-modal-content');
+            if(!modal || !title || !content) return;
 
-        function updateCalc() {
-            const artRadio = document.querySelector('input[name="calc-art"]:checked');
-            if(!artRadio) return;
-            
-            const art = artRadio.value;
-            const grabSelect = document.getElementById('calc-grab');
-            if(!grabSelect) return;
-            
-            const selectedBefore = grabSelect.value;
-            grabSelect.innerHTML = '';
-            
-            grabOptions[art].forEach(opt => {
-                const el = document.createElement('option');
-                el.value = opt.id;
-                el.textContent = opt.name;
-                grabSelect.appendChild(el);
-            });
+            const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(f.name + ', ' + f.address);
+            const graves = grabfelderFor(f);
+            const gravesHtml = graves.map(g => `<span class="inline-block text-[11px] bg-sand-50 border border-gray-200 px-2 py-0.5 rounded-md text-gray-700 mr-1 mb-1">${g}</span>`).join('');
+            const photos = friedhofBilder[f.name] || [];
+            const photosHtml = photos.length ? photos.map(p => `
+                <figure style="margin: 0 0 16px 0;">
+                    <img src="${p.src}" alt="${p.title}" class="friedhof-photo">
+                    <figcaption class="friedhof-caption">${friedhofBildCaption(p)}</figcaption>
+                </figure>
+            `).join('') : `<p class="text-sm text-gray-600">Für diesen Friedhof liegt noch kein Lageplan vor. Die Grabfelder unten dienen zur Orientierung, die Karte führt zum Standort.</p>`;
 
-            if (selectedBefore && grabOptions[art].some(o => o.id === selectedBefore)) {
-                grabSelect.value = selectedBefore;
-            }
+            title.textContent = f.name;
+            content.innerHTML = `
+                <p class="text-xs text-gray-500" style="margin: 0 0 12px 0;"><i class="fa-solid fa-location-dot mr-1" style="color: var(--brandblue);"></i>${f.address}</p>
+                <p class="text-sm text-gray-600" style="margin: 0 0 16px 0;">${f.desc}</p>
+                ${photosHtml}
+                <p class="text-[11px] font-semibold text-gray-700" style="margin: 0 0 6px 0;">Grabfelder</p>
+                <div class="flex flex-wrap" style="margin-bottom: 16px;">${gravesHtml}</div>
+                <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="btn-outline w-full">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>Karte öffnen</span>
+                </a>
+            `;
+            modal.classList.remove('hidden');
+        }
 
-            let grabObj = grabOptions[art].find(o => o.id === grabSelect.value) || grabOptions[art][0];
-
-            const krematoriumCheckbox = document.getElementById('calc-krematorium');
-            if(art === 'erde') {
-                krematoriumCheckbox.checked = false;
-                krematoriumCheckbox.disabled = true;
-            } else {
-                krematoriumCheckbox.disabled = false;
-            }
-
-            const bestattungsgebuehr = grabObj.bestattung;
-            const grabnutzung = grabObj.fee;
-            const halle = document.getElementById('calc-halle').checked ? 298 : 0;
-            const krematorium = (art === 'feuer' && krematoriumCheckbox.checked) ? 605 : 0;
-            const verwaltung = 92;
-            const bestatterPkg = parseInt(document.getElementById('calc-bestatter-package').value || 2100);
-
-            const total = bestattungsgebuehr + grabnutzung + halle + krematorium + verwaltung + bestatterPkg;
-
-            document.getElementById('sum-bestattungsgebuehr').textContent = bestattungsgebuehr.toFixed(2).replace('.', ',') + " €";
-            document.getElementById('sum-grabnutzung').textContent = grabnutzung.toFixed(2).replace('.', ',') + " €";
-            document.getElementById('sum-halle').textContent = halle.toFixed(2).replace('.', ',') + " €";
-            document.getElementById('sum-krematorium').textContent = krematorium.toFixed(2).replace('.', ',') + " €";
-            document.getElementById('sum-bestatter').textContent = bestatterPkg.toFixed(2).replace('.', ',') + " €";
-            document.getElementById('sum-total').textContent = total.toFixed(2).replace('.', ',') + " €";
+        function closeFriedhofModal() {
+            const modal = document.getElementById('friedhof-modal');
+            if(modal) modal.classList.add('hidden');
         }
 
         function initApp() {
             switchTab('bestatter');
             renderBestatter(bestatterData);
             renderFriedhoefe(friedhofData);
-            updateCalc();
         }
 
         if (document.readyState === 'loading') {
