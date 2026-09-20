@@ -6,9 +6,12 @@ Dies ist die Uebergabe fuer Cursor.
 
 Der aktuelle Leitfaden ist der TrauerGuide Stuttgart. Er soll sauber weitergefuehrt werden und spaeter als Vorlage fuer weitere regionale TrauerOhr-TrauerGuides dienen.
 
-## Wichtigste Datei
+## Wichtigste Dateien
 
-- `index.html` ist die lauffaehige Webseite.
+- `index.html` ist die Startseite mit Einleitung und Karte zum Regierungsbezirk Stuttgart.
+- `regionen/index.html` ist die Regionen-Uebersicht.
+- `stuttgart/index.html` ist der bestehende TrauerGuide Stuttgart.
+- `ratgeber/index.html` ist der eigene Ratgeber, nicht als Reiter in den Regionen.
 
 ## Wichtige Unterlagen
 
@@ -17,16 +20,24 @@ Der aktuelle Leitfaden ist der TrauerGuide Stuttgart. Er soll sauber weitergefue
 
 ## Aktueller Stand
 
-- Die Seite heisst **TrauerGuide Stuttgart**.
+- Die Startseite heisst **TrauerGuide** und steht extra im Menue als **Start**.
+- Das Menue lautet **Start**, **Regionen BW**, **Ratgeber**. In einer Region kommen **Bestatter** und **Friedhöfe** dazu.
+- Der Menuepunkt heisst **Regionen BW**, damit spaeter weitere Regionen in Baden-Wuerttemberg dazukommen koennen.
+- Die Startseite zeigt den TrauerGuide-Text und eine vereinfachte eigene Karte des Regierungsbezirks Stuttgart. Fremde Kartenbilder werden nicht verwendet.
+- Stuttgart liegt in der Rubrik Regionen und ist unter `/stuttgart/` erreichbar. Der volle Friedhof TO GO bleibt dort.
+- Weitere Regionen im Regierungsbezirk Stuttgart haben vorbereitete Seiten mit Häfner & Züfle, Beispielkarte und Friedhöfen. In den Regionen gibt es nur die Reiter Bestatter und Friedhöfe.
+- Der Ratgeber steht extra im Menue und unter `/ratgeber/`.
+- Bestatter stehen nicht auf der Startseite, sondern in der jeweiligen Region.
+- Standard-Ueberschrift ist **TrauerGuide**, darunter klein **von TrauerOhr**. Die Region steht im Menue, nicht im Produktnamen.
 - Bestatter: nur Häfner & Züfle plus eine Beispielkarte Mustermann Bestattungen (Werbung moeglich).
 - Kein Kostenrechner, keine Preise, keine Gebuehrentabelle.
 - Friedhof TO GO: Klick oeffnet Grabfelder; Karte bleibt erreichbar.
 - 19 zugeschnittene Lageplaene aus der TrauerOhr-PDF liegen in `assets/friedhoefe/lageplaene-clean/` und sind den jeweiligen Friedhoefen zugeordnet.
 - Juedische Sonderbereiche bleiben ohne eigenes Bild.
 - Wikimedia-Grabfeldfotos bleiben zusaetzlich bei Hauptfriedhof und Waldfriedhof.
-- Vorsorge-Hinweis bleibt unten, klein und ruhig, mit dezentem blauen Rahmen `#1C00CC`.
+- Vorsorge-Hinweis bleibt unten, klein und ruhig, mit dezentem blauen Rahmen `#1C00CC`. Er steht auf der Startseite, Regionen, Ratgeber und allen Regionsseiten. Button: Zur Vorsorge-App, Link `https://digitale-bestattungsvorsorge.de`.
 - Oeffentliche Adresse: `trauerguide.trauerohr.com`
-- Fusszeile: `© 2026 TrauerGuide Stuttgart. Ein Projekt von TrauerOhr.`
+- Fusszeile: Domain `trauerguide.trauerohr.com` und `© 2026 TrauerGuide. Ein Projekt von TrauerOhr.`
 - Keine Kosten-, Preis- oder Satzungssaetze auf der oeffentlichen Seite.
 - Wenn eine Funktion entfaellt, immer auch Footer, Tabellen, Hinweise und verwandte Saetze mitpruefen.
 

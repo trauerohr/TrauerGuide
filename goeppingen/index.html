@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrauerGuide · Göppingen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 600: '#79A83B', 700: '#5e862c' },
+                        brandblue: { 600: '#1C00CC' },
+                        sand: { 50: '#fdfbf7', 100: '#f7f3eb', 200: '#ebe3d5' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #79A83B;
+            --primary-hover: #5e862c;
+            --brandblue: #1C00CC;
+            --sand-50: #fdfbf7;
+            --sand-100: #f7f3eb;
+            --sand-200: #ebe3d5;
+            --text: #3F3F3F;
+            --gray-600: #4b5563;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--sand-50);
+            color: var(--text);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--sand-200);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .tab-btn {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--gray-600);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        .tab-btn:hover, .regionen-menu[open] > summary {
+            color: var(--brandblue);
+            background: rgba(28, 0, 204, 0.05);
+        }
+        .tab-active {
+            color: var(--brandblue) !important;
+            font-weight: 700 !important;
+            background-color: rgba(28, 0, 204, 0.06) !important;
+        }
+        .regionen-menu { position: relative; }
+        .regionen-menu summary { list-style: none; }
+        .regionen-menu summary::-webkit-details-marker { display: none; }
+        .regionen-panel {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            min-width: 240px;
+            max-height: 70vh;
+            overflow-y: auto;
+            background: #ffffff;
+            border: 1px solid var(--sand-200);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            padding: 8px;
+            z-index: 80;
+        }
+        .regionen-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 9px 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 500;
+        }
+        a.regionen-item:hover {
+            background: rgba(28, 0, 204, 0.05);
+            color: var(--brandblue);
+        }
+        .regionen-item.is-active {
+            color: var(--brandblue);
+            font-weight: 700;
+            background: rgba(28, 0, 204, 0.06);
+        }
+        .regionen-status {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #8a8a8a;
+            white-space: nowrap;
+        }
+        .regionen-item.is-active .regionen-status { color: var(--primary); }
+        .intro-trauerguide {
+            background: #ffffff;
+            border: 1px solid var(--sand-200);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .card-bestatter {
+            background-color: var(--sand-50);
+            border: 1px solid var(--sand-200);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-bestatter:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
+        .bestatter-logo {
+            height: 28px;
+            width: auto;
+            max-width: 128px;
+            object-fit: contain;
+            object-position: right center;
+            display: block;
+            flex-shrink: 0;
+            background: transparent;
+        }
+        .card-bestatter-ad {
+            background-color: #ffffff;
+            border: 1px dashed #1C00CC;
+        }
+        .banner-vorsorge-neu {
+            background: #ffffff;
+            color: var(--text);
+            border-radius: 10px;
+            padding: 10px 14px;
+            border: 1px solid #1C00CC;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff !important;
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        .btn-outline {
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            color: #374151;
+            border-radius: 12px;
+            font-weight: 500;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+        .btn-outline:hover { border-color: var(--brandblue); color: var(--brandblue); }
+        .btn-blue-action {
+            background-color: #ffffff !important;
+            color: var(--text) !important;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 6px 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            border: 1px solid var(--sand-200);
+            white-space: nowrap;
+        }
+        .btn-blue-action:hover {
+            color: var(--brandblue) !important;
+            border-color: var(--brandblue);
+        }
+        .hidden { display: none !important; }
+        #branch-modal {
+            background-color: rgba(0, 0, 0, 0.6) !important;
+            backdrop-filter: blur(2px);
+        }
+        .placeholder-panel {
+            background: #ffffff;
+            border: 1px dashed var(--sand-200);
+            border-radius: 16px;
+            padding: 28px 24px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between py-4 gap-4">
+                <a href="../" class="flex items-center space-x-3" style="text-decoration: none;">
+                    <div class="w-12 h-12 text-white rounded-2xl flex items-center justify-center text-xl shadow-md shrink-0" style="background-color: var(--brandblue);">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold tracking-tight" style="margin: 0; font-size: 1.75rem;"><span style="color: var(--primary); font-weight: 600;">TrauerGuide</span></h1>
+                        <p class="text-xs text-gray-500" style="margin: 2px 0 0 0;">von TrauerOhr</p>
+                    </div>
+                </a>
+                <nav class="flex items-center space-x-1 sm:space-x-2 pb-1 md:pb-0 text-sm">
+                    <a href="../" class="tab-btn">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Start</span>
+                    </a>
+                    <button id="tab-btn-bestatter" onclick="switchTab('bestatter')" class="tab-btn tab-active">
+                        <i class="fa-solid fa-house-chimney"></i>
+                        <span>Bestatter</span>
+                    </button>
+                    <button id="tab-btn-friedhoefe" onclick="switchTab('friedhoefe')" class="tab-btn">
+                        <i class="fa-solid fa-monument"></i>
+                        <span>Friedhöfe</span>
+                    </button>
+                    <button id="tab-btn-ratgeber" onclick="switchTab('ratgeber')" class="tab-btn">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Ratgeber</span>
+                    </button>
+                    <details class="regionen-menu">
+                        <summary class="tab-btn">
+                            <i class="fa-solid fa-map"></i>
+                            <span>Regionen BW</span>
+                        </summary>
+                        <div class="regionen-panel">
+                            <a href="../stuttgart/" class="regionen-item">
+                                <span>Stuttgart</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../esslingen/" class="regionen-item">
+                                <span>Esslingen</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../ludwigsburg/" class="regionen-item">
+                                <span>Ludwigsburg</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../boeblingen/" class="regionen-item">
+                                <span>Böblingen</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../rems-murr-kreis/" class="regionen-item">
+                                <span>Rems-Murr-Kreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../goeppingen/" class="regionen-item is-active">
+                                <span>Göppingen</span>
+                                <span class="regionen-status">aktuell</span>
+                            </a>
+                            <a href="../heilbronn/" class="regionen-item">
+                                <span>Heilbronn</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../hohenlohekreis/" class="regionen-item">
+                                <span>Hohenlohekreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../schwaebisch-hall/" class="regionen-item">
+                                <span>Schwäbisch Hall</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../ostalbkreis/" class="regionen-item">
+                                <span>Ostalbkreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../heidenheim/" class="regionen-item">
+                                <span>Heidenheim</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../main-tauber-kreis/" class="regionen-item">
+                                <span>Main-Tauber-Kreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../regionen/" class="regionen-item" style="margin-top: 4px; border-top: 1px solid var(--sand-200); border-radius: 0 0 8px 8px;">
+                                <span>Alle Regionen</span>
+                                <span class="regionen-status">Übersicht</span>
+                            </a>
+                        </div>
+                    </details>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        <section id="tab-bestatter" class="tab-content">
+            <div class="space-y-6">
+                <div class="intro-trauerguide">
+                    <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Region Göppingen</p>
+                    <h2 class="text-xl font-bold text-gray-900" style="margin: 0 0 8px 0;">Bestatter in Göppingen</h2>
+                    <p class="text-sm text-gray-600 leading-relaxed" style="margin: 0;">
+                        Hier finden Sie Bestatter und ergänzende Angebote aus der Region. Weitere Bestattungsunternehmen und Partner können aufgenommen werden.
+                        Eine Zusammenarbeit ist möglich. Bei Interesse einfach bei
+                        <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="font-semibold hover:underline" style="color: var(--brandblue);">TrauerOhr</a>
+                        melden:
+                        <a href="mailto:office@trauerohr.com" class="font-semibold hover:underline" style="color: var(--primary);">office@trauerohr.com</a>
+                    </p>
+                </div>
+                <div id="bestatter-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl"></div>
+                <div class="banner-vorsorge-neu flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div class="flex items-start gap-2.5">
+                        <div class="w-7 h-7 rounded-md flex items-center justify-center text-xs shrink-0 border border-sand-200" style="color: var(--primary);">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-semibold" style="margin: 0; color: var(--text);">Hinweis: Digitale Bestattungsvorsorge</p>
+                            <p class="text-[11px] leading-snug" style="margin: 2px 0 0 0; color: #6b6b6b;">Wünsche in Ruhe festhalten – für sich selbst oder den gewählten Bestatter. Ergänzend zum TrauerGuide.</p>
+                        </div>
+                    </div>
+                    <a href="https://digitale-bestattungsvorsorge.de" target="_blank" rel="noopener noreferrer" class="btn-blue-action shrink-0">
+                        <span>Zur Vorsorge-App</span>
+                        <i class="fa-solid fa-arrow-right" style="font-size: 9px;"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-friedhoefe" class="tab-content hidden">
+            <div class="placeholder-panel">
+                <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Friedhof TO GO</p>
+                <h2 class="text-xl font-bold text-gray-900" style="margin: 0 0 8px 0;">Friedhöfe in Göppingen</h2>
+                <p class="text-sm text-gray-600 leading-relaxed" style="margin: 0;">Der regionale Friedhof TO GO für Göppingen wird vorbereitet. Lagepläne und Grabfelder folgen, sobald die Angaben für diese Region vorliegen.</p>
+            </div>
+        </section>
+
+
+        <section id="tab-ratgeber" class="tab-content hidden">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-sand-200">
+                <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Region Göppingen</p>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4" style="margin-top: 0;">Ratgeber für Göppingen</h2>
+                <p class="text-sm text-gray-600 leading-relaxed" style="margin: 0 0 20px 0;">
+                    Erste Schritte und wichtige Fragen für Angehörige und Besuchende in Göppingen.
+                    Bestatter und Friedhöfe dieser Region finden Sie in den anderen Reitern.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
+                        <h3 class="font-bold text-primary-700 text-lg mb-3 flex items-center" style="color: var(--primary);">
+                            <i class="fa-solid fa-file-invoice mr-2"></i>Erforderliche Dokumente (Interaktiv abhakbar)
+                        </h3>
+                        <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">Personalausweis des/der Verstorbenen</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">Todesbescheinigung (vom Arzt ausgestellt)</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">Geburtsurkunde (bei Ledigen)</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">Heiratsurkunde / Stammbuch der Familie</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">ggf. Sterbeurkunde des Ehepartners / Scheidungsurteil</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">Rentenversicherungsnummer &amp; Krankenversichertenkarte</span>
+                        </label>
+                        </div>
+                    </div>
+                    <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
+                        <h3 class="font-bold text-primary-700 text-lg mb-3" style="color: var(--primary);"><i class="fa-solid fa-phone-volume mr-2"></i>Wichtige Telefonnummern</h3>
+                        <div class="text-sm text-gray-600 space-y-3">
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Notruf Rettungsdienst / Feuerwehr:</p>
+                            <a href="tel:112" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>112</a>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Polizei:</p>
+                            <a href="tel:110" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>110</a>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Ärztlicher Bereitschaftsdienst:</p>
+                            <a href="tel:116117" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>116 117</a>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Standesamt Göppingen:</p>
+                            <p class="text-xs text-gray-600" style="margin: 2px 0;">Kreisstadt Göppingen · Sterbefälle und Sterbeurkunden. Die örtliche Nummer wird ergänzt, sobald sie mit Quellenstand vorliegt.</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Friedhofsverwaltung Göppingen:</p>
+                            <p class="text-xs text-gray-600" style="margin: 2px 0;">Zuständig ist in der Regel die Gemeinde oder der Landkreis. Die konkreten Nummern folgen mit Quellenstand, sobald sie geprüft sind.</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Telefonseelsorge (24h kostenlos):</p>
+                            <a href="tel:08001110111" class="inline-block text-xs font-bold hover:underline mr-3" style="color: var(--brandblue);"><i class="fa-solid fa-phone mr-1"></i>0800 111 0 111</a>
+                            <a href="tel:08001110222" class="inline-block text-xs font-bold hover:underline" style="color: var(--brandblue);"><i class="fa-solid fa-phone mr-1"></i>0800 111 0 222</a>
+                        </div>
+                            <p class="text-[11px] text-gray-500" style="margin: 0;">Angaben zur Orientierung. Bundesweite Notrufe sind aktuell. Örtliche Behördennummern in Göppingen nur mit Quellenstand.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="branch-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 hidden" onclick="if(event.target === this) closeModal()">
+            <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl max-h-[85vh] overflow-y-auto relative">
+                <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
+                    <h3 id="modal-title" class="text-xl font-bold text-gray-900" style="margin: 0;"></h3>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl p-1 leading-none rounded-lg hover:bg-gray-100">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="modal-content" class="space-y-4"></div>
+                <div class="mt-6 text-right">
+                    <button onclick="closeModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2 rounded-xl text-sm font-medium transition">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t mt-auto py-6" style="background: white; border-top: 1px solid var(--sand-200);">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 space-y-1.5">
+            <p><a href="https://trauerguide.trauerohr.com" class="hover:underline font-semibold" style="color: var(--brandblue);">trauerguide.trauerohr.com</a></p>
+            <p>Impressum unter <a href="https://www.trauerohr.com/impressum" target="_blank" rel="noopener noreferrer" class="hover:underline font-bold" style="color: var(--brandblue);"><i class="fa-solid fa-globe mr-1"></i>TrauerOhr.com</a></p>
+            <p class="text-gray-400 mt-1">&copy; 2026 TrauerGuide. Ein Projekt von <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">TrauerOhr</a>.</p>
+        </div>
+    </footer>
+
+    <script>
+        const REGION_NAME = 'Göppingen';
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('button.tab-btn').forEach(btn => btn.classList.remove('tab-active'));
+            const targetContent = document.getElementById('tab-' + tabId);
+            if (targetContent) targetContent.classList.remove('hidden');
+            const targetBtn = document.getElementById('tab-btn-' + tabId);
+            if (targetBtn) targetBtn.classList.add('tab-active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        const bestatterData = [
+            {
+                id: "haefner-zuefle",
+                name: "Häfner & Züfle Bestattungen",
+                district: "Stuttgart, im Ländle und überall",
+                established: "Inhabergeführt seit 2006",
+                logo: "../assets/logos/haefner-zuefle.png?v=3",
+                address: "Breitscheidstraße 44 u. 44a, 70176 Stuttgart",
+                phone: "0711 2318120",
+                email: "bestattungen@haefner-zuefle.de",
+                website: "https://bestattungen-haefner-zuefle.de",
+                desc: "Inhabergeführtes Bestattungshaus von Chantal Häfner & Ute Züfle. Eigene Feierhallen in Stuttgart-West und Plieningen, Abschiedsräume.",
+                tags: ["Inhabergeführt seit 2006", "24h Service"],
+                placeholder: false,
+                branches: [
+                    { name: "Filiale Stuttgart-West (Zentrale)", address: "Breitscheidstraße 44 & 44a, 70176 Stuttgart", note: "Mit Feierhalle und 6 Parkplätzen im Hof" },
+                    { name: "Filiale Stuttgart-Möhringen", address: "Hechinger Straße 24, 70567 Stuttgart", note: "Filiale & Beratungsbüro" },
+                    { name: "Filiale Stuttgart-Plieningen", address: "Filderhauptstraße 7, 70599 Stuttgart", note: "Mit Feierhalle" },
+                    { name: "Stuttgart-Wangen (Mobil)", address: "Telefonische Beratung & Hausbesuche in Wangen", note: "Mobil erreichbar unter 0711 2318120 (derzeit kein festes Büro vor Ort)" }
+                ]
+            },
+            {
+                id: "mustermann",
+                name: "Mustermann Bestattungen " + REGION_NAME,
+                district: "Beispiel / Werbung",
+                established: "Platz für Logo",
+                address: "Beispielstandort " + REGION_NAME,
+                phone: "",
+                email: "office@trauerohr.com",
+                website: "https://trauerohr.com",
+                desc: "Hier kann ein Bestattungsunternehmen Werbung für sein Haus in " + REGION_NAME + " machen. Eine Zusammenarbeit mit weiteren Bestattern ist möglich. Bei Interesse einfach bei TrauerOhr melden.",
+                tags: ["Beispielkarte", "Werbung möglich", "Platzhalter"],
+                placeholder: true,
+                branches: []
+            }
+            ,
+            {
+                id: "grabmalgestaltung",
+                name: "Das letzte Möbelstück",
+                district: "Grabmalgestaltung",
+                established: "TrauerOhr",
+                logo: "../assets/logos/trauerohr.png?v=3",
+                address: "Inhaberin Stephanie Schmidt",
+                phone: "0176 41796132",
+                phoneLabel: "0176 41796132 · Mobil &amp; WhatsApp",
+                email: "office@trauerohr.com",
+                website: "https://www.trauerohr.com/grabmalgestaltung",
+                desc: "Ein Grabmal darf so individuell sein wie der Mensch, an den es erinnert. TrauerOhr entwickelt Ideen, Konzepte und erste Entwürfe für persönliche Grabmale aus Holz, Stein, Faserzement, Metall oder einer Verbindung verschiedener Materialien. Die handwerkliche Umsetzung erfolgt gemeinsam mit passenden Fachbetrieben.",
+                tags: ["Holz (Eiche)", "Naturstein", "Faserzement", "Metall / Aluminium", "Materialkombinationen", "Für Menschen &amp; Tiere"],
+                adCard: true,
+                placeholder: false,
+                branches: []
+            }
+            ,
+            {
+                id: "ihre-werbung",
+                name: "Hier könnte Ihre Werbung stehen",
+                district: "Ihre Anzeige",
+                established: "Platz für Logo",
+                address: "Ihre Angaben in " + REGION_NAME,
+                phone: "",
+                email: "office@trauerohr.com",
+                website: "https://trauerohr.com",
+                desc: "Hier könnte auch Ihre Werbung stehen. Eine Zusammenarbeit mit Bestattern, Steinmetzen, Floristik und weiteren Partnern ist möglich. Bei Interesse einfach bei TrauerOhr melden.",
+                tags: ["Werbung möglich", "Platzhalter"],
+                placeholder: true,
+                branches: []
+            }
+        ];
+        function renderBestatter(items) {
+            const grid = document.getElementById('bestatter-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            items.forEach(b => {
+                const card = document.createElement('div');
+                card.className = (b.placeholder || b.adCard) ? "card-bestatter card-bestatter-ad" : "card-bestatter";
+                const tagsHtml = b.tags.map(t => `<span class="bg-white border border-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded-md">${t}</span>`).join(' ');
+                let branchBtnHtml = '';
+                if (b.branches && b.branches.length > 0) {
+                    branchBtnHtml = `<button type="button" onclick="openBranchModal('${b.id}')" class="text-xs font-semibold underline my-2 flex items-center space-x-1 cursor-pointer" style="color: var(--primary); background: none; border: none; padding: 0;"><i class="fa-solid fa-location-dot"></i><span>Alle ${b.branches.length} Standorte &amp; Filialen anzeigen</span></button>`;
+                }
+                const phoneHtml = b.phone
+                    ? `<a href="tel:${b.phone.replace(/\s/g, '')}" class="btn-primary" style="grid-column: span 2;"><i class="fa-solid fa-phone text-xs"></i><span>${b.phoneLabel || (b.phone + " (Tag &amp; Nacht)")}</span></a>`
+                    : `<a href="mailto:${b.email}" class="btn-primary" style="grid-column: span 2;"><i class="fa-solid fa-envelope text-xs"></i><span>Bei TrauerOhr melden</span></a>`;
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-2 gap-2" style="min-width: 0;">
+                            <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--brandblue); min-width: 0;">${b.district}</span>
+                            ${b.logo ? `<img src="${b.logo}" alt="${b.name}" class="bestatter-logo">` : `<span class="text-xs text-gray-400 font-medium">${b.established}</span>`}
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-lg mb-1" style="margin: 0 0 6px 0;">${b.name}</h3>
+                        ${b.adCard ? `<p class="text-xs text-gray-600 mb-1" style="margin: 0 0 4px 0;"><i class="fa-solid fa-user mr-1" style="color: var(--primary);"></i><strong>TrauerOhr</strong> – Inhaberin Stephanie Schmidt</p>` : `<p class="text-xs text-gray-600 mb-1" style="margin: 0 0 4px 0;"><i class="fa-solid fa-building-user mr-1" style="color: var(--primary);"></i><strong>Adresse:</strong> ${b.address}</p>`}
+                        ${branchBtnHtml}
+                        <p class="text-sm text-gray-600 mb-4 mt-2 leading-relaxed" style="line-height: 1.5; margin-top: 8px;">${b.desc}</p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1 mb-4" style="gap: 4px;">${tagsHtml}</div>
+                        <div class="grid grid-cols-2 gap-2 mt-3" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                            ${phoneHtml}
+                            <a href="${b.website}" target="_blank" rel="noopener noreferrer" class="btn-outline"><i class="fa-solid fa-globe"></i><span>${b.placeholder ? "TrauerOhr.com" : "Webseite"}</span></a>
+                            <a href="mailto:${b.email}" class="btn-outline"><i class="fa-solid fa-envelope"></i><span>E-Mail</span></a>
+                        </div>
+                    </div>`;
+                grid.appendChild(card);
+            });
+        }
+        function openBranchModal(bestatterId) {
+            const b = bestatterData.find(item => item.id === bestatterId);
+            if (!b) return;
+            const modal = document.getElementById('branch-modal');
+            document.getElementById('modal-title').textContent = b.name + ' - Standorte & Filialen';
+            const branchesHtml = b.branches.map(br => `
+                <div class="p-4 rounded-xl" style="padding: 12px; background: var(--sand-50); border: 1px solid var(--sand-200); border-radius: 12px;">
+                    <h4 class="font-bold text-gray-900 text-sm" style="margin: 0 0 4px 0;"><i class="fa-solid fa-location-dot mr-2" style="color: var(--primary);"></i>${br.name}</h4>
+                    <p class="text-sm text-gray-700" style="margin: 2px 0;">${br.address}</p>
+                    ${br.note ? `<p class="text-xs text-gray-500" style="margin: 0;">${br.note}</p>` : ''}
+                </div>`).join('');
+            document.getElementById('modal-content').innerHTML = `
+                <div class="text-xs mb-4 flex items-center space-x-2" style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 10px;">
+                    <i class="fa-solid fa-phone shrink-0" style="color: #b45309;"></i>
+                    <span>Zentrale 24h-Bereitschaftsnummer: <strong>${b.phone}</strong></span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">${branchesHtml}</div>`;
+            modal.classList.remove('hidden');
+        }
+        function closeModal() {
+            const modal = document.getElementById('branch-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+        function initApp() {
+            const startTab = (location.hash || '').replace('#', '');
+            switchTab(startTab === 'ratgeber' || startTab === 'friedhoefe' ? startTab : 'bestatter');
+            renderBestatter(bestatterData);
+            document.addEventListener('click', (event) => {
+                document.querySelectorAll('.regionen-menu').forEach((menu) => {
+                    if (!menu.contains(event.target)) menu.removeAttribute('open');
+                });
+            });
+        }
+        if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', initApp);
+        else initApp();
+    </script>
+</body>
+</html>

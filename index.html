@@ -3,33 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrauerGuide Stuttgart</title>
-    <!-- Tailwind CSS CDN -->
+    <title>TrauerGuide</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         primary: {
-                            50: '#f5f9f0',
-                            100: '#e7f2d9',
-                            200: '#d1e5b6',
                             600: '#79A83B',
                             700: '#5e862c',
-                            800: '#4b6a25',
-                            900: '#3d5621',
                         },
                         brandblue: {
-                            50: '#f0f0ff',
-                            100: '#e1e0ff',
-                            500: '#331be6',
                             600: '#1C00CC',
-                            700: '#1600a3',
-                            800: '#120080',
                         },
                         sand: {
                             50: '#fdfbf7',
@@ -47,13 +35,11 @@
             --primary: #79A83B;
             --primary-hover: #5e862c;
             --brandblue: #1C00CC;
-            --brandblue-hover: #1600a3;
+            --lilac: #B99ADE;
             --sand-50: #fdfbf7;
             --sand-100: #f7f3eb;
             --sand-200: #ebe3d5;
             --text: #3F3F3F;
-            --gray-900: #111827;
-            --gray-800: #3F3F3F;
             --gray-600: #4b5563;
         }
 
@@ -77,7 +63,7 @@
             z-index: 50;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        
+
         .tab-btn {
             border: none;
             background: transparent;
@@ -92,22 +78,82 @@
             gap: 6px;
             transition: all 0.2s ease;
             white-space: nowrap;
+            text-decoration: none;
         }
-        
-        .tab-btn:hover {
+
+        .tab-btn:hover,
+        .regionen-menu[open] > summary {
             color: var(--brandblue);
             background: rgba(28, 0, 204, 0.05);
         }
 
         .tab-active {
-            border-bottom: 3px solid var(--brandblue) !important;
             color: var(--brandblue) !important;
             font-weight: 700 !important;
             background-color: rgba(28, 0, 204, 0.06) !important;
-            border-radius: 8px 8px 0 0 !important;
         }
 
-        /* Dezenter Hinweis unten, kein Hauptbanner */
+        .intro-trauerguide {
+            background: #ffffff;
+            border: 1px solid var(--sand-200);
+            border-radius: 16px;
+            padding: 24px 26px;
+        }
+
+        .regionen-menu {
+            position: relative;
+        }
+
+        .regionen-menu summary {
+            list-style: none;
+        }
+
+        .regionen-menu summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .regionen-panel {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            min-width: 240px;
+            max-height: 70vh;
+            overflow-y: auto;
+            background: #ffffff;
+            border: 1px solid var(--sand-200);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            padding: 8px;
+            z-index: 80;
+        }
+
+        .regionen-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 9px 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        a.regionen-item:hover {
+            background: rgba(28, 0, 204, 0.05);
+            color: var(--brandblue);
+        }
+
+        .regionen-status {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #8a8a8a;
+            white-space: nowrap;
+        }
+
         .banner-vorsorge-neu {
             background: #ffffff;
             color: var(--text);
@@ -141,108 +187,80 @@
             border-color: var(--brandblue);
         }
 
-        .card-bestatter {
-            background-color: var(--sand-50);
+        .start-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (min-width: 960px) {
+            .start-layout {
+                grid-template-columns: minmax(280px, 0.85fr) minmax(380px, 1.15fr);
+            }
+        }
+
+        .rb-map-card {
+            background: #f7f4ee;
             border: 1px solid var(--sand-200);
             border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            padding: 18px 18px 14px 18px;
+            overflow: visible;
         }
 
-        .card-bestatter:hover {
-            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+        .rb-map {
+            overflow: visible;
         }
 
-        .card-bestatter-ad {
-            background-color: #ffffff;
-            border: 1px dashed #1C00CC;
-        }
-
-        .intro-trauerguide {
-            background: #ffffff;
-            border: 1px solid var(--sand-200);
-            border-radius: 16px;
-            padding: 20px 22px;
-        }
-
-        .friedhof-card {
-            cursor: pointer;
-        }
-
-        .friedhof-card:hover {
-            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-        }
-
-        .friedhof-photo {
+        .rb-map svg {
             width: 100%;
-            border-radius: 12px;
-            border: 1px solid var(--sand-200);
+            height: auto;
             display: block;
-            background: #fff;
-            object-fit: contain;
+            overflow: visible;
         }
 
-        .friedhof-caption {
-            font-size: 11px;
-            color: #6b6b6b;
-            line-height: 1.45;
-            margin: 6px 0 14px 0;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: #ffffff !important;
-            border-radius: 12px;
-            font-weight: 600;
-            padding: 10px 16px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: background 0.2s ease;
-            border: none;
+        .rb-map a path,
+        .rb-map a polygon {
+            transition: fill 0.2s ease, filter 0.2s ease;
             cursor: pointer;
-            width: 100%;
-            text-align: center;
         }
 
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
+        .rb-map a:hover path,
+        .rb-map a:hover polygon {
+            filter: brightness(1.05);
         }
 
-        .btn-outline {
-            background-color: #ffffff;
-            border: 1px solid #d1d5db;
-            color: #374151;
-            border-radius: 12px;
-            font-weight: 500;
-            padding: 8px 12px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-size: 12px;
-            transition: border-color 0.2s, color 0.2s;
+        .rb-map text {
+            pointer-events: none;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            fill: #3F3F3F;
+            stroke: none;
         }
 
-        .btn-outline:hover {
-            border-color: var(--brandblue);
-            color: var(--brandblue);
+        .rb-map .label-stuttgart {
+            fill: #ffffff;
         }
 
-        .hidden { display: none !important; }
-        
-        #branch-modal,
-        #friedhof-modal {
-            background-color: rgba(0, 0, 0, 0.6) !important;
-            backdrop-filter: blur(2px);
+
+        .rb-map .map-paper {
+            fill: #f3efe6;
         }
 
+        .rb-map .map-graticule {
+            fill: none;
+            stroke: #3F3F3F;
+            stroke-width: 0.45;
+            opacity: 0.08;
+        }
+        .rb-map .map-river {
+            fill: none;
+            stroke: #1C00CC;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.28;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -250,891 +268,234 @@
     <header>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between py-4 gap-4">
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('bestatter')">
-                    <div class="w-12 h-12 bg-brandblue-600 text-white rounded-2xl flex items-center justify-center text-xl shadow-md shrink-0" style="background-color: var(--brandblue);">
+                <a href="./" class="flex items-center space-x-3" style="text-decoration: none;">
+                    <div class="w-12 h-12 text-white rounded-2xl flex items-center justify-center text-xl shadow-md shrink-0" style="background-color: var(--brandblue);">
                         <i class="fa-solid fa-compass"></i>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-bold text-gray-900 tracking-tight" style="margin: 0; font-size: 1.35rem;"><span style="color: var(--primary); font-weight: 600;">TrauerGuide Stuttgart</span></h1>
-                        <p class="text-xs text-gray-500 hidden sm:block" style="margin: 2px 0 0 0;">trauerguide.trauerohr.com &bull; Orientierung, Friedhof TO GO und Ratgeber</p>
+                        <h1 class="text-2xl font-bold tracking-tight" style="margin: 0; font-size: 1.75rem;"><span style="color: var(--primary); font-weight: 600;">TrauerGuide</span></h1>
+                        <p class="text-xs text-gray-500" style="margin: 2px 0 0 0;">von TrauerOhr</p>
                     </div>
-                </div>
+                </a>
 
-                <!-- Navigation Tabs -->
-                <nav class="flex items-center space-x-1 sm:space-x-2 overflow-x-auto pb-1 md:pb-0 text-sm">
-                    <button id="tab-btn-bestatter" onclick="switchTab('bestatter')" class="tab-btn tab-active">
-                        <i class="fa-solid fa-house-chimney"></i>
-                        <span>Bestatter</span>
-                    </button>
-                    <button id="tab-btn-friedhoefe" onclick="switchTab('friedhoefe')" class="tab-btn">
-                        <i class="fa-solid fa-monument"></i>
-                        <span>Friedhöfe (51)</span>
-                    </button>
-                    <button id="tab-btn-ratgeber" onclick="switchTab('ratgeber')" class="tab-btn">
+                <nav class="flex items-center space-x-1 sm:space-x-2 pb-1 md:pb-0 text-sm">
+                    <a href="./" class="tab-btn tab-active">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Start</span>
+                    </a>
+                    <details class="regionen-menu">
+                        <summary class="tab-btn">
+                            <i class="fa-solid fa-map"></i>
+                            <span>Regionen BW</span>
+                        </summary>
+                        <div class="regionen-panel">
+                            <a href="stuttgart/" class="regionen-item">
+                                <span>Stuttgart</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="esslingen/" class="regionen-item">
+                                <span>Esslingen</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="ludwigsburg/" class="regionen-item">
+                                <span>Ludwigsburg</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="boeblingen/" class="regionen-item">
+                                <span>Böblingen</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="rems-murr-kreis/" class="regionen-item">
+                                <span>Rems-Murr-Kreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="goeppingen/" class="regionen-item">
+                                <span>Göppingen</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="heilbronn/" class="regionen-item">
+                                <span>Heilbronn</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="hohenlohekreis/" class="regionen-item">
+                                <span>Hohenlohekreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="schwaebisch-hall/" class="regionen-item">
+                                <span>Schwäbisch Hall</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="ostalbkreis/" class="regionen-item">
+                                <span>Ostalbkreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="heidenheim/" class="regionen-item">
+                                <span>Heidenheim</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="main-tauber-kreis/" class="regionen-item">
+                                <span>Main-Tauber-Kreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="regionen/" class="regionen-item" style="margin-top: 4px; border-top: 1px solid var(--sand-200); border-radius: 0 0 8px 8px;">
+                                <span>Alle Regionen</span>
+                                <span class="regionen-status">Übersicht</span>
+                            </a>
+                        </div>
+                    </details>
+                    <a href="ratgeber/" class="tab-btn">
                         <i class="fa-solid fa-book-open"></i>
                         <span>Ratgeber</span>
-                    </button>
+                    </a>
                 </nav>
             </div>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
-
-        <!-- TAB 1: BESTATTER NAVIGATOR -->
-        <section id="tab-bestatter" class="tab-content">
-            <div class="space-y-6">
-                <div class="intro-trauerguide">
-                    <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">TrauerGuide</p>
-                    <h2 class="text-xl font-bold text-gray-900" style="margin: 0 0 8px 0;">Ein digitaler Wegweiser für die Zeit nicht nur nach einem Verlust.</h2>
-                    <p class="text-sm text-gray-600 leading-relaxed" style="margin: 0;">
-                        Der TrauerGuide bündelt Orientierung, Friedhof TO GO mit Grabfeldern sowie einen Ratgeber für die ersten Schritte und wichtigen Fragen.
-                        Eine Zusammenarbeit mit weiteren Bestattern ist möglich. Bei Interesse einfach bei
-                        <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="font-semibold hover:underline" style="color: var(--brandblue);">TrauerOhr</a>
-                        melden:
-                        <a href="mailto:office@trauerohr.com" class="font-semibold hover:underline" style="color: var(--primary);">office@trauerohr.com</a>
-                    </p>
-                </div>
-
-                <!-- Bestatter Cards Grid -->
-                <div id="bestatter-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
-                    <!-- Cards populated via JS -->
-                </div>
-
-                <!-- Dezenter Hinweis unten, nach den Bestatter-Karten -->
-                <div class="banner-vorsorge-neu flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                    <div class="flex items-start gap-2.5">
-                        <div class="w-7 h-7 rounded-md flex items-center justify-center text-xs shrink-0 border border-sand-200" style="color: var(--primary);">
-                            <i class="fa-solid fa-hand-holding-heart"></i>
-                        </div>
-                        <div>
-                            <p class="text-[11px] font-semibold" style="margin: 0; color: var(--text);">
-                                Hinweis: Digitale Bestattungsvorsorge
-                            </p>
-                            <p class="text-[11px] leading-snug" style="margin: 2px 0 0 0; color: #6b6b6b;">
-                                Wünsche in Ruhe festhalten – für sich selbst oder den gewählten Bestatter. Ergänzend zum TrauerGuide.
-                            </p>
-                        </div>
-                    </div>
-                    <a href="https://digitale-bestattungsvorsorge.de" target="_blank" rel="noopener noreferrer" class="btn-blue-action shrink-0">
-                        <span>Zur Vorsorge-App</span>
-                        <i class="fa-solid fa-arrow-right" style="font-size: 9px;"></i>
-                    </a>
-                </div>
+        <div class="start-layout">
+            <div class="intro-trauerguide">
+                <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">TrauerGuide</p>
+                <h2 class="text-xl font-bold text-gray-900" style="margin: 0 0 10px 0;">Ein digitaler Wegweiser rund um Leben, Abschied und Erinnerung</h2>
+                <p class="text-sm leading-relaxed" style="margin: 0 0 12px 0; color: var(--gray-600);">
+                    Der TrauerGuide von TrauerOhr richtet sich an alle, die sich vor, während oder nach einem Verlust informieren und orientieren möchten. Er bündelt hilfreiche Informationen, Friedhof TO GO mit Grabfeldern sowie einen Ratgeber für erste Schritte und wichtige Fragen.
+                </p>
+                <p class="text-sm leading-relaxed" style="margin: 0; color: var(--gray-600);">
+                    Eine Zusammenarbeit mit weiteren Bestattern und Partnern ist möglich. Bei Interesse freuen wir uns über eine Nachricht an
+                    <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="font-semibold hover:underline" style="color: var(--brandblue);">TrauerOhr</a>:
+                    <a href="mailto:office@trauerohr.com" class="font-semibold hover:underline" style="color: var(--primary);">office@trauerohr.com</a>.
+                </p>
             </div>
-        </section>
 
-        <!-- MODAL FOR ALL BRANCH LOCATIONS -->
-        <div id="branch-modal" class="fixed inset-0 bg-black/60 z-[9999] flex items-center justify-center p-4 hidden" onclick="if(event.target === this) closeModal()">
-            <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl max-h-[85vh] overflow-y-auto relative">
-                <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
-                    <h3 id="modal-title" class="text-xl font-bold text-gray-900" style="margin: 0;"></h3>
-                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl p-1 leading-none rounded-lg hover:bg-gray-100">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+            <aside class="rb-map-card">
+                <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 10px 0; color: var(--brandblue);">Regierungsbezirk Stuttgart</p>
+                <div class="rb-map">
+                    <svg viewBox="0 0 640 780" role="img" aria-label="Landkarte des Regierungsbezirks Stuttgart">
+                        <defs>
+                            <filter id="map-shadow" x="-8%" y="-6%" width="116%" height="116%">
+                                <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#3F3F3F" flood-opacity="0.16"></feDropShadow>
+                            </filter>
+                        </defs>
+                        <rect class="map-paper" x="0" y="0" width="640" height="780" rx="12"></rect>
+                        <g class="map-graticule" pointer-events="none">
+                            <path d="M80 20 V760 M200 20 V760 M320 20 V760 M440 20 V760 M560 20 V760"></path>
+                            <path d="M20 80 H620 M20 200 H620 M20 320 H620 M20 440 H620 M20 560 H620 M20 680 H620"></path>
+                        </g>
+                        <g filter="url(#map-shadow)">
+                            <a href="main-tauber-kreis/">
+                                <path fill="#B99ADE" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 255 112.9 254.4 102.7 250.8 97.5 248.7 98.1 248.2 93.6 243.6 92.5 241.9 95.4 242 105.7 234.5 106.3 232.8 100.1 230.2 99.1 239.8 94.4 229.3 91.4 223.2 92.9 214.4 88.3 223.2 86.7 220.2 78.7 221.1 74.4 232.6 74 238.7 69.1 245.3 73.5 256.1 63.9 266.8 73.9 274.2 65 281.7 64.5 284.8 67.6 283.8 73.6 285.8 77.2 295.2 75.1 298.5 85 301.6 86.4 303.1 83.4 299.5 75.9 300.4 68.6 306.7 66.6 305.6 69.1 307.1 69.5 329 63 330.1 68.4 327.8 71.1 329.7 75.7 325.4 81.1 328 85.1 325.8 88 328.4 88.9 321.5 92.7 326.9 96.7 321.6 105.9 323.7 111.7 330.5 114.8 337.9 111.7 338.2 100.3 345.9 100 349.1 94.9 352 107.4 355.1 109.8 354.7 114.3 358.5 114.2 362.2 110 362.8 103.3 378.1 93 377 97.9 388.8 107.3 389.7 112.2 387.7 114.1 391.4 116.5 385.7 122.2 385.4 125.9 389.1 130.1 388 132.9 396.2 137.4 401.8 153 396.8 154 397.5 156.5 391.6 160.6 394 169.1 381.6 179.6 397.4 184.9 399.8 179.1 399.1 174 402.3 172.1 402.6 168.7 409.8 164.4 414.6 165.1 409.9 176.6 417.5 176.2 418.8 177.8 417.3 180.6 419.5 182.3 417.5 182.3 419.4 189.8 416.1 198.1 418.8 203.4 415.1 211 420 215.7 427.4 217.3 434.2 214.7 435 217.1 449.6 215.1 452.2 205.7 458.6 204.3 461.7 199.3 456 193.3 463 189.1 461.6 187.5 463.1 185.2 471.5 186.7 472.9 190.6 468.7 194.1 469 201.2 477.4 200.2 482.5 203 475.7 211.9 477.1 216.3 480.9 218.2 482.8 225.6 477.2 226 478.1 227.8 474.9 229 473.9 233.4 479.4 238.2 478.9 236.3 481.7 235.5 486.3 238.5 487.7 245.1 492.6 251.5 491.1 251.8 492.5 256.7 488.2 255.8 495.6 259.5 495.4 262.1 490 265.5 479.4 264.7 478.1 262.4 480.1 260.4 477.8 259.3 459.7 262.3 453.4 265 456.3 272.7 435.7 268.4 430.2 277.1 424.9 277.2 421.8 281.3 418.4 270.6 411.8 273.5 408.1 269.8 405.9 272.9 403.4 270 392.4 272.7 393.8 268.4 388.7 260 381.9 263.1 378.4 259.5 379.7 255.3 378.2 253.4 374.6 254.2 369.9 260.5 364.4 258.4 364.5 255.7 361.4 260.2 351.4 258.7 348 254.9 350 252 347.2 248.6 336.4 253.8 336.4 249.8 325.7 250.3 326.9 242.1 315 244.4 309.8 237.5 294.9 232.9 284.3 237.9 285.3 234.6 282.5 230 286.3 221.4 284.8 217.4 278.1 214.1 279.1 206.4 282.6 207 286.3 199.8 288.6 201.8 295.5 195.4 294.4 191.4 287.9 189.4 288.4 185.7 281.9 172.5 282.7 169.3 280.4 164.2 284.7 156.8 290.6 159.5 292.2 157.2 290.2 154.9 293.2 155.1 292.7 157.2 295 157.6 292.7 150.3 297.5 147.3 296.8 142.8 293.6 138.2 289.8 140.7 287.2 136.6 283.1 136.7 281.3 139.5 278.1 135.9 265.4 134.2 264.9 130.3 247.3 122.3 252.2 120.5 250.3 118.6 254.9 113 255 112.9 Z"></path>
+                            </a>
+                            <a href="heilbronn/">
+                                <path fill="#5f8a32" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 125.3 308.1 127.3 314.4 130.5 313.9 132 317.8 124.3 324.2 125 328.5 117.5 324 119.3 327.5 117.4 330.2 121.7 332.2 120.2 335.8 106.9 342.8 104.5 350.1 81.6 355.3 84.7 365.6 74 369.3 59.1 359.5 61.9 363.1 59.2 377.9 63.5 375.4 67.1 381.3 65 382.2 65.7 386.3 63.2 386.7 62 393 72.7 393.3 76.6 390.3 78.7 396.9 82.9 399.8 83.2 415.3 75.6 417.4 77.7 418.5 74.5 420.4 79.2 423.9 78.9 430.5 76.6 430.9 76.9 437.5 81.3 433.6 107 438.7 106.5 435.5 110.1 435.3 114.9 437.2 114.6 442.3 121.1 445.2 124.7 443.8 123.7 441.6 128.4 442.1 127.1 444 137.9 443.3 136.7 436.8 139.2 433.3 153.2 430.3 151.1 424.7 156.7 423.7 163.8 429.1 168.5 427.5 174.8 430.2 172.3 435.7 178.7 440.7 187.8 441.7 190.2 439.1 195 445.8 204.8 441.9 205.4 437.9 208.3 438 210.1 434.1 212.2 434.8 211.4 438.8 214.1 439.9 226.7 438.2 229.7 435.1 233.4 437.7 239.4 435.3 247.5 437.2 248.7 431.6 242.8 432.7 244.7 430.7 242.6 429.6 244.3 427.9 243.2 426.5 251.8 424.4 252.8 431.6 255.4 432.7 257 429.6 259.5 432.3 261.7 430.1 259.9 425.9 264.7 419.6 279.2 418.8 282.8 412.1 280.5 412.1 280 407.8 282.9 406.6 281.2 404.9 289.6 402.3 283.2 399.5 285.8 396.5 283.8 395.2 284.2 390.6 277.4 386.6 274.7 390.8 277.7 395.1 276.9 400.4 266.7 399.8 266.7 403.8 260.5 407.9 259 404.5 260.9 398.6 263.8 397.3 259.2 389.4 255.7 393.5 254.7 390.5 255.6 387.2 260.5 384.7 258.7 380.8 249 383.7 243.7 382 241.7 376.8 239.9 377.3 240 374 229.9 371.2 237.9 367 236.7 364.7 238.6 360.9 242.2 358.2 254.2 358.8 261.3 348.4 265.5 346.3 256.5 342.8 252.9 333.6 257.4 329 256 325.6 258.9 315.5 262.6 315.3 261 312 268 312.6 273.7 307.4 285 305.4 287.3 301.8 272 296.1 269.5 283.7 266.8 282 269 279.6 262.7 274.9 256.1 278.1 248 274 240.2 275.7 233.6 273.9 226.6 263.6 222.4 264.6 218.9 269.9 220.8 278.5 214 283.3 211.7 292.2 205.8 291.9 203.3 303.9 200.1 307.7 196.9 308.2 191.9 301.3 190 303.2 182.6 293.7 174.7 295.4 171.1 292.8 168.5 309 160.7 310.6 162.6 313.8 168.4 314.2 167.3 319.9 141.6 317.7 134.6 313.6 134.3 310.4 125.3 308 125.3 308.1 Z"></path>
+                            </a>
+                            <a href="hohenlohekreis/">
+                                <path fill="#79A83B" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 275.4 298.7 287.3 301.8 285 305.4 273.7 307.4 268 312.6 261 312 262.6 315.3 258.9 315.5 256 325.6 257.4 329 252.9 333.6 256.5 342.8 265.5 346.3 261.3 348.4 254.2 358.8 242.2 358.2 238.6 360.9 237.7 367.3 229.8 369.3 240 374 239.9 377.3 241.7 376.8 243.7 382 249 383.7 258.7 380.8 260.5 384.7 255.6 387.2 254.7 390.5 255.7 393.5 259.2 389.4 263.8 397.3 260.9 398.4 259 404.5 260.7 408 266.7 403.8 266.7 399.8 276.9 400.4 277.7 395.1 274.7 390.8 277.4 386.6 284.2 390.6 283.8 395.2 285.8 396.5 283.2 399.5 289.3 400.8 292.6 405.3 293.6 400.9 291 395.8 294.2 395.1 297.6 389.5 303.9 393.6 300.5 394.2 300.5 397 306 395.3 311.6 399.4 309.3 400.3 310.8 402.3 316.2 403.6 317.3 396.5 310.1 395.1 306.6 389.6 313.6 385.6 315.2 380.2 315.8 387.9 326.1 387.3 326 392.3 329.5 391.5 328.4 384.6 330.2 383.5 330.8 388.4 335 385.9 337.3 379.7 336.2 377 342.5 373.1 341.8 368.2 344.7 366.2 344.4 362 353.2 356.9 360.3 359 363.4 351.1 361.5 350.6 361.2 346.2 356.8 344.7 366.9 344.3 366.6 335.6 364.5 333.9 382.7 327.7 387 324.3 386.6 318.6 384.4 316.8 388 317.6 390.2 313.2 397.7 311.9 395.4 305.8 397.5 304.4 391.4 302.6 396.2 300.7 393.2 296.1 397.1 291.8 392.1 283.5 396.4 280.3 395 277.8 396.9 274.8 391.7 271.9 393.8 268.4 388.7 260 381.9 263.1 378.4 259.5 379.7 255.3 378.2 253.4 374.6 254.2 369.9 260.5 364.4 258.4 364.5 255.7 361.4 260.2 349.8 258.3 348 254.9 349.9 251.1 347.2 248.6 336.4 253.8 336.4 249.8 325.7 250.3 326.7 242 303.7 248.9 306.4 256.3 305.3 257.8 310.2 256.7 311.2 261.4 305 265 304.2 269 290 266.3 283.3 269.5 272.4 264.9 269.2 258.8 263.3 261.8 265 269.7 261.2 273.8 269 279.5 266.8 282 269.5 283.7 271.5 295.2 275.3 298.4 275.4 298.7 Z"></path>
+                            </a>
+                            <a href="schwaebisch-hall/">
+                                <path fill="#5f8a32" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 315.2 446.1 317.6 443.4 314.9 439.6 317.6 438 311.9 433.2 317.9 430.9 309.4 427.7 303.8 432.4 302.3 429 289 425.3 286.5 421.7 287 417.5 280.9 416.5 282.8 412.1 280.5 412.1 280 407.8 282.9 406.6 281.2 404.9 289.8 402.2 293.2 404.8 291 395.8 294.2 395.1 297.6 389.5 303.9 393.6 300.5 394.2 300.5 397 306 395.3 311.6 399.4 309.3 400.3 310.8 402.3 316.2 403.6 317.3 396.5 310.1 395.1 306.5 389.7 313.6 385.6 314.6 380.6 316.6 381.7 315.8 387.9 326.1 387.3 326 392.3 327.8 392.7 330 390.6 328.4 384.6 330.2 383.5 330.8 388.4 335 385.9 337.3 379.7 336.2 377 342.5 373.1 341.8 368.2 344.7 366.2 345.8 360.6 353.2 356.9 360.3 359 363.4 351.1 361.5 350.6 361.2 346.2 356.8 344.7 366.9 344.3 366.6 335.6 364.5 333.9 382.7 327.7 387 324.3 386.6 318.6 384.4 316.8 388 317.6 390.2 313.2 397.7 311.9 395.4 305.8 397.5 304.4 391.4 302.6 396.2 300.7 393.2 296.1 397.1 291.8 392.1 283.5 396.4 280.3 395 279.2 396.2 273.1 400.4 270.3 405.9 272.9 408.8 269.9 411.8 273.5 418.4 270.6 421.8 281.3 424.9 277.2 430.2 277.1 435.7 268.4 456.6 272.6 453.4 265 477 259.3 480.1 260.4 477.9 267.8 481.2 272.6 479.9 277.3 483.6 278.9 483.3 281.8 477.8 280.7 476.6 286.4 479.8 289.2 477.9 290.8 483.1 294.7 488.5 293.5 490.3 298.8 486.1 306.7 494 316.3 490.1 319.3 491.6 322.3 486.5 325.7 484.1 325.6 482.9 320.5 485.7 319.5 483.1 319.5 480.2 323.5 481.8 327.9 478.6 327.9 486.3 330.1 482 333.3 484.2 344.4 488.7 352.2 483.9 351.2 485.7 355 483.6 357.1 494.1 360.3 492.7 361.5 497.7 367.4 502 365.2 500.7 369.9 506.5 371.5 507 378.5 513.9 374.7 520.5 381.7 523.7 381.8 526.6 391.8 516.2 396.2 517.6 400.7 513.1 399.6 512.4 405.7 510.5 405.8 511.5 407.8 509.3 407.5 515.4 407.2 517.1 411.6 524.2 409.8 523.3 416.2 521.3 415.1 519.2 419 527 421 529.3 425.2 520.9 427.7 519.6 433 515.2 431.9 508.1 435.7 503.6 432.6 505.1 428.1 499.7 425.7 491.5 430.3 490.9 434.8 482.5 432.8 480.6 437.7 471.4 432.9 458.7 435.4 449.6 429.9 447.5 432.2 448.8 434 438.9 439.9 440.7 435.3 437 433.7 435 436.1 438.9 440.4 434.3 440.8 436.6 442 434.6 446.4 440.4 446.6 441.6 456.3 447.8 464.9 424.6 468.4 426.2 472.2 422.3 476.7 415.2 472.2 408.3 479.1 407.5 481.6 411 484.1 407.8 485.8 408.2 490.6 402.2 496.8 398.8 493.7 389.3 496.5 387.4 492.4 392.7 488.3 377.1 483.9 377.3 477.7 364.7 480.3 366.4 477.7 361.1 477.3 357.7 470.6 353.7 468.4 350 477.7 340.2 471.4 334.9 474.8 330.1 472.2 338 470 333.8 462.5 338 461.1 328.1 458.8 325 453.8 313.4 453.9 312.4 452.1 315.3 446.4 315.2 446.1 Z"></path>
+                            </a>
+                            <a href="ostalbkreis/">
+                                <path fill="#B99ADE" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 465.8 581.5 457.8 581.3 458.2 576.2 455.6 572.7 450.6 572.4 446.4 579 448.3 588.5 444.2 586.3 444.6 589.1 442 591.7 433.3 592.3 424.2 588 421.5 589.8 421 584.4 413.8 583 413.8 578.1 412 581.7 407.7 582.9 408.1 579.9 405.5 579.2 405 586 407 584.7 409.5 592.4 412.8 590 411.6 596.8 408.1 594.8 405.5 597.6 403.7 594.2 401.7 595.8 390.5 589.7 380.1 592.9 380.2 596.4 374.8 593.4 376.1 589.5 371.8 584.9 372 582.2 366.3 582 366.4 578.1 362.6 579.1 359.7 567.7 355.3 570.8 350.3 568.9 350.9 566.3 349 565.5 324.4 569 320.1 567.2 319.4 561.5 327.9 556.3 327 552.5 330.2 550.3 326.1 544.5 331 546.6 332.7 542.5 343.8 544.6 348.6 540.9 352.4 548 368.3 538.3 366.7 532.6 362.9 530.7 366.7 528 359.2 518.4 362.3 516.9 362.4 513.5 357.8 509.8 361.2 507 350.9 501.4 352.3 498.3 347.5 500.8 344.8 497 345.9 491.1 341.3 492.4 337.2 485.8 344.3 482.6 344.9 480.3 341.8 479.1 342.8 474.3 346.7 473.7 347.2 476.8 350.1 477.7 353.8 468.5 357.7 470.6 361.1 477.3 366.4 477.7 364.7 480.3 377.3 477.7 377.1 483.9 392.7 488.3 387.4 492.4 389.3 496.5 398.8 493.7 402.9 496.6 408.2 490.6 407.8 485.8 411 484.1 407.5 481.6 408.3 479.1 415.2 472.2 422.3 476.7 426.2 472.2 424.6 468.4 447.8 464.9 441.6 456.3 440.4 446.6 434.7 446.6 436.6 442 434.3 440.8 438.9 440.4 435 436.1 437 433.7 440.7 435.3 438.9 439.9 442.1 439.5 448.8 434 447.5 432.2 449 429.9 458.7 435.4 471.4 432.9 480.6 437.7 482.5 432.8 490.9 434.8 491.5 430.3 499.7 425.7 505.1 428.1 503.6 432.5 507.5 435.7 515.2 431.9 519.6 433 519.6 428.9 526.6 426.2 525 436.5 529.4 433.4 535.6 437.7 535.8 434.9 539 434.8 541.9 436.9 541.3 440.3 547.4 443.2 550 443.8 549.4 440.9 551.3 442.6 551.2 440 556.8 441.8 555.3 447.2 559.2 450.1 558.1 453.5 567.2 456.2 567 461.6 571.3 460.7 576.9 466.5 573.5 468.6 574.2 472.3 579.6 471.6 581.1 475.4 579.3 476.2 583.5 479.6 583 482.5 589.7 486.3 585.3 489 589.9 492.3 591.5 497 587.2 501.3 579.9 502.5 590.5 511.8 587.5 515.3 590.1 518.7 588.4 523.6 590.5 525.2 590.1 528.7 582.4 532.5 581.6 536.8 588.6 539.3 589.4 549.5 579.8 555.6 584.2 560.3 581.9 562 584.2 566.9 582.7 566.5 583.1 569.9 578.4 566.9 576.9 569.4 582.1 576.6 578.8 578.4 580.3 581 578.2 580.8 580.6 582.9 574.5 584.7 568.4 580.8 567.4 585.7 561.1 583.2 560 589.6 546.6 588.9 550.9 585.4 543.3 585.2 538 581.5 536.9 577.7 525 574 524.7 569.8 516.8 569.4 514.3 563.4 501.4 566.7 500.2 580.9 498.7 580.6 495.4 574.8 496.6 569.5 491.8 568.5 492.1 561.5 488.6 568.1 487.2 567.2 486.4 572.2 477.2 575.8 475.5 573.5 474.2 578.4 469.9 575.5 465.7 581.4 465.8 581.5 Z"></path>
+                            </a>
+                            <a href="ludwigsburg/">
+                                <path fill="#B99ADE" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 208.2 525.4 202.7 524 195.8 532.1 193 527.9 193.2 523.4 189.5 522.2 185.2 524.7 185.8 529 180.1 531.5 175 531.3 164.2 524.4 164.1 527.2 161.8 526.5 164.9 532.9 161.8 533.3 163.9 536.2 163.2 541.2 155.4 543.5 148.7 537.5 146.2 539.8 143.3 547.9 146.7 550.3 146.3 553.2 142.8 561.5 147 564.1 145.4 570.7 143 571.4 143.4 577.2 140.2 577 135 572.9 132.3 560.3 128.5 556 133.4 547.7 132.3 544.6 115.8 538.5 107.7 540.6 104.4 535.9 106.1 531.4 104.7 527.6 94.6 521.4 89.9 507.7 91.4 505.8 88.1 500.7 94.4 495.8 85.9 493.7 87.9 492.6 86.8 486.2 87.9 483.3 94.9 487.4 99.5 486.5 101.9 479.1 92.5 464.6 94.3 462.5 93 460.8 96.6 459.2 87.1 444.9 78.1 437.5 81.3 433.6 107 438.7 106.5 435.5 110.1 435.3 114.9 437.2 114.6 442.3 121.1 445.2 124.7 443.8 123.7 441.6 128.4 442.1 127.1 444 137.9 443.3 136.7 436.8 139.2 433.3 153.2 430.3 151.1 424.7 156.7 423.7 163.8 429.1 168.5 427.5 174.8 430.2 172.3 435.7 178.7 440.7 187.8 441.7 190.2 439.1 195 445.8 204.8 441.9 205.4 437.9 208.3 438 210.1 434.1 212.2 434.8 211.4 438.8 214.1 439.9 226.7 438.2 229.7 435.1 233.4 437.7 239.4 435.3 248.1 436.8 247.9 439.5 241.9 442.5 243.2 446.6 235.6 448.1 230.1 455.4 224.2 455.8 231.4 458.8 237 465.1 239.1 469.4 237.8 472.3 231 473.1 225.7 480.1 216.9 481.3 220.7 484 222 489.7 228.4 491.5 232.5 488.9 236.1 493.5 234.3 495.8 236.4 495.8 234.7 497.3 236.2 500.3 241.6 497.8 235.1 503.2 227.6 501 220.7 503.7 215.1 510.5 217.7 518.1 213.9 524.1 208.6 525.4 208.2 525.4 Z"></path>
+                            </a>
+                            <a href="rems-murr-kreis/">
+                                <path fill="#79A83B" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 337.2 485.7 341.3 492.4 345.9 491.1 344.8 497 347.5 500.8 352.3 498.3 350.9 501.4 361.2 507 357.8 509.8 362.4 513.5 362.3 516.9 359.2 518.4 366.7 528 362.9 530.7 366.7 532.6 368.3 538.3 352.4 548 348.6 540.9 343.8 544.6 332.7 542.5 331 546.6 326.1 544.5 330.2 550.3 327 552.5 327.4 556.9 319.4 561.5 321.9 568.4 317.8 569.9 309 564.6 304.5 565.4 303.8 569.1 309.1 572 306.5 580.6 302.5 579.1 296.3 584.8 291.9 576.5 286.1 573.8 281.5 578.5 278.3 571.3 262.9 566.3 254.2 575.9 250.7 565.6 245.1 561 242.5 563.9 244 569.8 234.3 567.6 227.3 572.3 220.6 568.5 220.8 565.6 213.9 564.3 215.6 562.3 212.6 559.3 198.4 557.6 201.2 554.9 201.7 549.2 197.4 543.8 196.4 540.3 198.3 538.2 195.4 534.3 201.1 524.9 213.9 524.1 217.7 518.1 215.1 510.5 220.7 503.7 227.6 501 235.1 503.2 241.6 497.8 236.2 500.3 234.7 497.3 236.4 495.8 234.3 495.8 236.1 493.5 232.5 488.9 228.4 491.5 222 489.7 220.7 484 216.8 481.6 225.7 480.1 231 473.1 238.9 470.3 231.4 458.8 224.2 455.8 230.1 455.4 235.6 448.1 243.2 446.6 241.9 442.5 247.9 439.5 248.2 434 255.4 432.7 257 429.6 259.5 432.3 261.7 430.1 259.9 425.9 264.7 419.6 287 417.5 286.5 421.7 289 425.3 302.3 429 303.8 432.4 309.2 427.8 317.8 430.7 311.9 433.2 317.6 438 314.9 439.6 317.6 443.4 312.4 452.3 325 453.8 328.1 458.8 338 461.1 333.8 462.5 338 470 330.1 472.2 334.9 474.8 339.3 471.4 343.6 473.6 341.7 478.6 344.9 480.3 344.3 482.6 337.2 485.6 337.2 485.7 Z"></path>
+                            </a>
+                            <a href="heidenheim/">
+                                <path fill="#5f8a32" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 521.1 698.3 513 696.6 513.5 692.4 511.2 688.2 512.9 687.6 508.3 683 505.1 683.6 506.1 681.4 503.2 679.8 505.8 678.5 503.1 679.5 503.6 675 498.8 679.6 495.2 675.7 492.8 678.6 483.2 674.8 480 676.3 478.7 669.4 469.4 662.7 461.9 661.8 462.9 659.6 458.5 656.6 456.2 651 452.1 651.3 450.9 655.2 450.1 651.9 442.6 650.9 440.6 652.1 440.8 656 431.5 656.9 430.5 652.7 433.1 646.9 425.8 642.4 427.8 640.6 425.4 636.9 417.5 636.1 417.4 630.3 420.5 628.8 418.8 624.6 420.9 621 425.9 623.2 432.9 618.7 431.2 606 434.2 606.5 435.7 601.4 440.6 602.2 441.3 597.6 439 591.3 442.2 591.6 444.9 588.5 443.9 586.4 448.3 588.5 446.4 579 448.9 573.5 455.1 572.3 458.2 576.2 457.8 581.3 465.8 581.5 469.9 575.5 474.2 578.4 475.5 573.5 477.2 575.8 486.4 572.2 487.2 567.2 488.6 568.1 492.1 561.5 491.8 568.5 496.6 569.5 495.4 574.8 498.7 580.6 500.2 580.9 501.4 566.7 514.5 563.4 516.8 569.4 524.7 569.8 525 574 536.9 577.7 538 581.5 543.3 585.2 550.9 585.4 546.6 588.9 560 589.6 561.1 583.2 567.4 585.7 568.4 580.8 574.5 584.7 581.7 582.7 588.6 591.2 589.3 587.4 593.8 586.8 590.8 590.2 594.1 591 593.1 593.6 595.1 597.2 600 600.6 596.3 603.4 604 610.9 599.6 611.5 594.1 619.4 583.6 624 575.5 622.2 581.1 619 579.1 613.4 580.4 609.5 582.7 611.7 585.8 608.2 583.3 605.1 579.7 607.8 575 605.7 570.4 611.2 569.5 621.1 562.7 622.8 560.3 628.2 557.1 627.3 555.9 615 552.7 610.3 546.2 610.4 545.8 613.5 530.4 603 531.7 611.9 528.9 613.4 530.1 614.7 526.3 614.5 529.1 618.7 525.7 622.4 529.5 624.9 527.4 626.4 530.8 628.6 530.2 631.3 534.1 631.2 535.1 636.1 538.9 637.7 539.8 642.4 548 650 543.5 653.9 539.6 652.5 538.3 659.5 544 665.9 545.7 676.4 541.3 680.4 541 685.6 541.6 689.2 545.2 690.9 539.3 695.7 529 694.1 521.3 698.4 521.1 698.3 Z"></path>
+                            </a>
+                            <a href="goeppingen/">
+                                <path fill="#79A83B" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 303.8 580 296.3 584.8 291.9 576.5 286.1 573.8 282.1 575.7 283.4 576.7 281.5 578.5 284.2 580.3 276.6 591.4 278.6 597.9 275.3 600.7 278.7 605.7 276.7 608.4 279 611.5 277 612.6 278 620.1 283.1 623.3 283.6 626.4 293.9 624.4 298.4 626.7 297.1 633.1 299.1 634.2 292.1 638.4 302.5 640.2 311.3 646.3 311.9 649.2 309.3 652.3 312 659.4 311.1 667.2 305.9 668 301 680.1 306.2 680.7 308.4 685.8 316.9 683.5 323.8 685.6 331.2 694.7 331.4 692.1 335.1 691.8 342.2 695 339.8 691.9 344.6 685.7 343.8 683.7 353.2 680.8 352 675.7 355.1 672.8 368 674.4 366.8 672.3 368.4 671.2 381.3 675.6 387.5 671.6 390.8 661.5 400.6 660.7 399.5 659.8 410.3 647 406.7 646.6 407.9 643.4 425.2 638.6 417.5 636.1 417.4 630.3 420.5 628.8 418.8 624.6 420.9 621 425.9 623.2 432.3 619.5 433.6 617.1 431.2 606 434.2 606.5 435.7 601.4 440.6 602.3 441.4 597.9 438.6 591.1 432.2 592.1 424.2 588 421.5 589.8 421 584.4 413.8 583 413.5 578 412 581.7 407.8 582.8 406.4 582.4 408.1 579.9 404.9 579.5 405 586 407 584.7 409.8 588.9 409.3 592.2 412.8 590 411.6 596.8 408.1 594.8 405.5 597.6 403.7 594.2 401.7 595.8 390.5 589.7 380.1 592.9 380.5 596.2 378.9 596.1 374.8 593.4 376.1 589.5 371.8 584.9 372 582.2 366.3 582 366.4 578.1 362.6 579.1 359.7 567.7 355.3 570.8 350.3 568.9 350.9 566.3 349 565.5 318.1 569.9 309 564.6 304.5 565.4 303.8 569.1 309.1 572 307.2 579.9 303.8 580 303.8 580 Z M 371.7 588.2 371.7 588.2 371.7 588.1 371.6 588.2 371.5 588.2 371.2 588.3 371.1 588.4 370.8 588.4 370.6 588.5 370.4 588.6 370.2 588.6 370.1 588.7 370 588.7 369.8 588.8 369.7 588.8 369.6 588.9 369.4 589 369.3 589.1 369.2 589.1 369.1 589.2 369 589.3 368.8 589.4 368.5 589.5 368.3 589.6 368.2 589.6 368 589.6 367.9 589.6 367.8 589.6 367.8 589.6 367.7 589.9 367.7 590 367.6 590 367.6 590.1 367.5 590.2 367.5 590.3 367.4 590.4 367.4 590.4 367.2 590.6 367.1 590.6 367.2 590.7 367.3 590.8 367.5 590.8 367.7 590.9 367.9 591 368 591.1 368.2 591.2 368.3 591.3 368.5 591.5 368.6 591.6 368.7 591.8 368.7 591.9 368.8 592 368.9 592.1 368.9 592.1 369 592.1 369 592.1 369.1 592.1 369.1 592.1 369.2 592.1 369.3 592 369.3 591.9 369.4 592 369.4 592 369.6 592.2 369.8 592.2 369.9 592.1 370.1 592.2 370.2 591.9 370.3 591.8 370.5 591.6 370.6 591.3 370.8 591 370.9 590.9 371 590.9 371 590.8 371.1 590.8 371.1 590.8 371.1 590.8 371.1 590.7 371.2 590.7 371.2 590.7 371.2 590.7 371.3 590.7 371.3 590.7 371.3 590.7 371.4 590.6 371.6 590.7 371.6 590.6 371.9 590.5 372 590.5 372 590.4 372 590.4 371.8 590.2 371.7 590.2 371.7 589.9 371.6 589.7 371.6 589.7 371.5 589.5 371.5 589.4 371.4 589.4 371.3 589.3 371.2 589.2 371.2 589.2 371.2 589.2 371.2 589 371.2 588.9 371.3 588.8 371.5 588.7 371.6 588.6 371.6 588.4 371.7 588.3 371.7 588.2 Z"></path>
+                            </a>
+                            <a href="esslingen/">
+                                <path fill="#B99ADE" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 279.6 586.8 284.2 580.3 279.8 576.9 278.9 571.8 275.8 572.4 271.5 568 260 567.3 254.2 575.9 250.7 565.6 245.1 561 242.5 563.9 243.3 570 234.3 567.6 227.3 572.3 216.5 567.1 207 571.2 207.9 576.8 204.8 578.2 203.3 583.2 197.7 582.9 191.8 589.2 188 589.2 187 591.6 193.1 600 196.2 599.1 196.1 606.2 197.9 607.5 183.8 608.4 173.4 602.1 152.9 599.6 148.9 601.9 152.6 603.7 153.6 605.7 151.9 605.8 155.4 609.6 147.6 612.3 145.9 616.3 159.8 616.2 158.6 618.4 167 623.6 174.8 637.9 172.2 637.8 172.7 642.3 165.2 645.5 167.3 651.9 177.2 651.8 178.7 655.3 185 652.8 185.1 657.8 182.6 660.4 188.6 670.3 191.5 671.2 196.7 665.1 203 671.2 214 671.7 215.4 668.2 214 667.6 219.8 663.8 223.2 667.5 219.4 672.6 222.5 676 220.3 680.8 222.9 680.6 223.7 683.6 226 684 228.6 679.6 235.9 682.5 238.3 687 246.2 688.8 264.8 680.8 277.6 688.9 271.8 693 270.5 697.5 279.9 693.3 281.3 697.9 283.7 695.1 282.1 690.7 290.8 697.3 292.7 694 291.1 690.7 307.5 684.7 306.2 680.7 300.3 678.2 305.9 668 311.1 667.2 312 659.4 309.3 652.3 311.9 648.6 306.3 642.1 292.1 638.4 299.1 634.2 297.1 633.1 298.4 626.7 293.9 624.4 283.6 626.4 282.6 622.7 278.5 621.6 277 612.6 279 611.5 276.7 608.4 278.7 605.7 275.3 600.7 278.6 598 276.5 592.2 279.6 586.9 279.6 586.8 Z M 171.7 652.2 171.6 655.8 174.1 655.3 174.2 652.2 172 652.2 171.7 652.2 Z"></path>
+                            </a>
+                            <a href="boeblingen/">
+                                <path fill="#79A83B" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 145.1 595.9 152.9 599.6 148.9 601.9 152.6 603.7 153.6 605.7 151.9 605.8 155.4 609.6 146.8 612.9 146.3 617.4 148.6 617.8 147.3 616.3 149.6 614.4 159.8 616.2 158.6 618.4 167 623.6 174.7 637.3 172 638.1 172.7 642.3 165.2 645.5 167 652.7 154.8 652.7 155.9 647.1 153.3 646.2 153.1 643.1 145.3 648.4 147.4 652.8 143.7 655.4 143.9 659.4 135.3 657.7 131.3 660.9 129.7 666.3 120.3 660.2 116.1 662.3 113.6 658.7 102.2 660.7 101.9 664.4 97.6 665.6 100.7 670.6 96.4 672.1 89.3 668.3 82.7 672.1 81.7 683.3 70.1 685.7 73.2 690.5 71.5 694.7 74.8 696.7 67.8 700.3 67.6 705 63.3 701.3 54.6 701 50.2 694 39 691.1 41.7 687.1 39.9 681.9 44.7 679.3 42.2 680 39.2 668.9 37.3 669 38.9 663 36 656.4 36.7 652 51.8 657.4 51.7 650.1 53.8 648.6 52.8 642.7 50.1 640 52 637.1 50.4 635.5 54 632.7 52.4 631.1 52.9 625.3 59.6 622.3 65.3 613.2 70 612.5 73.9 606.1 71.3 601.4 74.9 598.8 74.4 595.4 78.6 593.2 71.2 587.7 63 586.7 64.9 577.8 53.4 568.1 64.6 555.9 75.4 559 81.8 553.6 85.6 555.5 82.8 549.9 86.3 544.9 78.5 544.9 77.4 547.3 77 543.9 81.2 540.1 76.6 537.1 84.1 532 87.1 524.7 97 521.6 104.7 527.7 106.1 531.4 104.4 535.9 107.3 540.3 115.8 538.5 132.3 544.6 133.4 547.7 128.5 556 132.3 560.3 135 572.9 140.3 576.7 138.6 579.9 140.7 580.7 133.5 581.2 130.9 584.3 140 587.8 138.8 591.2 144.9 595.7 145.1 595.9 Z"></path>
+                            </a>
+                            <a href="stuttgart/">
+                                <path fill="#1C00CC" fill-rule="evenodd" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" d="M 145.6 544.3 143.3 547.9 146.7 550.3 145.8 556.1 142.8 561.5 147 564.1 145.4 570.7 143 571.4 143.5 577 139.5 577.3 138.6 579.9 140.2 581.3 133.5 581.2 130.9 584.3 140 587.8 138.8 591.2 146.6 597.2 154.9 600.3 173.4 602.1 183.8 608.4 197.9 607.5 196.1 606.2 196.2 599.1 193.1 600 187 591.6 188 589.2 191.8 589.2 197.7 582.9 203.3 583.2 204.8 578.2 207.9 576.8 208 570.1 221 566 215.3 565.5 213.7 563.9 215.6 562.3 212.6 559.3 198.4 557.6 201.2 554.9 201.7 549.2 196.7 542.1 198.3 538.2 195.4 534.3 197.6 531.7 194 530.3 193.2 523.4 189.5 522.2 185.2 524.7 185.8 529 180.1 531.5 175 531.3 164.2 524.4 164.1 527.2 161.8 526.5 164.9 532.9 161.8 533.3 163.9 536.2 163.2 541.2 155.4 543.5 148.7 537.5 145.6 544.3 145.6 544.3 Z"></path>
+                            </a>
+                        </g>
+                        <g pointer-events="none">
+                            <text x="358" y="142" text-anchor="middle" font-weight="700">
+                                <tspan x="358" dy="-8" font-size="12">Main-Tauber-</tspan>
+                                <tspan x="358" dy="14" font-size="12">Kreis</tspan>
+                                <tspan x="358" dy="13" font-size="11" font-weight="600">Tauberbischofsheim</tspan>
+                            </text>
+                            <text x="170" y="378" text-anchor="middle" font-size="13" font-weight="700">Heilbronn</text>
+                            <text x="322" y="332" text-anchor="middle" font-weight="700">
+                                <tspan x="322" dy="-6" font-size="12">Hohenlohekreis</tspan>
+                                <tspan x="322" dy="14" font-size="11" font-weight="600">Künzelsau</tspan>
+                            </text>
+                            <text x="428" y="400" text-anchor="middle" font-size="12" font-weight="700">Schwäbisch Hall</text>
+                            <text x="502" y="508" text-anchor="middle" font-weight="700">
+                                <tspan x="502" dy="-6" font-size="13">Ostalbkreis</tspan>
+                                <tspan x="502" dy="14" font-size="11" font-weight="600">Aalen</tspan>
+                            </text>
+                            <text x="148" y="488" text-anchor="middle" font-size="13" font-weight="700">Ludwigsburg</text>
+                            <text x="278" y="500" text-anchor="middle" font-weight="700">
+                                <tspan x="278" dy="-8" font-size="12">Rems-Murr-</tspan>
+                                <tspan x="278" dy="14" font-size="12">Kreis</tspan>
+                                <tspan x="278" dy="13" font-size="11" font-weight="600">Waiblingen</tspan>
+                            </text>
+                            <text x="498" y="648" text-anchor="middle" font-size="12" font-weight="700">Heidenheim</text>
+                            <text x="348" y="622" text-anchor="middle" font-size="13" font-weight="700">Göppingen</text>
+                            <text x="250" y="642" text-anchor="middle" font-size="13" font-weight="700">Esslingen</text>
+                            <text x="86" y="640" text-anchor="middle" font-size="13" font-weight="700">Böblingen</text>
+                            <text x="176" y="568" text-anchor="middle" font-size="13" font-weight="700" class="label-stuttgart">Stuttgart</text>
+                            <g transform="translate(592 48)">
+                                <circle cx="0" cy="-1" r="16" fill="#f7f4ee" stroke="#3F3F3F" stroke-width="1" opacity="0.95"></circle>
+                                <polygon points="0,-12 4.5,5 -4.5,5" fill="#3F3F3F"></polygon>
+                                <text x="0" y="18" text-anchor="middle" font-size="10" font-weight="700">N</text>
+                            </g>
+                        </g>
+                    </svg>
                 </div>
-                <div id="modal-content" class="space-y-4"></div>
-                <div class="mt-6 text-right">
-                    <button onclick="closeModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2 rounded-xl text-sm font-medium transition">Schließen</button>
-                </div>
-            </div>
+                <p class="text-[11px] text-gray-500" style="margin: 10px 0 0 0;">
+                    Landkarte des Regierungsbezirks Stuttgart. Grenzen vereinfacht, Kartendaten © OpenStreetMap-Mitwirkende. Ein Klick öffnet die Region.
+                </p>
+            </aside>
         </div>
 
-        <!-- MODAL FOR CEMETERY DETAILS -->
-        <div id="friedhof-modal" class="fixed inset-0 bg-black/60 z-[9999] flex items-center justify-center p-4 hidden" onclick="if(event.target === this) closeFriedhofModal()">
-            <div class="bg-white rounded-2xl max-w-3xl w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto relative">
-                <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
-                    <h3 id="friedhof-modal-title" class="text-xl font-bold text-gray-900" style="margin: 0;"></h3>
-                    <button onclick="closeFriedhofModal()" class="text-gray-400 hover:text-gray-600 text-2xl p-1 leading-none rounded-lg hover:bg-gray-100">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+        <div class="banner-vorsorge-neu flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2" style="margin-top: 24px;">
+            <div class="flex items-start gap-2.5">
+                <div class="w-7 h-7 rounded-md flex items-center justify-center text-xs shrink-0 border border-sand-200" style="color: var(--primary);">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
                 </div>
-                <div id="friedhof-modal-content"></div>
-                <div class="mt-6 text-right">
-                    <button onclick="closeFriedhofModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2 rounded-xl text-sm font-medium transition">Schließen</button>
+                <div>
+                    <p class="text-[11px] font-semibold" style="margin: 0; color: var(--text);">Hinweis: Digitale Bestattungsvorsorge</p>
+                    <p class="text-[11px] leading-snug" style="margin: 2px 0 0 0; color: #6b6b6b;">Wünsche in Ruhe festhalten – für sich selbst oder den gewählten Bestatter. Ergänzend zum TrauerGuide.</p>
                 </div>
             </div>
+            <a href="https://digitale-bestattungsvorsorge.de" target="_blank" rel="noopener noreferrer" class="btn-blue-action shrink-0">
+                <span>Zur Vorsorge-App</span>
+                <i class="fa-solid fa-arrow-right" style="font-size: 9px;"></i>
+            </a>
         </div>
-
-        <!-- TAB 3: FRIEDHÖFE -->
-        <section id="tab-friedhoefe" class="tab-content hidden">
-            <div class="space-y-8">
-                <!-- Friedhöfe Liste & Filter -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                        <div>
-                            <h2 class="text-2xl font-bold text-gray-900" style="margin: 0;">Friedhof TO GO Stuttgart</h2>
-            <p class="text-gray-600 text-sm mt-0.5">Adresse, Grabfelder und Lageplan wo verfügbar. Ein Klick öffnet die Ansicht, die Karte bleibt daneben erreichbar.</p>
-                        </div>
-                        <div class="flex flex-col sm:flex-row gap-2">
-                            <!-- Search Input -->
-                            <div class="relative min-w-[200px]">
-                                <input type="text" id="search-friedhof" oninput="filterFriedhoefe()" placeholder="Friedhof / Ortsteil suchen..." class="w-full bg-sand-50 border border-gray-300 rounded-xl pl-9 pr-3 py-2 text-sm focus:ring-2 focus:ring-brandblue-600 outline-none transition">
-                                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400 text-xs"></i>
-                            </div>
-                            <!-- District Select -->
-                            <select id="district-friedhof" onchange="filterFriedhoefe()" class="bg-sand-50 border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brandblue-600 outline-none transition">
-                                <option value="all">Alle Stadtbezirke</option>
-                                <option value="Nord">Stuttgart-Nord / Mitte</option>
-                                <option value="Cannstatt">Bad Cannstatt</option>
-                                <option value="Degerloch">Degerloch / Sonnenberg</option>
-                                <option value="Süd">Stuttgart-Süd / Heslach</option>
-                                <option value="Ost">Stuttgart-Ost / Gaisburg</option>
-                                <option value="West">Stuttgart-West / Botnang</option>
-                                <option value="Feuerbach">Feuerbach / Weilimdorf</option>
-                                <option value="Zuffenhausen">Zuffenhausen / Stammheim</option>
-                                <option value="Mühlhausen">Mühlhausen / Münster / Hofen</option>
-                                <option value="Neckartal">Wangen / Unter- & Obertürkheim / Hedelfingen</option>
-                                <option value="Fildern">Möhringen / Vaihingen / Plieningen / Sillenbuch</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Dynamic Friedhof Grid -->
-                    <div id="friedhof-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Populated via JS -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 4: RATGEBER -->
-        <section id="tab-ratgeber" class="tab-content hidden">
-            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-sand-200">
-                <h2 class="text-2xl font-bold text-gray-900 mb-4" style="margin-top: 0;">Ratgeber &amp; Wichtige Anlaufstellen</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
-                        <h3 class="font-bold text-primary-700 text-lg mb-3 flex items-center" style="color: var(--primary);">
-                            <i class="fa-solid fa-file-invoice mr-2"></i>Erforderliche Dokumente (Interaktiv abhakbar)
-                        </h3>
-                        <div class="space-y-2 text-sm">
-                            <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                                <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                                <span class="ml-2">Personalausweis des/der Verstorbenen</span>
-                            </label>
-                            <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                                <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                                <span class="ml-2">Todesbescheinigung (vom Arzt ausgestellt)</span>
-                            </label>
-                            <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                                <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                                <span class="ml-2">Geburtsurkunde (bei Ledigen)</span>
-                            </label>
-                            <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                                <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                                <span class="ml-2">Heiratsurkunde / Stammbuch der Familie</span>
-                            </label>
-                            <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                                <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                                <span class="ml-2">ggf. Sterbeurkunde des Ehepartners / Scheidungsurteil</span>
-                            </label>
-                            <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                                <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                                <span class="ml-2">Rentenversicherungsnummer &amp; Krankenversichertenkarte</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
-                        <h3 class="font-bold text-primary-700 text-lg mb-3" style="color: var(--primary);"><i class="fa-solid fa-phone-volume mr-2"></i>Wichtige Telefonnummern</h3>
-                        <div class="text-sm text-gray-600 space-y-3">
-                            <div class="bg-white p-3 rounded-lg border border-gray-200">
-                                <p class="font-bold text-gray-900" style="margin: 0;">Notruf Rettungsdienst / Feuerwehr:</p>
-                                <a href="tel:112" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
-                                    <i class="fa-solid fa-phone mr-1"></i>112
-                                </a>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg border border-gray-200">
-                                <p class="font-bold text-gray-900" style="margin: 0;">Polizei:</p>
-                                <a href="tel:110" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
-                                    <i class="fa-solid fa-phone mr-1"></i>110
-                                </a>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg border border-gray-200">
-                                <p class="font-bold text-gray-900" style="margin: 0;">Ärztlicher Bereitschaftsdienst:</p>
-                                <a href="tel:116117" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
-                                    <i class="fa-solid fa-phone mr-1"></i>116 117
-                                </a>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg border border-gray-200">
-                                <p class="font-bold text-gray-900" style="margin: 0;">Städtischer Bestattungsdienst:</p>
-                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Marktplatz 4, 70173 Stuttgart · auch nachts und am Wochenende</p>
-                                <a href="tel:071121698000" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
-                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-98000
-                                </a>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg border border-gray-200">
-                                <p class="font-bold text-gray-900" style="margin: 0;">Standesamt Stuttgart:</p>
-                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Eberhardstraße 6, 70173 Stuttgart · Sterbefälle und Sterbeurkunden</p>
-                                <a href="tel:071121688852" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
-                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-88852
-                                </a>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg border border-gray-200">
-                                <p class="font-bold text-gray-900" style="margin: 0;">Garten-, Friedhofs- und Forstamt:</p>
-                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Maybachstraße 3, 70192 Stuttgart</p>
-                                <a href="tel:071121693801" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
-                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-93801
-                                </a>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg border border-gray-200">
-                                <p class="font-bold text-gray-900" style="margin: 0;">Krematorium Pragfriedhof:</p>
-                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Friedhofstraße 46/3, 70191 Stuttgart</p>
-                                <a href="tel:071121698247" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
-                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-98247
-                                </a>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg border border-gray-200">
-                                <p class="font-bold text-gray-900" style="margin: 0;">Amt für Soziales und Teilhabe:</p>
-                                <p class="text-xs text-gray-600" style="margin: 2px 0;">Eberhardstraße 33, 70173 Stuttgart</p>
-                                <a href="tel:071121659000" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);">
-                                    <i class="fa-solid fa-phone mr-1"></i>0711 216-59000
-                                </a>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg border border-gray-200">
-                                <p class="font-bold text-gray-900" style="margin: 0;">Telefonseelsorge (24h kostenlos):</p>
-                                <a href="tel:08001110111" class="inline-block text-xs font-bold hover:underline mr-3" style="color: var(--brandblue);">
-                                    <i class="fa-solid fa-phone mr-1"></i>0800 111 0 111
-                                </a>
-                                <a href="tel:08001110222" class="inline-block text-xs font-bold hover:underline" style="color: var(--brandblue);">
-                                    <i class="fa-solid fa-phone mr-1"></i>0800 111 0 222
-                                </a>
-                            </div>
-                            <p class="text-[11px] text-gray-500" style="margin: 0;">Angaben zur Orientierung, Stand August 2026. Quelle: Landeshauptstadt Stuttgart und bundesweite Notrufnummern.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
-    <!-- Footer mit klickbarem TrauerOhr.com Link -->
-    <footer class="bg-white border-t border-sand-200 mt-auto py-6" style="background: white; border-top: 1px solid var(--sand-200);">
+    <footer class="bg-white border-t mt-auto py-6" style="background: white; border-top: 1px solid var(--sand-200);">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 space-y-1.5">
-            <p><strong>TrauerGuide Stuttgart</strong> &bull; <a href="https://trauerguide.trauerohr.com" class="hover:underline font-semibold" style="color: var(--brandblue);">trauerguide.trauerohr.com</a></p>
+            <p><a href="https://trauerguide.trauerohr.com" class="hover:underline font-semibold" style="color: var(--brandblue);">trauerguide.trauerohr.com</a></p>
             <p>
                 Impressum unter
-                <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="hover:underline font-bold" style="color: var(--brandblue);">
+                <a href="https://www.trauerohr.com/impressum" target="_blank" rel="noopener noreferrer" class="hover:underline font-bold" style="color: var(--brandblue);">
                     <i class="fa-solid fa-globe mr-1"></i>TrauerOhr.com
                 </a>
             </p>
-            <p class="text-gray-400 mt-1">&copy; 2026 TrauerGuide Stuttgart. Ein Projekt von <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">TrauerOhr</a>.</p>
+            <p class="text-gray-400 mt-1">&copy; 2026 TrauerGuide. Ein Projekt von <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">TrauerOhr</a>.</p>
         </div>
     </footer>
 
     <script>
-        function switchTab(tabId) {
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(el => el.classList.add('hidden'));
-
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('tab-active');
+        document.addEventListener('click', (event) => {
+            document.querySelectorAll('.regionen-menu').forEach((menu) => {
+                if (!menu.contains(event.target)) menu.removeAttribute('open');
             });
-
-            const targetContent = document.getElementById('tab-' + tabId);
-            if (targetContent) {
-                targetContent.classList.remove('hidden');
-            }
-
-            const targetBtn = document.getElementById('tab-btn-' + tabId);
-            if (targetBtn) {
-                targetBtn.classList.add('tab-active');
-            }
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        const bestatterData = [
-            {
-                id: "haefner-zuefle",
-                name: "Häfner & Züfle Bestattungen",
-                district: "Stuttgart-West",
-                districtsAll: ["West", "Möhringen", "Plieningen", "Wangen", "Stuttgart"],
-                established: "Inhabergeführt seit 2006",
-                address: "Breitscheidstraße 44 u. 44a, 70176 Stuttgart",
-                phone: "0711 2318120",
-                email: "bestattungen@haefner-zuefle.de",
-                website: "https://bestattungen-haefner-zuefle.de",
-                desc: "Inhabergeführtes Bestattungshaus von Chantal Häfner & Ute Züfle. Eigene Feierhallen in Stuttgart-West und Plieningen, Abschiedsräume und 6 Parkplätze im Hof.",
-                tags: ["Inhabergeführt", "Abschiedsräume", "Feierhallen West & Plieningen", "24h Service"],
-                features: ["hall", "24h", "multi_branch"],
-                branches: [
-                    { name: "Filiale Stuttgart-West (Zentrale)", address: "Breitscheidstraße 44 & 44a, 70176 Stuttgart", note: "Mit Feierhalle und 6 Parkplätzen im Hof" },
-                    { name: "Filiale Stuttgart-Möhringen", address: "Hechinger Straße 24, 70567 Stuttgart", note: "Filiale & Beratungsbüro" },
-                    { name: "Filiale Stuttgart-Plieningen", address: "Filderhauptstraße 7, 70599 Stuttgart", note: "Mit Feierhalle" },
-                    { name: "Stuttgart-Wangen (Mobil)", address: "Telefonische Beratung & Hausbesuche in Wangen", note: "Mobil erreichbar unter 0711 2318120 (derzeit kein festes Büro vor Ort)" }
-                ]
-            },
-            {
-                id: "mustermann",
-                name: "Mustermann Bestattungen Stuttgart",
-                district: "Beispiel / Werbung",
-                districtsAll: ["Stuttgart"],
-                established: "Platzhalter",
-                address: "Beispielstandort Stuttgart",
-                phone: "",
-                email: "office@trauerohr.com",
-                website: "https://trauerohr.com",
-                desc: "Hier kann ein Bestattungsunternehmen Werbung für sein Haus machen. Eine Zusammenarbeit mit weiteren Bestattern ist möglich. Bei Interesse einfach bei TrauerOhr melden.",
-                tags: ["Beispielkarte", "Werbung möglich", "Platzhalter"],
-                features: [],
-                placeholder: true,
-                branches: []
-            }
-        ];
-
-        // Stuttgart cemetery working list from the TrauerOhr PDF, including special sections.
-        const friedhofData = [
-            { name: "Hauptfriedhof Bad Cannstatt (Steinhaldenfeldfriedhof)", district: "Bad Cannstatt", group: "Cannstatt", address: "Steinhaldenstraße 52, 70378 Stuttgart", types: ["Städtisch"], desc: "Großer Friedhofsstandort in Bad Cannstatt mit betrieblichen Kontakten zur Hauptfriedhof-Verwaltung." },
-            { name: "Steigfriedhof Bad Cannstatt", district: "Bad Cannstatt", group: "Cannstatt", address: "Sparrhärmlingweg 1, 70376 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof in Bad Cannstatt." },
-            { name: "Steigfriedhof (jüdischer Teil)", district: "Bad Cannstatt", group: "Cannstatt", address: "Sparrhärmlingweg, 70376 Stuttgart", types: ["Jüdischer Bereich"], desc: "Jüdischer Sonderbereich am Steigfriedhof." },
-            { name: "Uff Kirchhof", district: "Bad Cannstatt", group: "Cannstatt", address: "Wildunger Straße 59, 70372 Stuttgart", types: ["Historisch"], desc: "Historischer Kirchhof in Bad Cannstatt." },
-            { name: "Israelitischer Friedhof Bad Cannstatt", district: "Bad Cannstatt", group: "Cannstatt", address: "Sparrhärmlingweg, 70376 Stuttgart", types: ["Jüdischer Friedhof"], desc: "Jüdischer Friedhofsbereich in Bad Cannstatt." },
-            { name: "Israelitischer Friedhof Steinhaldenfeld", district: "Bad Cannstatt", group: "Cannstatt", address: "Ziegelbrennerstraße 23, 70374 Stuttgart", types: ["Jüdischer Friedhof"], desc: "Jüdischer Sonderfriedhof in Bad Cannstatt." },
-            { name: "Friedhof Birkach", district: "Birkach", group: "Fildern", address: "Welfenstraße 31, 70599 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof im Filderbereich." },
-            { name: "Friedhof Botnang", district: "Botnang", group: "West", address: "Bauernwaldstraße 46, 70195 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof in Botnang." },
-            { name: "Alter Friedhof Degerloch", district: "Degerloch", group: "Degerloch", address: "Jahnstraße 24, 70597 Stuttgart", types: ["Städtisch"], desc: "Alter Friedhof im Ortsbereich Degerloch." },
-            { name: "Neuer Friedhof Degerloch", district: "Degerloch", group: "Degerloch", address: "Schöttlestraße 50, 70597 Stuttgart", types: ["Städtisch"], desc: "Neuer Friedhof Degerloch." },
-            { name: "Dornhaldenfriedhof", district: "Degerloch", group: "Degerloch", address: "Auf der Dornhalde, 70597 Stuttgart", types: ["Städtisch"], desc: "Friedhof auf der Dornhalde." },
-            { name: "Waldfriedhof Stuttgart", district: "Degerloch", group: "Degerloch", address: "Eugen-Dolmetsch-Platz, 70597 Stuttgart", types: ["Städtisch"], desc: "Großer Waldfriedhof mit besonderem Park- und Waldcharakter." },
-            { name: "Friedhof Feuerbach", district: "Feuerbach", group: "Feuerbach", address: "Feuerbacher-Tal-Straße 90, 70469 Stuttgart", types: ["Städtisch"], desc: "Großer Stadtteilfriedhof in Feuerbach." },
-            { name: "Friedhof Hedelfingen", district: "Hedelfingen", group: "Neckartal", address: "Friedrichshafener Straße 9, 70329 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof im Neckartal." },
-            { name: "Friedhof Rohracker", district: "Rohracker", group: "Neckartal", address: "Rohrackerstraße 190, 70329 Stuttgart", types: ["Städtisch"], desc: "Ortsteilfriedhof Rohracker." },
-            { name: "Friedhof Möhringen", district: "Möhringen", group: "Fildern", address: "Schneewittchenweg 31, 70567 Stuttgart", types: ["Städtisch"], desc: "Friedhof im Stadtbezirk Möhringen." },
-            { name: "Friedhof Hofen", district: "Hofen", group: "Mühlhausen", address: "Ruitlenstraße 24, 70378 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof Hofen." },
-            { name: "Friedhof Mühlhausen", district: "Mühlhausen", group: "Mühlhausen", address: "Veitstraße 82, 70378 Stuttgart", types: ["Städtisch"], desc: "Friedhof Mühlhausen." },
-            { name: "Friedhof Münster", district: "Münster", group: "Mühlhausen", address: "Burgholzstraße 62, 70376 Stuttgart", types: ["Städtisch"], desc: "Friedhof Münster." },
-            { name: "Friedhof Obertürkheim", district: "Obertürkheim", group: "Neckartal", address: "Kirchsteige 16, 70329 Stuttgart", types: ["Städtisch"], desc: "Stadtteilfriedhof Obertürkheim." },
-            { name: "Friedhof Uhlbach", district: "Uhlbach", group: "Neckartal", address: "Asangstraße 236, 70329 Stuttgart", types: ["Städtisch"], desc: "Friedhof Uhlbach." },
-            { name: "Evangelischer Kirchhof Uhlbach", district: "Uhlbach", group: "Neckartal", address: "bei Andreaskirche Uhlbach", types: ["Kirchlich"], desc: "Kirchlicher Sonderbereich an der Andreaskirche Uhlbach." },
-            { name: "Friedhof Plieningen", district: "Plieningen / Hohenheim", group: "Fildern", address: "Leypoldtstraße 12, 70599 Stuttgart", types: ["Städtisch"], desc: "Friedhof Plieningen." },
-            { name: "Friedhof Hohenheim", district: "Plieningen / Hohenheim", group: "Fildern", address: "Kirchnerstraße, 70599 Stuttgart", types: ["Universität Hohenheim"], desc: "Friedhof im Hohenheimer Umfeld." },
-            { name: "Friedhof Universität Hohenheim", district: "Plieningen / Hohenheim", group: "Fildern", address: "Botanischer Garten / Park, 70599 Stuttgart", types: ["Universität Hohenheim"], desc: "Sondereintrag der Universität Hohenheim." },
-            { name: "Alter Friedhof Sillenbuch", district: "Sillenbuch", group: "Fildern", address: "Treiberstraße 8, 70619 Stuttgart", types: ["Städtisch"], desc: "Alter Friedhof Sillenbuch." },
-            { name: "Ostfilderfriedhof Sillenbuch", district: "Sillenbuch", group: "Fildern", address: "Kirchheimer Straße 125, 70619 Stuttgart", types: ["Städtisch"], desc: "Ostfilderfriedhof in Sillenbuch." },
-            { name: "Friedhof Heumaden", district: "Heumaden", group: "Fildern", address: "Bockelstraße 4, 70619 Stuttgart", types: ["Städtisch"], desc: "Friedhof Heumaden." },
-            { name: "Friedhof Riedenberg", district: "Riedenberg", group: "Fildern", address: "Birkacher Straße 25, 70619 Stuttgart", types: ["Städtisch"], desc: "Friedhof Riedenberg." },
-            { name: "Friedhof Stuttgart Stammheim", district: "Stammheim", group: "Zuffenhausen", address: "Ehniweg 20, 70439 Stuttgart", types: ["Städtisch"], desc: "Friedhof Stammheim." },
-            { name: "Pragfriedhof Stuttgart Nord", district: "Nord / Mitte", group: "Nord", address: "Friedhofstraße 44, 70191 Stuttgart", types: ["Städtisch"], desc: "Zentraler Großfriedhof mit historischem Charakter und guter Orientierung für Bestatter." },
-            { name: "Pragfriedhof (jüdischer Teil)", district: "Nord / Mitte", group: "Nord", address: "Friedhofstraße 44, 70191 Stuttgart", types: ["Jüdischer Bereich"], desc: "Jüdischer Sonderbereich am Pragfriedhof." },
-            { name: "Hoppenlaufriedhof Stuttgart West", district: "Stuttgart-West", group: "West", address: "Rosenbergstraße 7, 70174 Stuttgart", types: ["Historisch"], desc: "Historischer Friedhof im Stuttgarter Westen." },
-            { name: "Hoppenlaufriedhof (jüdischer Teil)", district: "Stuttgart-West", group: "West", address: "Rosenbergstraße 7, 70174 Stuttgart", types: ["Jüdischer Bereich"], desc: "Historischer jüdischer Sonderbereich." },
-            { name: "Bergfriedhof Stuttgart Berg", district: "Stuttgart-Ost", group: "Ost", address: "Hackstraße 84, 70190 Stuttgart", types: ["Städtisch"], desc: "Hangfriedhof in Stuttgart-Berg." },
-            { name: "Friedhof Gablenberg", district: "Stuttgart-Ost", group: "Ost", address: "Gablenberger Hauptstraße 82, 70186 Stuttgart", types: ["Städtisch"], desc: "Friedhof Gablenberg." },
-            { name: "Friedhof Gaisburg", district: "Stuttgart-Ost", group: "Ost", address: "Hornbergstraße 140, 70186 Stuttgart", types: ["Städtisch"], desc: "Friedhof Gaisburg." },
-            { name: "Fangelsbachfriedhof Lehenviertel", district: "Stuttgart-Süd", group: "Süd", address: "Cottastraße 34, 70180 Stuttgart", types: ["Städtisch"], desc: "Friedhof im Lehenviertel." },
-            { name: "Friedhof Heslach", district: "Stuttgart-Süd", group: "Süd", address: "Benckendorffstraße 27, 70199 Stuttgart", types: ["Städtisch"], desc: "Friedhof in Heslach." },
-            { name: "Friedhof Kaltental", district: "Stuttgart-Süd", group: "Süd", address: "Feldbergstraße 100, 70569 Stuttgart", types: ["Städtisch"], desc: "Friedhof Kaltental." },
-            { name: "Friedhof Untertürkheim", district: "Untertürkheim", group: "Neckartal", address: "Gehrenwaldstraße 40, 70327 Stuttgart", types: ["Städtisch"], desc: "Friedhof Untertürkheim." },
-            { name: "Friedhof Rotenberg", district: "Rotenberg", group: "Neckartal", address: "Rainstraße 15, 70327 Stuttgart", types: ["Städtisch"], desc: "Friedhof Rotenberg." },
-            { name: "Buchrainfriedhof (neu)", district: "Vaihingen", group: "Fildern", address: "Pascalstraße 70, 70569 Stuttgart", types: ["Städtisch"], desc: "Neuer Buchrainfriedhof in Vaihingen." },
-            { name: "Friedhof Vaihingen (alt)", district: "Vaihingen", group: "Fildern", address: "Holzhauserstraße 10, 70563 Stuttgart", types: ["Städtisch"], desc: "Alter Friedhof Vaihingen." },
-            { name: "Friedhof Rohr", district: "Vaihingen / Rohr", group: "Fildern", address: "Schönbuchstraße 31, 70565 Stuttgart", types: ["Städtisch"], desc: "Friedhof Rohr." },
-            { name: "Friedhof Wangen", district: "Wangen", group: "Neckartal", address: "Im Kirchweinberg, 70327 Stuttgart", types: ["Städtisch"], desc: "Friedhof Wangen." },
-            { name: "Friedhof Weilimdorf (alt)", district: "Weilimdorf", group: "Feuerbach", address: "Sickingenstraße 8, 70499 Stuttgart", types: ["Städtisch"], desc: "Alter Friedhof Weilimdorf." },
-            { name: "Friedhof Weilimdorf (neu)", district: "Weilimdorf", group: "Feuerbach", address: "Köstlinstraße 189, 70499 Stuttgart", types: ["Städtisch"], desc: "Neuer Friedhof Weilimdorf." },
-            { name: "Friedhof Solitude (Soldatenfriedhof Solitude)", district: "Weilimdorf", group: "Feuerbach", address: "Schloss Solitude, 70488 Stuttgart", types: ["Sonderfriedhof"], desc: "Soldatenfriedhof Solitude." },
-            { name: "Friedhof Zuffenhausen", district: "Zuffenhausen", group: "Zuffenhausen", address: "Marbacher Straße 62, 70435 Stuttgart", types: ["Städtisch"], desc: "Friedhof Zuffenhausen." },
-            { name: "Friedhof Zazenhausen", district: "Zazenhausen", group: "Zuffenhausen", address: "Kirchäckerstraße 24B, 70437 Stuttgart", types: ["Städtisch"], desc: "Friedhof Zazenhausen." }
-        ];
-
-
-        function grabfelderFor(f) {
-            const typeStr = ((f.types || []).join(" ")).toLowerCase();
-            if (typeStr.includes("jüdisch")) return ["Jüdische Grabstätten"];
-            if (typeStr.includes("historisch")) return ["Historische Grabstätten (meist keine Neubelegung)"];
-            if (typeStr.includes("universität")) return ["Sonderbereich der Universität Hohenheim"];
-            if (typeStr.includes("kirchlich")) return ["Kirchliche Grabstätten"];
-            if (typeStr.includes("sonderfriedhof")) return ["Soldatengräber / Sonderbereich"];
-
-            const graves = ["Erd-Reihengrab", "Erd-Wahlgrab", "Urnenreihengrab", "Urnenwahlgrab"];
-            const extras = {
-                "Waldfriedhof Stuttgart": ["Baumgrab", "Naturnahe Grabfelder"],
-                "Pragfriedhof Stuttgart Nord": ["Kolumbarium", "Sternenkinderfeld"],
-                "Friedhof Zuffenhausen": ["Baumgrab", "Urnenstelen / Kolumbarium"],
-                "Friedhof Feuerbach": ["Baumgrab"],
-                "Friedhof Untertürkheim": ["Baumgrab"],
-                "Friedhof Weilimdorf (neu)": ["Baumgrab"],
-                "Buchrainfriedhof (neu)": ["Baumgrab", "TrauerWald"],
-                "Ostfilderfriedhof Sillenbuch": ["Baumgrab"],
-                "Neuer Friedhof Degerloch": ["Baumgrab"],
-                "Hauptfriedhof Bad Cannstatt (Steinhaldenfeldfriedhof)": ["Rasengrab", "Gemeinschaftsanlage"]
-            };
-            return graves.concat(extras[f.name] || []);
-        }
-
-        function stadtLageplan(file, title) {
-            return {
-                src: "assets/friedhoefe/lageplaene-clean/" + file,
-                kind: "Lageplan",
-                title: title,
-                credit: "Garten-, Friedhofs- und Forstamt Stuttgart",
-                license: "TrauerOhr-Bearbeitung",
-                sourceLabel: "Arbeitsfassung 19.08.2026",
-                cropped: true
-            };
-        }
-
-        function mammutLageplan(file, title, credit) {
-            return {
-                src: "assets/friedhoefe/lageplaene-clean/" + file,
-                kind: "Lageplan",
-                title: title,
-                credit: credit,
-                license: "TrauerOhr-Bearbeitung",
-                sourceLabel: "Der Friedhofswegweiser Stadt Stuttgart",
-                cropped: true
-            };
-        }
-
-        const friedhofBilder = {
-            "Hauptfriedhof Bad Cannstatt (Steinhaldenfeldfriedhof)": [
-                {
-                    src: "assets/friedhoefe/grabfelder/hauptfriedhof-grabfeld.jpg",
-                    kind: "Grabfeld",
-                    title: "Ehrenfeld / Grabfeld am Hauptfriedhof Bad Cannstatt",
-                    credit: "Gerd Leibrock",
-                    license: "CC BY-SA 3.0",
-                    licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
-                    sourceUrl: "https://commons.wikimedia.org/wiki/File:Hauptfriedhof_Stuttgart,_005.jpg",
-                    sourceLabel: "Wikimedia Commons"
-                },
-                stadtLageplan("stuttgart-hauptfriedhof-bad-cannstatt-lageplan.jpg", "Lageplan mit Grabfeldern: Hauptfriedhof Bad Cannstatt")
-            ],
-            "Steigfriedhof Bad Cannstatt": [
-                stadtLageplan("stuttgart-steigfriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Steigfriedhof")
-            ],
-            "Uff Kirchhof": [
-                {
-                    src: "assets/friedhoefe/lageplaene-clean/stuttgart-uff-kirchhof-lageplan.jpg",
-                    kind: "Lageplan",
-                    title: "Lageplan mit Grabfeldern: Uff Kirchhof",
-                    credit: "OpenStreetMap / Gerd Leibrock",
-                    license: "CC BY-SA 3.0",
-                    licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/deed.de",
-                    sourceLabel: "Wikimedia / Wikipedia",
-                    cropped: true
-                }
-            ],
-            "Friedhof Zuffenhausen": [
-                stadtLageplan("stuttgart-zuffenhausen-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Zuffenhausen")
-            ],
-            "Friedhof Gaisburg": [
-                {
-                    src: "assets/friedhoefe/lageplaene-clean/stuttgart-gaisburg-lageplan.jpg",
-                    kind: "Lageplan",
-                    title: "Lageplan mit Grabfeldern: Friedhof Gaisburg",
-                    credit: "Wikimedia / Wikipedia",
-                    license: "Public Domain",
-                    sourceLabel: "TrauerOhr-Bearbeitung 19.08.2026",
-                    cropped: true
-                }
-            ],
-            "Bergfriedhof Stuttgart Berg": [
-                {
-                    src: "assets/friedhoefe/lageplaene-clean/stuttgart-bergfriedhof-lageplan.jpg",
-                    kind: "Lageplan",
-                    title: "Lageplan mit Grabfeldern: Bergfriedhof Stuttgart",
-                    credit: "Garten-, Friedhofs- und Forstamt Stuttgart",
-                    license: "Public Domain",
-                    sourceLabel: "Wikimedia / Wikipedia, zugeschnitten",
-                    cropped: true
-                }
-            ],
-            "Pragfriedhof Stuttgart Nord": [
-                stadtLageplan("stuttgart-pragfriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Pragfriedhof")
-            ],
-            "Fangelsbachfriedhof Lehenviertel": [
-                stadtLageplan("stuttgart-fangelsbachfriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Fangelsbachfriedhof")
-            ],
-            "Friedhof Kaltental": [
-                mammutLageplan("stuttgart-kaltental-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Kaltental", "Mammut-Verlag Leipzig / Gärtnerei Haag")
-            ],
-            "Neuer Friedhof Degerloch": [
-                mammutLageplan("stuttgart-neuer-friedhof-degerloch-lageplan.jpg", "Lageplan mit Grabfeldern: Neuer Friedhof Degerloch", "Mammut-Verlag Leipzig / Gärtnerei Haag")
-            ],
-            "Friedhof Heslach": [
-                mammutLageplan("stuttgart-heslach-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Heslach", "Mammut-Verlag Leipzig / Gärtnerei Haag")
-            ],
-            "Dornhaldenfriedhof": [
-                {
-                    src: "assets/friedhoefe/lageplaene-clean/stuttgart-dornhaldenfriedhof-lageplan.jpg",
-                    kind: "Lageplan",
-                    title: "Lageplan mit Grabfeldern: Dornhaldenfriedhof",
-                    credit: "Garten-, Friedhofs- und Forstamt Stuttgart",
-                    license: "Public Domain",
-                    sourceLabel: "Wikimedia / Wikipedia, zugeschnitten",
-                    cropped: true
-                }
-            ],
-            "Friedhof Möhringen": [
-                mammutLageplan("stuttgart-moehringen-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Möhringen", "Mammut-Verlag Leipzig / Gärtnerei Haag")
-            ],
-            "Alter Friedhof Degerloch": [
-                mammutLageplan("stuttgart-alter-friedhof-degerloch-lageplan.jpg", "Lageplan mit Grabfeldern: Alter Friedhof Degerloch", "Mammut-Verlag Leipzig / Gärtnerei Haag")
-            ],
-            "Waldfriedhof Stuttgart": [
-                {
-                    src: "assets/friedhoefe/grabfelder/waldfriedhof-grabfeld.jpg",
-                    kind: "Grabfeld",
-                    title: "Gräberfeld im Ehrenhain, Waldfriedhof Stuttgart",
-                    credit: "Zinnmann",
-                    license: "CC BY-SA 3.0 DE",
-                    licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/de/deed.de",
-                    sourceUrl: "https://commons.wikimedia.org/wiki/File:20211002_Waldfriedhof_Stuttgart_-_041.jpg",
-                    sourceLabel: "Wikimedia Commons"
-                },
-                stadtLageplan("stuttgart-waldfriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Waldfriedhof Stuttgart")
-            ],
-            "Friedhof Münster": [
-                mammutLageplan("stuttgart-muenster-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Münster", "Widmann Bestattungen / Mammut-Verlag")
-            ],
-            "Ostfilderfriedhof Sillenbuch": [
-                stadtLageplan("stuttgart-ostfilderfriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Ostfilderfriedhof")
-            ],
-            "Hoppenlaufriedhof Stuttgart West": [
-                stadtLageplan("stuttgart-hoppenlaufriedhof-lageplan.jpg", "Lageplan mit Grabfeldern: Hoppenlaufriedhof")
-            ],
-            "Friedhof Rohr": [
-                stadtLageplan("stuttgart-rohr-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Rohr")
-            ]
-        };
-
-        function friedhofBildCaption(p) {
-            const cropped = p.cropped ? ", zugeschnitten" : "";
-            const license = p.licenseUrl
-                ? `<a href="${p.licenseUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">${p.license}</a>`
-                : p.license;
-            const source = p.sourceUrl
-                ? `<a href="${p.sourceUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">${p.sourceLabel || "Quelle"}</a>`
-                : (p.sourceLabel || "");
-            return `<strong>${p.kind}:</strong> ${p.title}. Quelle: ${p.credit}${cropped}. Status: ${license}${source ? ". " + source : ""}.`;
-        }
-
-        function renderFriedhoefe(items) {
-            const grid = document.getElementById('friedhof-grid');
-            if(!grid) return;
-            grid.innerHTML = '';
-
-            if(items.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-1 md:col-span-2 lg:col-span-3 py-10 text-center bg-sand-50 rounded-2xl border border-dashed border-gray-300">
-                        <i class="fa-solid fa-monument text-3xl text-gray-400 mb-2"></i>
-                        <p class="text-gray-700 font-bold">Keine Friedhöfe gefunden</p>
-                        <p class="text-gray-500 text-xs mt-1">Bitte passen Sie Ihre Suchanfrage an.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            items.forEach(f => {
-                const card = document.createElement('div');
-                card.className = "friedhof-card border border-sand-200 rounded-xl p-5 bg-sand-50 flex flex-col justify-between";
-                const types = f.types || [];
-                const typesHtml = types.map(t => `<span class="inline-block text-[11px] bg-white border border-gray-200 px-2 py-0.5 rounded-md text-gray-700 mr-1 mb-1">${t}</span>`).join('');
-                const graves = grabfelderFor(f);
-                const gravesHtml = graves.map(g => `<span class="inline-block text-[11px] bg-white border border-gray-200 px-2 py-0.5 rounded-md text-gray-700 mr-1 mb-1">${g}</span>`).join('');
-                const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(f.name + ', ' + f.address);
-                const photos = friedhofBilder[f.name] || [];
-                const previewPhoto = photos.find(p => p.kind === "Lageplan") || photos[0];
-                const preview = previewPhoto ? `<img src="${previewPhoto.src}" alt="${previewPhoto.title}" class="friedhof-photo mb-3" style="max-height: 160px; object-fit: contain;">` : '';
-                const photoHint = photos.length ? `<p class="text-[11px] text-gray-500" style="margin: 6px 0 0 0;">Lageplan mit Grabfeldern vorhanden</p>` : `<p class="text-[11px] text-gray-400" style="margin: 6px 0 0 0;">Noch kein Lageplan</p>`;
-
-                card.innerHTML = `
-                    <div>
-                        ${preview}
-                        <div class="flex justify-between items-start mb-1">
-                            <span class="text-xs font-bold text-primary-600 uppercase tracking-wider" style="color: var(--primary);">${f.district}</span>
-                            <span class="text-[10px] text-gray-400 font-medium bg-white px-2 py-0.5 rounded border">Stuttgart</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-900" style="margin: 0 0 4px 0;">${f.name}</h3>
-                        <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-location-dot mr-1 text-brandblue-600" style="color: var(--brandblue);"></i>${f.address}</p>
-                        <p class="text-xs text-gray-600 mt-2 leading-relaxed">${f.desc}</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-sand-200">
-                        <p class="text-[11px] font-semibold text-gray-700" style="margin: 0 0 6px 0;">Grabfelder</p>
-                        <div class="flex flex-wrap">${gravesHtml}</div>
-                        <div class="flex flex-wrap mt-2">${typesHtml}</div>
-                        ${photoHint}
-                        <button type="button" class="btn-outline mt-3 w-full js-open-friedhof">
-                            <i class="fa-solid fa-images"></i>
-                            <span>Grabfelder ansehen</span>
-                        </button>
-                        <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="btn-outline mt-2 w-full js-map-link">
-                            <i class="fa-solid fa-map-location-dot"></i>
-                            <span>Karte öffnen</span>
-                        </a>
-                    </div>
-                `;
-                card.querySelector('.js-open-friedhof').addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openFriedhofDetail(f);
-                });
-                card.querySelector('.js-map-link').addEventListener('click', (e) => e.stopPropagation());
-                card.addEventListener('click', () => openFriedhofDetail(f));
-                grid.appendChild(card);
-            });
-        }
-
-        function filterFriedhoefe() {
-            const searchVal = (document.getElementById('search-friedhof')?.value || '').toLowerCase().trim();
-            const groupVal = document.getElementById('district-friedhof')?.value || 'all';
-
-            const filtered = friedhofData.filter(f => {
-                const matchGroup = (groupVal === 'all') || (f.group === groupVal);
-                const matchSearch = (searchVal === '') || 
-                    f.name.toLowerCase().includes(searchVal) ||
-                    f.district.toLowerCase().includes(searchVal) ||
-                    f.address.toLowerCase().includes(searchVal) ||
-                    f.desc.toLowerCase().includes(searchVal) ||
-                    f.types.some(t => t.toLowerCase().includes(searchVal)) ||
-                    grabfelderFor(f).some(g => g.toLowerCase().includes(searchVal));
-
-                return matchGroup && matchSearch;
-            });
-
-            renderFriedhoefe(filtered);
-        }
-
-        function renderBestatter(items) {
-            const grid = document.getElementById('bestatter-grid');
-            if(!grid) return;
-            
-            grid.innerHTML = '';
-
-            if(items.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-1 md:col-span-2 lg:col-span-3 py-12 text-center bg-sand-50 rounded-2xl border border-dashed border-gray-300 p-6">
-                        <i class="fa-solid fa-magnifying-glass-slash text-3xl text-gray-400 mb-3"></i>
-                        <p class="text-gray-700 font-bold text-base">Keine Treffer gefunden</p>
-                        <p class="text-gray-500 text-xs mt-1">Bitte versuchen Sie einen anderen Suchbegriff oder setzen Sie die Filter zurück.</p>
-                        <button onclick="resetFilters()" class="mt-4 bg-primary-600 text-white text-xs px-4 py-2 rounded-lg hover:bg-primary-700 transition" style="background-color: var(--primary);">Filter zurücksetzen</button>
-                    </div>
-                `;
-                return;
-            }
-
-            items.forEach(b => {
-                const card = document.createElement('div');
-                card.className = b.placeholder ? "card-bestatter card-bestatter-ad" : "card-bestatter";
-                
-                let tagsHtml = b.tags.map(t => `<span class="bg-white border border-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded-md">${t}</span>`).join(' ');
-
-                let branchBtnHtml = '';
-                if(b.branches && b.branches.length > 0) {
-                    branchBtnHtml = `
-                        <button type="button" onclick="openBranchModal('${b.id}')" class="text-xs font-semibold text-primary-600 hover:text-primary-800 underline my-2 flex items-center space-x-1 cursor-pointer" style="color: var(--primary); background: none; border: none; padding: 0;">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span>Alle ${b.branches.length} Standorte &amp; Filialen anzeigen</span>
-                        </button>
-                    `;
-                }
-
-                const phoneHtml = b.phone ? `
-                            <a href="tel:${b.phone.replace(/\s/g, '')}" class="btn-primary" style="grid-column: span 2;">
-                                <i class="fa-solid fa-phone text-xs"></i>
-                                <span>${b.phone} (Tag &amp; Nacht)</span>
-                            </a>` : `
-                            <a href="mailto:${b.email || 'office@trauerohr.com'}" class="btn-primary" style="grid-column: span 2;">
-                                <i class="fa-solid fa-envelope text-xs"></i>
-                                <span>Bei TrauerOhr melden</span>
-                            </a>`;
-
-                card.innerHTML = `
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--brandblue);">${b.district}</span>
-                            <span class="text-xs text-gray-400 font-medium">${b.established}</span>
-                        </div>
-                        <h3 class="font-bold text-gray-900 text-lg mb-1" style="margin: 0 0 6px 0;">${b.name}</h3>
-                        <p class="text-xs text-gray-600 mb-1" style="margin: 0 0 4px 0;"><i class="fa-solid fa-building-user mr-1 text-primary-600" style="color: var(--primary);"></i><strong>Adresse:</strong> ${b.address}</p>
-                        ${branchBtnHtml}
-                        <p class="text-sm text-gray-600 mb-4 mt-2 leading-relaxed" style="line-height: 1.5; margin-top: 8px;">${b.desc}</p>
-                    </div>
-                    <div>
-                        <div class="flex flex-wrap gap-1 mb-4" style="gap: 4px;">${tagsHtml}</div>
-                        <div class="grid grid-cols-2 gap-2 mt-3" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
-                            ${phoneHtml}
-                            ${b.website ? `
-                            <a href="${b.website}" target="_blank" rel="noopener noreferrer" class="btn-outline">
-                                <i class="fa-solid fa-globe"></i>
-                                <span>${b.placeholder ? "TrauerOhr.com" : "Webseite"}</span>
-                            </a>
-                            ` : ''}
-                            ${b.email ? `
-                            <a href="mailto:${b.email}" class="btn-outline">
-                                <i class="fa-solid fa-envelope"></i>
-                                <span>E-Mail</span>
-                            </a>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function filterBestatter() {
-            const districtElem = document.getElementById('district-filter');
-            const featureElem = document.getElementById('feature-filter');
-            const searchElem = document.getElementById('search-filter');
-            const clearBtn = document.getElementById('clear-search-btn');
-
-            const district = districtElem ? districtElem.value : 'all';
-            const feature = featureElem ? featureElem.value : 'all';
-            const search = searchElem ? searchElem.value.toLowerCase().trim() : '';
-
-            if (clearBtn) {
-                if (search.length > 0) {
-                    clearBtn.classList.remove('hidden');
-                } else {
-                    clearBtn.classList.add('hidden');
-                }
-            }
-
-            const filtered = bestatterData.filter(b => {
-                const matchDistrict = (district === 'all') || 
-                    (b.districtsAll && b.districtsAll.some(d => d.toLowerCase().includes(district.toLowerCase()))) ||
-                    (b.district && b.district.toLowerCase().includes(district.toLowerCase()));
-
-                const matchFeature = (feature === 'all') || 
-                    (b.features && b.features.includes(feature));
-
-                let matchSearch = true;
-                if(search !== '') {
-                    const nameMatch = b.name.toLowerCase().includes(search);
-                    const descMatch = b.desc ? b.desc.toLowerCase().includes(search) : false;
-                    const districtMatch = b.district ? b.district.toLowerCase().includes(search) : false;
-                    const addressMatch = b.address ? b.address.toLowerCase().includes(search) : false;
-                    const tagMatch = b.tags ? b.tags.some(t => t.toLowerCase().includes(search)) : false;
-                    const branchMatch = b.branches ? b.branches.some(br => 
-                        (br.name && br.name.toLowerCase().includes(search)) || 
-                        (br.address && br.address.toLowerCase().includes(search)) || 
-                        (br.note && br.note.toLowerCase().includes(search))
-                    ) : false;
-
-                    matchSearch = nameMatch || descMatch || districtMatch || addressMatch || tagMatch || branchMatch;
-                }
-
-                return matchDistrict && matchFeature && matchSearch;
-            });
-
-            renderBestatter(filtered);
-        }
-
-        function clearBestatterSearch() {
-            const searchElem = document.getElementById('search-filter');
-            if (searchElem) {
-                searchElem.value = '';
-            }
-            filterBestatter();
-        }
-
-        function resetFilters() {
-            if(document.getElementById('district-filter')) document.getElementById('district-filter').value = 'all';
-            if(document.getElementById('feature-filter')) document.getElementById('feature-filter').value = 'all';
-            if(document.getElementById('search-filter')) document.getElementById('search-filter').value = '';
-            filterBestatter();
-        }
-
-        function openBranchModal(bestatterId) {
-            const b = bestatterData.find(item => item.id === bestatterId);
-            if(!b) return;
-
-            const modalTitle = document.getElementById('modal-title');
-            const modalContent = document.getElementById('modal-content');
-            const modal = document.getElementById('branch-modal');
-
-            if(!modal || !modalTitle || !modalContent) return;
-
-            modalTitle.textContent = b.name + ' - Standorte & Filialen';
-            
-            let branchesHtml = '';
-            if(b.branches && b.branches.length > 0) {
-                branchesHtml = b.branches.map(br => `
-                    <div class="p-4 bg-sand-50 rounded-xl border border-sand-200" style="padding: 12px; background: var(--sand-50); border: 1px solid var(--sand-200); border-radius: 12px;">
-                        <h4 class="font-bold text-gray-900 text-sm flex items-center" style="margin: 0 0 4px 0;">
-                            <i class="fa-solid fa-location-dot text-primary-600 mr-2" style="color: var(--primary);"></i>${br.name}
-                        </h4>
-                        <p class="text-sm text-gray-700 mt-1 font-medium" style="margin: 2px 0;">${br.address}</p>
-                        ${br.note ? `<p class="text-xs text-gray-500 mt-0.5" style="margin: 0; color: var(--gray-600);">${br.note}</p>` : ''}
-                    </div>
-                `).join('');
-            } else {
-                branchesHtml = `
-                    <div class="p-4 bg-sand-50 rounded-xl border border-sand-200">
-                        <p class="text-sm text-gray-700 font-medium">${b.address}</p>
-                    </div>
-                `;
-            }
-
-            modalContent.innerHTML = `
-                <div class="p-3 bg-amber-50 text-amber-900 border border-amber-200 rounded-xl text-xs mb-4 flex items-center space-x-2" style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 10px;">
-                    <i class="fa-solid fa-phone text-amber-700 text-base shrink-0" style="color: #b45309;"></i>
-                    <span>Zentrale 24h-Bereitschaftsnummer: <strong>${b.phone}</strong></span>
-                </div>
-                <div class="space-y-3" style="display: flex; flex-direction: column; gap: 10px;">${branchesHtml}</div>
-            `;
-
-            modal.classList.remove('hidden');
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('branch-modal');
-            if(modal) modal.classList.add('hidden');
-        }
-
-        function openFriedhofDetail(f) {
-            const modal = document.getElementById('friedhof-modal');
-            const title = document.getElementById('friedhof-modal-title');
-            const content = document.getElementById('friedhof-modal-content');
-            if(!modal || !title || !content) return;
-
-            const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(f.name + ', ' + f.address);
-            const graves = grabfelderFor(f);
-            const gravesHtml = graves.map(g => `<span class="inline-block text-[11px] bg-sand-50 border border-gray-200 px-2 py-0.5 rounded-md text-gray-700 mr-1 mb-1">${g}</span>`).join('');
-            const photos = friedhofBilder[f.name] || [];
-            const photosHtml = photos.length ? photos.map(p => `
-                <figure style="margin: 0 0 16px 0;">
-                    <img src="${p.src}" alt="${p.title}" class="friedhof-photo">
-                    <figcaption class="friedhof-caption">${friedhofBildCaption(p)}</figcaption>
-                </figure>
-            `).join('') : `<p class="text-sm text-gray-600">Für diesen Friedhof liegt noch kein Lageplan vor. Die Grabfelder unten dienen zur Orientierung, die Karte führt zum Standort.</p>`;
-
-            title.textContent = f.name;
-            content.innerHTML = `
-                <p class="text-xs text-gray-500" style="margin: 0 0 12px 0;"><i class="fa-solid fa-location-dot mr-1" style="color: var(--brandblue);"></i>${f.address}</p>
-                <p class="text-sm text-gray-600" style="margin: 0 0 16px 0;">${f.desc}</p>
-                ${photosHtml}
-                <p class="text-[11px] font-semibold text-gray-700" style="margin: 0 0 6px 0;">Grabfelder</p>
-                <div class="flex flex-wrap" style="margin-bottom: 16px;">${gravesHtml}</div>
-                <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="btn-outline w-full">
-                    <i class="fa-solid fa-map-location-dot"></i>
-                    <span>Karte öffnen</span>
-                </a>
-            `;
-            modal.classList.remove('hidden');
-        }
-
-        function closeFriedhofModal() {
-            const modal = document.getElementById('friedhof-modal');
-            if(modal) modal.classList.add('hidden');
-        }
-
-        function initApp() {
-            switchTab('bestatter');
-            renderBestatter(bestatterData);
-            renderFriedhoefe(friedhofData);
-        }
-
-        if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', initApp);
-        } else {
-            initApp();
-        }
+        });
     </script>
 </body>
 </html>
-

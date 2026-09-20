@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrauerGuide · Regionen BW</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 600: '#79A83B', 700: '#5e862c' },
+                        brandblue: { 600: '#1C00CC' },
+                        sand: { 50: '#fdfbf7', 100: '#f7f3eb', 200: '#ebe3d5' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #79A83B;
+            --primary-hover: #5e862c;
+            --brandblue: #1C00CC;
+            --sand-50: #fdfbf7;
+            --sand-100: #f7f3eb;
+            --sand-200: #ebe3d5;
+            --text: #3F3F3F;
+            --gray-600: #4b5563;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--sand-50);
+            color: var(--text);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--sand-200);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .tab-btn {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--gray-600);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        .tab-btn:hover, .regionen-menu[open] > summary {
+            color: var(--brandblue);
+            background: rgba(28, 0, 204, 0.05);
+        }
+        .tab-active {
+            color: var(--brandblue) !important;
+            font-weight: 700 !important;
+            background-color: rgba(28, 0, 204, 0.06) !important;
+        }
+        .regionen-menu { position: relative; }
+        .regionen-menu summary { list-style: none; }
+        .regionen-menu summary::-webkit-details-marker { display: none; }
+        .regionen-panel {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            min-width: 240px;
+            max-height: 70vh;
+            overflow-y: auto;
+            background: #ffffff;
+            border: 1px solid var(--sand-200);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            padding: 8px;
+            z-index: 80;
+        }
+        .regionen-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 9px 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 500;
+        }
+        a.regionen-item:hover {
+            background: rgba(28, 0, 204, 0.05);
+            color: var(--brandblue);
+        }
+        .regionen-status {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #8a8a8a;
+            white-space: nowrap;
+        }
+        .region-card {
+            background: #ffffff;
+            border: 1px solid var(--sand-200);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 180px;
+            text-decoration: none;
+            color: inherit;
+            transition: box-shadow 0.2s ease;
+        }
+        a.region-card:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
+        .region-kicker {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin: 0 0 8px 0;
+        }
+        .region-card h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #111827;
+        }
+        .region-card p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.55;
+            color: var(--gray-600);
+            flex-grow: 1;
+        }
+        .region-card-link {
+            margin-top: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--brandblue);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .banner-vorsorge-neu {
+            background: #ffffff;
+            color: var(--text);
+            border-radius: 10px;
+            padding: 10px 14px;
+            box-shadow: none;
+            border: 1px solid #1C00CC;
+        }
+        .btn-blue-action {
+            background-color: #ffffff !important;
+            color: var(--text) !important;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 6px 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 11px;
+            transition: border-color 0.2s ease, color 0.2s ease;
+            box-shadow: none;
+            border: 1px solid var(--sand-200);
+            white-space: nowrap;
+        }
+        .btn-blue-action:hover {
+            background-color: var(--sand-50) !important;
+            color: var(--brandblue) !important;
+            border-color: var(--brandblue);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between py-4 gap-4">
+                <a href="../" class="flex items-center space-x-3" style="text-decoration: none;">
+                    <div class="w-12 h-12 text-white rounded-2xl flex items-center justify-center text-xl shadow-md shrink-0" style="background-color: var(--brandblue);">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold tracking-tight" style="margin: 0; font-size: 1.75rem;"><span style="color: var(--primary); font-weight: 600;">TrauerGuide</span></h1>
+                        <p class="text-xs text-gray-500" style="margin: 2px 0 0 0;">von TrauerOhr</p>
+                    </div>
+                </a>
+                <nav class="flex items-center space-x-1 sm:space-x-2 pb-1 md:pb-0 text-sm">
+                    <a href="../" class="tab-btn">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Start</span>
+                    </a>
+                    <details class="regionen-menu">
+                        <summary class="tab-btn tab-active">
+                            <i class="fa-solid fa-map"></i>
+                            <span>Regionen BW</span>
+                        </summary>
+                        <div class="regionen-panel">
+                            <a href="../stuttgart/" class="regionen-item"><span>Stuttgart</span><span class="regionen-status">öffnen</span></a>
+                            <a href="../esslingen/" class="regionen-item"><span>Esslingen</span><span class="regionen-status">öffnen</span></a>
+                            <a href="../ludwigsburg/" class="regionen-item"><span>Ludwigsburg</span><span class="regionen-status">öffnen</span></a>
+                            <a href="../boeblingen/" class="regionen-item"><span>Böblingen</span><span class="regionen-status">öffnen</span></a>
+                            <a href="../rems-murr-kreis/" class="regionen-item"><span>Rems-Murr-Kreis</span><span class="regionen-status">öffnen</span></a>
+                            <a href="../goeppingen/" class="regionen-item"><span>Göppingen</span><span class="regionen-status">öffnen</span></a>
+                            <a href="../heilbronn/" class="regionen-item"><span>Heilbronn</span><span class="regionen-status">öffnen</span></a>
+                            <a href="../hohenlohekreis/" class="regionen-item"><span>Hohenlohekreis</span><span class="regionen-status">öffnen</span></a>
+                            <a href="../schwaebisch-hall/" class="regionen-item"><span>Schwäbisch Hall</span><span class="regionen-status">öffnen</span></a>
+                            <a href="../ostalbkreis/" class="regionen-item"><span>Ostalbkreis</span><span class="regionen-status">öffnen</span></a>
+                            <a href="../heidenheim/" class="regionen-item"><span>Heidenheim</span><span class="regionen-status">öffnen</span></a>
+                            <a href="../main-tauber-kreis/" class="regionen-item"><span>Main-Tauber-Kreis</span><span class="regionen-status">öffnen</span></a>
+                            <a href="./" class="regionen-item" style="margin-top: 4px; border-top: 1px solid var(--sand-200); border-radius: 0 0 8px 8px;"><span>Alle Regionen</span><span class="regionen-status">aktuell</span></a>
+                        </div>
+                    </details>
+                    <a href="../ratgeber/" class="tab-btn">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Ratgeber</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        <section>
+            <h2 class="text-lg font-bold text-gray-900" style="margin: 0 0 6px 0;">Regionen BW</h2>
+            <p class="text-sm text-gray-500" style="margin: 0 0 16px 0;">Aktuell der Regierungsbezirk Stuttgart. Weitere Regionen können später dazukommen. Bestatter und Friedhöfe erscheinen in der jeweiligen Region.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <a href="../stuttgart/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Jetzt verfügbar</p>
+                    <h3>Stuttgart</h3>
+                    <p>Bestatter und Friedhof TO GO für Stuttgart.</p>
+                    <span class="region-card-link">Zur Region Stuttgart <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+                <a href="../esslingen/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Bestatter verfügbar</p>
+                    <h3>Esslingen</h3>
+                    <p>Häfner &amp; Züfle sowie Platz für weitere Bestatter. Friedhof TO GO folgt.</p>
+                    <span class="region-card-link">Zur Region Esslingen <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+                <a href="../ludwigsburg/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Bestatter verfügbar</p>
+                    <h3>Ludwigsburg</h3>
+                    <p>Häfner &amp; Züfle sowie Platz für weitere Bestatter. Friedhof TO GO folgt.</p>
+                    <span class="region-card-link">Zur Region Ludwigsburg <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+                <a href="../boeblingen/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Bestatter verfügbar</p>
+                    <h3>Böblingen</h3>
+                    <p>Häfner &amp; Züfle sowie Platz für weitere Bestatter. Friedhof TO GO folgt.</p>
+                    <span class="region-card-link">Zur Region Böblingen <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+                <a href="../rems-murr-kreis/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Bestatter verfügbar</p>
+                    <h3>Rems-Murr-Kreis</h3>
+                    <p>Häfner &amp; Züfle sowie Platz für weitere Bestatter. Friedhof TO GO folgt.</p>
+                    <span class="region-card-link">Zur Region Rems-Murr-Kreis <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+                <a href="../goeppingen/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Bestatter verfügbar</p>
+                    <h3>Göppingen</h3>
+                    <p>Häfner &amp; Züfle sowie Platz für weitere Bestatter. Friedhof TO GO folgt.</p>
+                    <span class="region-card-link">Zur Region Göppingen <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+                <a href="../heilbronn/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Bestatter verfügbar</p>
+                    <h3>Heilbronn</h3>
+                    <p>Häfner &amp; Züfle sowie Platz für weitere Bestatter. Friedhof TO GO folgt.</p>
+                    <span class="region-card-link">Zur Region Heilbronn <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+                <a href="../hohenlohekreis/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Bestatter verfügbar</p>
+                    <h3>Hohenlohekreis</h3>
+                    <p>Häfner &amp; Züfle sowie Platz für weitere Bestatter. Friedhof TO GO folgt.</p>
+                    <span class="region-card-link">Zur Region Hohenlohekreis <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+                <a href="../schwaebisch-hall/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Bestatter verfügbar</p>
+                    <h3>Schwäbisch Hall</h3>
+                    <p>Häfner &amp; Züfle sowie Platz für weitere Bestatter. Friedhof TO GO folgt.</p>
+                    <span class="region-card-link">Zur Region Schwäbisch Hall <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+                <a href="../ostalbkreis/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Bestatter verfügbar</p>
+                    <h3>Ostalbkreis</h3>
+                    <p>Häfner &amp; Züfle sowie Platz für weitere Bestatter. Friedhof TO GO folgt.</p>
+                    <span class="region-card-link">Zur Region Ostalbkreis <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+                <a href="../heidenheim/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Bestatter verfügbar</p>
+                    <h3>Heidenheim</h3>
+                    <p>Häfner &amp; Züfle sowie Platz für weitere Bestatter. Friedhof TO GO folgt.</p>
+                    <span class="region-card-link">Zur Region Heidenheim <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+                <a href="../main-tauber-kreis/" class="region-card">
+                    <p class="region-kicker" style="color: var(--primary);">Bestatter verfügbar</p>
+                    <h3>Main-Tauber-Kreis</h3>
+                    <p>Häfner &amp; Züfle sowie Platz für weitere Bestatter. Friedhof TO GO folgt.</p>
+                    <span class="region-card-link">Zur Region Main-Tauber-Kreis <i class="fa-solid fa-arrow-right" style="font-size: 10px;"></i></span>
+                </a>
+            </div>
+        </section>
+        <div class="banner-vorsorge-neu flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2" style="margin-top: 24px;">
+            <div class="flex items-start gap-2.5">
+                <div class="w-7 h-7 rounded-md flex items-center justify-center text-xs shrink-0 border border-sand-200" style="color: var(--primary);">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+                <div>
+                    <p class="text-[11px] font-semibold" style="margin: 0; color: var(--text);">Hinweis: Digitale Bestattungsvorsorge</p>
+                    <p class="text-[11px] leading-snug" style="margin: 2px 0 0 0; color: #6b6b6b;">Wünsche in Ruhe festhalten – für sich selbst oder den gewählten Bestatter. Ergänzend zum TrauerGuide.</p>
+                </div>
+            </div>
+            <a href="https://digitale-bestattungsvorsorge.de" target="_blank" rel="noopener noreferrer" class="btn-blue-action shrink-0">
+                <span>Zur Vorsorge-App</span>
+                <i class="fa-solid fa-arrow-right" style="font-size: 9px;"></i>
+            </a>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t mt-auto py-6" style="background: white; border-top: 1px solid var(--sand-200);">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 space-y-1.5">
+            <p><a href="https://trauerguide.trauerohr.com" class="hover:underline font-semibold" style="color: var(--brandblue);">trauerguide.trauerohr.com</a></p>
+            <p>Impressum unter <a href="https://www.trauerohr.com/impressum" target="_blank" rel="noopener noreferrer" class="hover:underline font-bold" style="color: var(--brandblue);"><i class="fa-solid fa-globe mr-1"></i>TrauerOhr.com</a></p>
+            <p class="text-gray-400 mt-1">&copy; 2026 TrauerGuide. Ein Projekt von <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">TrauerOhr</a>.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('click', (event) => {
+            document.querySelectorAll('.regionen-menu').forEach((menu) => {
+                if (!menu.contains(event.target)) menu.removeAttribute('open');
+            });
+        });
+    </script>
+</body>
+</html>

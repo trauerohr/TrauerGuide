@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrauerGuide · Ludwigsburg</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 600: '#79A83B', 700: '#5e862c' },
+                        brandblue: { 600: '#1C00CC' },
+                        sand: { 50: '#fdfbf7', 100: '#f7f3eb', 200: '#ebe3d5' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #79A83B;
+            --primary-hover: #5e862c;
+            --brandblue: #1C00CC;
+            --sand-50: #fdfbf7;
+            --sand-100: #f7f3eb;
+            --sand-200: #ebe3d5;
+            --text: #3F3F3F;
+            --gray-600: #4b5563;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--sand-50);
+            color: var(--text);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--sand-200);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .tab-btn {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--gray-600);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        .tab-btn:hover, .regionen-menu[open] > summary {
+            color: var(--brandblue);
+            background: rgba(28, 0, 204, 0.05);
+        }
+        .tab-active {
+            color: var(--brandblue) !important;
+            font-weight: 700 !important;
+            background-color: rgba(28, 0, 204, 0.06) !important;
+        }
+        .regionen-menu { position: relative; }
+        .regionen-menu summary { list-style: none; }
+        .regionen-menu summary::-webkit-details-marker { display: none; }
+        .regionen-panel {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            min-width: 240px;
+            max-height: 70vh;
+            overflow-y: auto;
+            background: #ffffff;
+            border: 1px solid var(--sand-200);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            padding: 8px;
+            z-index: 80;
+        }
+        .regionen-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 9px 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 500;
+        }
+        a.regionen-item:hover {
+            background: rgba(28, 0, 204, 0.05);
+            color: var(--brandblue);
+        }
+        .regionen-item.is-active {
+            color: var(--brandblue);
+            font-weight: 700;
+            background: rgba(28, 0, 204, 0.06);
+        }
+        .regionen-status {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #8a8a8a;
+            white-space: nowrap;
+        }
+        .regionen-item.is-active .regionen-status { color: var(--primary); }
+        .intro-trauerguide {
+            background: #ffffff;
+            border: 1px solid var(--sand-200);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .card-bestatter {
+            background-color: var(--sand-50);
+            border: 1px solid var(--sand-200);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-bestatter:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
+        .bestatter-logo {
+            height: 28px;
+            width: auto;
+            max-width: 128px;
+            object-fit: contain;
+            object-position: right center;
+            display: block;
+            flex-shrink: 0;
+            background: transparent;
+        }
+        .card-bestatter-ad {
+            background-color: #ffffff;
+            border: 1px dashed #1C00CC;
+        }
+        .banner-vorsorge-neu {
+            background: #ffffff;
+            color: var(--text);
+            border-radius: 10px;
+            padding: 10px 14px;
+            border: 1px solid #1C00CC;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff !important;
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        .btn-outline {
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            color: #374151;
+            border-radius: 12px;
+            font-weight: 500;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+        .btn-outline:hover { border-color: var(--brandblue); color: var(--brandblue); }
+        .btn-blue-action {
+            background-color: #ffffff !important;
+            color: var(--text) !important;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 6px 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            border: 1px solid var(--sand-200);
+            white-space: nowrap;
+        }
+        .btn-blue-action:hover {
+            color: var(--brandblue) !important;
+            border-color: var(--brandblue);
+        }
+        .hidden { display: none !important; }
+        #branch-modal {
+            background-color: rgba(0, 0, 0, 0.6) !important;
+            backdrop-filter: blur(2px);
+        }
+        .placeholder-panel {
+            background: #ffffff;
+            border: 1px dashed var(--sand-200);
+            border-radius: 16px;
+            padding: 28px 24px;
+        }
+        .friedhof-card { cursor: pointer; }
+        .friedhof-card:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
+        .friedhof-photo {
+            width: min(100%, 560px);
+            height: 560px;
+            max-height: 560px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 12px;
+            border: 1px solid var(--sand-200);
+            display: block;
+            background: #fff;
+            object-fit: contain;
+            object-position: center;
+        }
+        #friedhof-modal .friedhof-photo {
+            width: min(100%, 560px);
+            height: 560px;
+            max-height: 560px;
+        }
+        .friedhof-caption {
+            font-size: 11px;
+            color: #6b6b6b;
+            line-height: 1.45;
+            margin: 6px 0 14px 0;
+        }
+        #friedhof-modal {
+            background-color: rgba(0, 0, 0, 0.6) !important;
+            backdrop-filter: blur(2px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between py-4 gap-4">
+                <a href="../" class="flex items-center space-x-3" style="text-decoration: none;">
+                    <div class="w-12 h-12 text-white rounded-2xl flex items-center justify-center text-xl shadow-md shrink-0" style="background-color: var(--brandblue);">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold tracking-tight" style="margin: 0; font-size: 1.75rem;"><span style="color: var(--primary); font-weight: 600;">TrauerGuide</span></h1>
+                        <p class="text-xs text-gray-500" style="margin: 2px 0 0 0;">von TrauerOhr</p>
+                    </div>
+                </a>
+                <nav class="flex items-center space-x-1 sm:space-x-2 pb-1 md:pb-0 text-sm">
+                    <a href="../" class="tab-btn">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Start</span>
+                    </a>
+                    <button id="tab-btn-bestatter" onclick="switchTab('bestatter')" class="tab-btn tab-active">
+                        <i class="fa-solid fa-house-chimney"></i>
+                        <span>Bestatter</span>
+                    </button>
+                    <button id="tab-btn-friedhoefe" onclick="switchTab('friedhoefe')" class="tab-btn">
+                        <i class="fa-solid fa-monument"></i>
+                        <span>Friedhöfe (94)</span>
+                    </button>
+                    <button id="tab-btn-ratgeber" onclick="switchTab('ratgeber')" class="tab-btn">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Ratgeber</span>
+                    </button>
+                    <details class="regionen-menu">
+                        <summary class="tab-btn">
+                            <i class="fa-solid fa-map"></i>
+                            <span>Regionen BW</span>
+                        </summary>
+                        <div class="regionen-panel">
+                            <a href="../stuttgart/" class="regionen-item">
+                                <span>Stuttgart</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../esslingen/" class="regionen-item">
+                                <span>Esslingen</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../ludwigsburg/" class="regionen-item is-active">
+                                <span>Ludwigsburg</span>
+                                <span class="regionen-status">aktuell</span>
+                            </a>
+                            <a href="../boeblingen/" class="regionen-item">
+                                <span>Böblingen</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../rems-murr-kreis/" class="regionen-item">
+                                <span>Rems-Murr-Kreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../goeppingen/" class="regionen-item">
+                                <span>Göppingen</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../heilbronn/" class="regionen-item">
+                                <span>Heilbronn</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../hohenlohekreis/" class="regionen-item">
+                                <span>Hohenlohekreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../schwaebisch-hall/" class="regionen-item">
+                                <span>Schwäbisch Hall</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../ostalbkreis/" class="regionen-item">
+                                <span>Ostalbkreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../heidenheim/" class="regionen-item">
+                                <span>Heidenheim</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../main-tauber-kreis/" class="regionen-item">
+                                <span>Main-Tauber-Kreis</span>
+                                <span class="regionen-status">öffnen</span>
+                            </a>
+                            <a href="../regionen/" class="regionen-item" style="margin-top: 4px; border-top: 1px solid var(--sand-200); border-radius: 0 0 8px 8px;">
+                                <span>Alle Regionen</span>
+                                <span class="regionen-status">Übersicht</span>
+                            </a>
+                        </div>
+                    </details>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        <section id="tab-bestatter" class="tab-content">
+            <div class="space-y-6">
+                <div class="intro-trauerguide">
+                    <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Region Ludwigsburg</p>
+                    <h2 class="text-xl font-bold text-gray-900" style="margin: 0 0 8px 0;">Bestatter in Ludwigsburg</h2>
+                    <p class="text-sm text-gray-600 leading-relaxed" style="margin: 0;">
+                        Hier finden Sie Bestatter und ergänzende Angebote aus der Region. Weitere Bestattungsunternehmen und Partner können aufgenommen werden.
+                        Eine Zusammenarbeit ist möglich. Bei Interesse einfach bei
+                        <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="font-semibold hover:underline" style="color: var(--brandblue);">TrauerOhr</a>
+                        melden:
+                        <a href="mailto:office@trauerohr.com" class="font-semibold hover:underline" style="color: var(--primary);">office@trauerohr.com</a>
+                    </p>
+                </div>
+                <div id="bestatter-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl"></div>
+                <div class="banner-vorsorge-neu flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div class="flex items-start gap-2.5">
+                        <div class="w-7 h-7 rounded-md flex items-center justify-center text-xs shrink-0 border border-sand-200" style="color: var(--primary);">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-semibold" style="margin: 0; color: var(--text);">Hinweis: Digitale Bestattungsvorsorge</p>
+                            <p class="text-[11px] leading-snug" style="margin: 2px 0 0 0; color: #6b6b6b;">Wünsche in Ruhe festhalten – für sich selbst oder den gewählten Bestatter. Ergänzend zum TrauerGuide.</p>
+                        </div>
+                    </div>
+                    <a href="https://digitale-bestattungsvorsorge.de" target="_blank" rel="noopener noreferrer" class="btn-blue-action shrink-0">
+                        <span>Zur Vorsorge-App</span>
+                        <i class="fa-solid fa-arrow-right" style="font-size: 9px;"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-friedhoefe" class="tab-content hidden">
+            <div class="space-y-8">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900" style="margin: 0;">Friedhof TO GO Ludwigsburg</h2>
+                            <p class="text-gray-600 text-sm mt-0.5">Adresse, Grabfelder und Lageplan wo verfügbar. Angaben zur Orientierung, Stand 20.09.2026.</p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <div class="relative min-w-[200px]">
+                                <input type="text" id="search-friedhof" oninput="filterFriedhoefe()" placeholder="Friedhof / Ort suchen..." class="w-full bg-sand-50 border border-gray-300 rounded-xl pl-9 pr-3 py-2 text-sm focus:ring-2 focus:ring-brandblue-600 outline-none transition">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400 text-xs"></i>
+                            </div>
+                            <select id="district-friedhof" onchange="filterFriedhoefe()" class="bg-sand-50 border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brandblue-600 outline-none transition">
+                                <option value="all">Alle Kommunen</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="friedhof-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200">
+                    <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Quellen</p>
+                    <h3 class="text-lg font-bold text-gray-900" style="margin: 0 0 6px 0;">Verwendete Quellen</h3>
+                    <p class="text-xs text-gray-500" style="margin: 0 0 16px 0;">Recherchestand 20.09.2026. Angaben zur Orientierung, keine amtliche Auskunft.</p>
+                    <div class="text-sm text-gray-600 leading-relaxed space-y-3">
+                        <p style="margin: 0;">Stadt Ludwigsburg - Bestattungstermine<br>https://www.ludwigsburg.de/start/rathaus%2Bund%2Bservice/bestattungstermine.html</p>
+                        <p style="margin: 0;">Amtliche Infokarte Stadt Ludwigsburg<br>https://logis2.ludwigsburg.de/</p>
+                        <p style="margin: 0;">OpenStreetMap / Overpass API - Kartendaten<br>https://www.openstreetmap.org/</p>
+                        <p style="margin: 0;">Stadt Ludwigsburg - Friedhofsplan Neuer Friedhof<br>https://www.ludwigsburg.de/webadmin/binary/documents/lb/dictionaries/Pdf-Dokumente/Neuer-Friedhof.pdf</p>
+                        <p style="margin: 0;">Stadt Kornwestheim - Übersichtsplan Friedhof<br>https://www.kornwestheim.de/start/rathaus/friedhof.html</p>
+                        <p style="margin: 0;">Stadt Gerlingen - Bestattung unter Bäumen, Waldfriedhof<br>https://www.gerlingen.de/start/Friedhoefe</p>
+                        <p style="margin: 0;">Till Boegel Steinmetzbetrieb Ludwigsburg - Friedhofspläne<br>https://steinmetz-boegel.de/friedhoefe-in-ludwigsburg/</p>
+                        <p style="margin: 0;">Till Boegel - öffentlich dokumentierte Grabarten in Ludwigsburg<br>https://steinmetz-boegel.de/kolumbarium/</p>
+                        <p style="margin: 0;">Stadt Ludwigsburg - Friedhofsordnung, Grabstättenarten<br>https://www.ludwigsburg.de/site/Ludwigsburg-Internet-2020/get/params_E-253400014/18116328/Friedhofsordnung_final_100222.pdf</p>
+                        <p style="margin: 0;">Stadt Bietigheim-Bissingen - Grabarten und Bestattungsformen<br>https://buergerservice.bietigheim-bissingen.de/friedhofsamt/grabarten-und-bestattungsformen/</p>
+                        <p style="margin: 0;">Stadt Gerlingen - Friedhofsatzung<br>https://www.gerlingen.de/site/Gerlingen-Internet-2021/get/params_E-1239241763/1325424/Friedhofsatzung_barrierefrei.pdf</p>
+                        <p style="margin: 0;">Stadt Kornwestheim - Friedhofsordnung ab 15.07.2023<br>https://www.kornwestheim.de/site/Kornwestheim_Internet/get/params_E-1539937896/21212754/Friedhofsordnung_ab%2015.07.2023.pdf</p>
+                        <p style="margin: 0;">Stadt Ditzingen - Friedhofsordnung<br>https://www.ditzingen.de/fileadmin/Dateien/Dateien/Ortsrecht/7_07_Friedhofsordnung.pdf</p>
+                        <p style="margin: 0;">Stadt Korntal-Münchingen - Friedhofssatzung<br>https://www.korntal-muenchingen.de/ceasy/resource/?id=1104</p>
+                        <p style="margin: 0;">Gemeinde Möglingen - Friedhofssatzung<br>https://www.moeglingen.de/ceasy/resource/?id=4638</p>
+                        <p style="margin: 0;">Stadt Marbach am Neckar - Friedhofsordnung<br>https://www.schillerstadt-marbach.de/fileadmin/standard/inhalt/bilder/B%C3%BCrger/Was_kostet_wie_viel/Friedhofsgeb%C3%BChren/Friedhofsordnung.PDF</p>
+                        <p style="margin: 0;">Stadt Remseck am Neckar - Bestattungsformen und Grabarten<br>https://www.stadt-remseck.de/rathaus-service/oeffentliche-einrichtungen/friedhoefe/Bestattungsformen-und-Grabarten</p>
+                        <p style="margin: 0;">Neuer Friedhof Ludwigsburg - historische und bauliche Angaben<br>https://de.wikipedia.org/wiki/Neuer_Friedhof_(Ludwigsburg)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="tab-ratgeber" class="tab-content hidden">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-sand-200">
+                <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Region Ludwigsburg</p>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4" style="margin-top: 0;">Ratgeber für Ludwigsburg</h2>
+                <p class="text-sm text-gray-600 leading-relaxed" style="margin: 0 0 20px 0;">
+                    Erste Schritte und wichtige Fragen für Angehörige und Besuchende in Ludwigsburg.
+                    Bestatter und Friedhöfe dieser Region finden Sie in den anderen Reitern.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
+                        <h3 class="font-bold text-primary-700 text-lg mb-3 flex items-center" style="color: var(--primary);">
+                            <i class="fa-solid fa-file-invoice mr-2"></i>Erforderliche Dokumente (Interaktiv abhakbar)
+                        </h3>
+                        <div class="space-y-2 text-sm">
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">Personalausweis des/der Verstorbenen</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">Todesbescheinigung (vom Arzt ausgestellt)</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">Geburtsurkunde (bei Ledigen)</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">Heiratsurkunde / Stammbuch der Familie</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">ggf. Sterbeurkunde des Ehepartners / Scheidungsurteil</span>
+                        </label>
+                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
+                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
+                            <span class="ml-2">Rentenversicherungsnummer &amp; Krankenversichertenkarte</span>
+                        </label>
+                        </div>
+                    </div>
+                    <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
+                        <h3 class="font-bold text-primary-700 text-lg mb-3" style="color: var(--primary);"><i class="fa-solid fa-phone-volume mr-2"></i>Wichtige Telefonnummern</h3>
+                        <div class="text-sm text-gray-600 space-y-3">
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Notruf Rettungsdienst / Feuerwehr:</p>
+                            <a href="tel:112" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>112</a>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Polizei:</p>
+                            <a href="tel:110" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>110</a>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Ärztlicher Bereitschaftsdienst:</p>
+                            <a href="tel:116117" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>116 117</a>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Standesamt Ludwigsburg:</p>
+                            <p class="text-xs text-gray-600" style="margin: 2px 0;">Kreisstadt Ludwigsburg · Sterbefälle und Sterbeurkunden. Die örtliche Nummer wird ergänzt, sobald sie mit Quellenstand vorliegt.</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Friedhofsverwaltung Ludwigsburg:</p>
+                            <p class="text-xs text-gray-600" style="margin: 2px 0;">Zuständig ist in der Regel die Gemeinde oder der Landkreis. Die konkreten Nummern folgen mit Quellenstand, sobald sie geprüft sind.</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <p class="font-bold text-gray-900" style="margin: 0;">Telefonseelsorge (24h kostenlos):</p>
+                            <a href="tel:08001110111" class="inline-block text-xs font-bold hover:underline mr-3" style="color: var(--brandblue);"><i class="fa-solid fa-phone mr-1"></i>0800 111 0 111</a>
+                            <a href="tel:08001110222" class="inline-block text-xs font-bold hover:underline" style="color: var(--brandblue);"><i class="fa-solid fa-phone mr-1"></i>0800 111 0 222</a>
+                        </div>
+                            <p class="text-[11px] text-gray-500" style="margin: 0;">Angaben zur Orientierung. Bundesweite Notrufe sind aktuell. Örtliche Behördennummern in Ludwigsburg nur mit Quellenstand.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="friedhof-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 hidden" onclick="if(event.target === this) closeFriedhofModal()">
+            <div class="bg-white rounded-2xl max-w-5xl w-full p-6 shadow-2xl max-h-[92vh] overflow-y-auto relative" onclick="event.stopPropagation()">
+                <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
+                    <h3 id="friedhof-modal-title" class="text-xl font-bold text-gray-900" style="margin: 0;"></h3>
+                    <button onclick="closeFriedhofModal()" class="text-gray-400 hover:text-gray-600 text-2xl p-1 leading-none rounded-lg hover:bg-gray-100">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="friedhof-modal-content"></div>
+                <div class="mt-6 text-right">
+                    <button onclick="closeFriedhofModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2 rounded-xl text-sm font-medium transition">Schließen</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="branch-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 hidden" onclick="if(event.target === this) closeModal()">
+            <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl max-h-[85vh] overflow-y-auto relative">
+                <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
+                    <h3 id="modal-title" class="text-xl font-bold text-gray-900" style="margin: 0;"></h3>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl p-1 leading-none rounded-lg hover:bg-gray-100">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="modal-content" class="space-y-4"></div>
+                <div class="mt-6 text-right">
+                    <button onclick="closeModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2 rounded-xl text-sm font-medium transition">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t mt-auto py-6" style="background: white; border-top: 1px solid var(--sand-200);">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 space-y-1.5">
+            <p><a href="https://trauerguide.trauerohr.com" class="hover:underline font-semibold" style="color: var(--brandblue);">trauerguide.trauerohr.com</a></p>
+            <p>Impressum unter <a href="https://www.trauerohr.com/impressum" target="_blank" rel="noopener noreferrer" class="hover:underline font-bold" style="color: var(--brandblue);"><i class="fa-solid fa-globe mr-1"></i>TrauerOhr.com</a></p>
+            <p class="text-gray-400 mt-1">&copy; 2026 TrauerGuide. Ein Projekt von <a href="https://trauerohr.com" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">TrauerOhr</a>.</p>
+        </div>
+    </footer>
+
+    <script>
+        const REGION_NAME = 'Ludwigsburg';
+
+        const friedhofData = [
+            {
+                        "name": "Friedhof Affalterbach",
+                        "district": "Affalterbach",
+                        "group": "Affalterbach",
+                        "address": "Nordstraße 13, 71563 Affalterbach",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Affalterbach."
+            },
+            {
+                        "name": "Friedhof Asperg",
+                        "district": "Asperg",
+                        "group": "Asperg",
+                        "address": "Schulstraße, 71679 Asperg",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Asperg."
+            },
+            {
+                        "name": "Friedhof Benningen am Neckar",
+                        "district": "Benningen am Neckar",
+                        "group": "Benningen am Neckar",
+                        "address": "Kastellstraße, 71726 Benningen am Neckar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Benningen am Neckar."
+            },
+            {
+                        "name": "Alter Friedhof Besigheim",
+                        "district": "Besigheim",
+                        "group": "Besigheim",
+                        "address": "Karlstraße, 74354 Besigheim",
+                        "types": [
+                                    "Historisch"
+                        ],
+                        "desc": "Historische Anlage in Besigheim."
+            },
+            {
+                        "name": "Friedhof Besigheim",
+                        "district": "Husarenhof",
+                        "group": "Besigheim",
+                        "address": "Friedhofweg, 74354 Besigheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Husarenhof."
+            },
+            {
+                        "name": "Friedhof Ottmarsheim",
+                        "district": "Ottmarsheim",
+                        "group": "Besigheim",
+                        "address": "Kirchberg, 74354 Besigheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Ottmarsheim."
+            },
+            {
+                        "name": "Alter Friedhof Bissingen",
+                        "district": "Bissingen",
+                        "group": "Bietigheim-Bissingen",
+                        "address": "Gerokstraße 8/3, 74321 Bietigheim-Bissingen",
+                        "types": [
+                                    "Historisch"
+                        ],
+                        "desc": "Historische Anlage in Bissingen."
+            },
+            {
+                        "name": "Neuer Friedhof Bissingen",
+                        "district": "Bissingen",
+                        "group": "Bietigheim-Bissingen",
+                        "address": "Schleifmühlenweg 29, 74321 Bietigheim-Bissingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Bissingen."
+            },
+            {
+                        "name": "Friedhof Metterzimmern",
+                        "district": "Metterzimmern",
+                        "group": "Bietigheim-Bissingen",
+                        "address": "Hinter der Kirche 8, 74321 Bietigheim-Bissingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Metterzimmern."
+            },
+            {
+                        "name": "Friedhof St. Peter",
+                        "district": "Metterzimmern",
+                        "group": "Bietigheim-Bissingen",
+                        "address": "Pforzheimer Straße, 74321 Bietigheim-Bissingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Metterzimmern."
+            },
+            {
+                        "name": "Friedhof Untermberg",
+                        "district": "Untermberg",
+                        "group": "Bietigheim-Bissingen",
+                        "address": "Traminer Weg 17, 74321 Bietigheim-Bissingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Untermberg."
+            },
+            {
+                        "name": "Jüdischer Friedhof Bönnigheim",
+                        "district": "Bönnigheim",
+                        "group": "Bönnigheim",
+                        "address": "Freudentaler-Weg, 74357 Bönnigheim",
+                        "types": [
+                                    "Jüdischer Friedhof"
+                        ],
+                        "desc": "Jüdischer Friedhof in Bönnigheim."
+            },
+            {
+                        "name": "Friedhof Hofen",
+                        "district": "Hofen",
+                        "group": "Bönnigheim",
+                        "address": "Friedhofstraße, 74357 Bönnigheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Hofen."
+            },
+            {
+                        "name": "Friedhof Hohenstein",
+                        "district": "Hohenstein",
+                        "group": "Bönnigheim",
+                        "address": "Kirchhofweg, 74357 Bönnigheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Hohenstein."
+            },
+            {
+                        "name": "Friedhof Bönnigheim",
+                        "district": "Im Lauffener Feld",
+                        "group": "Bönnigheim",
+                        "address": "Lauffener Straße 29, 74357 Bönnigheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Im Lauffener Feld."
+            },
+            {
+                        "name": "Friedhof Ditzingen",
+                        "district": "Ditzingen",
+                        "group": "Ditzingen",
+                        "address": "Stettiner Straße 10, 71254 Ditzingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Ditzingen."
+            },
+            {
+                        "name": "Friedhof Heimerdingen",
+                        "district": "Heimerdingen",
+                        "group": "Ditzingen",
+                        "address": "Hochdorfer Straße 7, 71254 Ditzingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Heimerdingen."
+            },
+            {
+                        "name": "Friedhof Hirschlanden",
+                        "district": "Hirschlanden",
+                        "group": "Ditzingen",
+                        "address": "Friedhofstraße 14, 71254 Ditzingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Hirschlanden."
+            },
+            {
+                        "name": "Friedhof Schöckingen",
+                        "district": "Schöckingen",
+                        "group": "Ditzingen",
+                        "address": "Ludwigsburger Straße 6, 71254 Ditzingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Schöckingen."
+            },
+            {
+                        "name": "Friedhof Eberdingen",
+                        "district": "Eberdingen",
+                        "group": "Eberdingen",
+                        "address": "Kirchäckerweg, 71735 Eberdingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Eberdingen."
+            },
+            {
+                        "name": "Friedhof Hochdorf",
+                        "district": "Hochdorf an der Enz",
+                        "group": "Eberdingen",
+                        "address": "Friedhofstraße, 71735 Hochdorf an der Enz",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Hochdorf an der Enz."
+            },
+            {
+                        "name": "Friedhof Nussdorf",
+                        "district": "Nussdorf",
+                        "group": "Eberdingen",
+                        "address": "Schloßstraße, 71735 Nussdorf",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Nussdorf."
+            },
+            {
+                        "name": "Friedhof Erdmannhausen",
+                        "district": "Erdmannhausen",
+                        "group": "Erdmannhausen",
+                        "address": "Schillerstraße 6/1, 71729 Erdmannhausen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Erdmannhausen."
+            },
+            {
+                        "name": "Friedhof Erligheim",
+                        "district": "Erligheim",
+                        "group": "Erligheim",
+                        "address": "Friedhofstraße 14, 74391 Erligheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Erligheim."
+            },
+            {
+                        "name": "Alter Beihinger Friedhof",
+                        "district": "Beihingen",
+                        "group": "Freiberg am Neckar",
+                        "address": "Kühäcker, 71691 Freiberg am Neckar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Beihingen."
+            },
+            {
+                        "name": "Russischer Friedhof",
+                        "district": "Beihingen",
+                        "group": "Freiberg am Neckar",
+                        "address": "Krautlose, 71691 Freiberg am Neckar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Beihingen."
+            },
+            {
+                        "name": "Friedhof Geisingen",
+                        "district": "Geisingen",
+                        "group": "Freiberg am Neckar",
+                        "address": "Beihinger Straße 12, 71691 Freiberg am Neckar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Geisingen."
+            },
+            {
+                        "name": "Friedhof Heutingsheim",
+                        "district": "Heutingsheim",
+                        "group": "Freiberg am Neckar",
+                        "address": "Weidengasse, 71691 Freiberg am Neckar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Heutingsheim."
+            },
+            {
+                        "name": "Friedhof Freudental",
+                        "district": "Freudental",
+                        "group": "Freudental",
+                        "address": "Wolfsbergweg, 74392 Freudental",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Freudental."
+            },
+            {
+                        "name": "Friedhof Gemmrigheim",
+                        "district": "Gemmrigheim",
+                        "group": "Gemmrigheim",
+                        "address": "Alte Besigheimer Straße 1/1, 74376 Gemmrigheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Gemmrigheim."
+            },
+            {
+                        "name": "Stadtfriedhof Gerlingen",
+                        "district": "Schillerhöhe",
+                        "group": "Gerlingen",
+                        "address": "Kirchstraße 44, 70839 Gerlingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Schillerhöhe."
+            },
+            {
+                        "name": "Waldfriedhof Gerlingen",
+                        "district": "Schillerhöhe",
+                        "group": "Gerlingen",
+                        "address": "Bruderhausallee 2, 70839 Gerlingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Schillerhöhe."
+            },
+            {
+                        "name": "Friedhof Hof und Lembach",
+                        "district": "Hof und Lembach",
+                        "group": "Großbottwar",
+                        "address": "Lichtenberger Straße, 71723 Großbottwar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Hof und Lembach."
+            },
+            {
+                        "name": "Friedhof Großbottwar",
+                        "district": "Im Loh",
+                        "group": "Großbottwar",
+                        "address": "Winzerhäuser Straße, 71723 Großbottwar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Im Loh."
+            },
+            {
+                        "name": "Neuer Friedhof Großbottwar",
+                        "district": "Im Loh",
+                        "group": "Großbottwar",
+                        "address": "K 1703, 71723 Großbottwar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Im Loh."
+            },
+            {
+                        "name": "Friedhof Winzerhausen",
+                        "district": "Winzerhausen",
+                        "group": "Großbottwar",
+                        "address": "Grönerstraße 57, 71723 Großbottwar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Winzerhausen."
+            },
+            {
+                        "name": "Friedhof Hemmingen",
+                        "district": "Hemmingen",
+                        "group": "Hemmingen",
+                        "address": "Friedhofstraße 3, 71282 Hemmingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Hemmingen."
+            },
+            {
+                        "name": "Friedhof Hessigheim",
+                        "district": "Hessigheim",
+                        "group": "Hessigheim",
+                        "address": "Ottmarsheimer Straße 74, 74394 Hessigheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Hessigheim."
+            },
+            {
+                        "name": "Alter Friedhof Großingersheim",
+                        "district": "Großingersheim",
+                        "group": "Ingersheim",
+                        "address": "Kirchgasse, 74379 Großingersheim",
+                        "types": [
+                                    "Historisch"
+                        ],
+                        "desc": "Historische Anlage in Großingersheim."
+            },
+            {
+                        "name": "Holderfriedhof",
+                        "district": "Großingersheim",
+                        "group": "Ingersheim",
+                        "address": "Kleiningersheimer Straße 99, 74379 Großingersheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Großingersheim."
+            },
+            {
+                        "name": "Friedhof Kirchheim am Neckar",
+                        "district": "Kirchheim am Neckar",
+                        "group": "Kirchheim am Neckar",
+                        "address": "Besigheimer Straße, 74366 Kirchheim am Neckar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Kirchheim am Neckar."
+            },
+            {
+                        "name": "Alter Friedhof Korntal",
+                        "district": "Korntal",
+                        "group": "Korntal-Münchingen",
+                        "address": "Friederichstraße 2, 70825 Korntal-Münchingen",
+                        "types": [
+                                    "Historisch"
+                        ],
+                        "desc": "Historische Anlage in Korntal."
+            },
+            {
+                        "name": "Neuer Friedhof Korntal",
+                        "district": "Korntal",
+                        "group": "Korntal-Münchingen",
+                        "address": "Hoffmannstraße 45, 70825 Korntal-Münchingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Korntal."
+            },
+            {
+                        "name": "Alter Friedhof Kornwestheim",
+                        "district": "Kornwestheim",
+                        "group": "Kornwestheim",
+                        "address": "Aldinger Straße 10, 70806 Kornwestheim",
+                        "types": [
+                                    "Historisch"
+                        ],
+                        "desc": "Historische Anlage in Kornwestheim."
+            },
+            {
+                        "name": "Neuer Friedhof Kornwestheim",
+                        "district": "Kornwestheim",
+                        "group": "Kornwestheim",
+                        "address": "Aldinger Straße 27, 70806 Kornwestheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Kornwestheim."
+            },
+            {
+                        "name": "Friedhof Eglosheim",
+                        "district": "Eglosheim",
+                        "group": "Ludwigsburg",
+                        "address": "Monreposstraße 2, 71634 Ludwigsburg",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Eglosheim."
+            },
+            {
+                        "name": "Friedhof Hoheneck",
+                        "district": "Hoheneck",
+                        "group": "Ludwigsburg",
+                        "address": "Am Neckar 25, 71642 Ludwigsburg",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Hoheneck."
+            },
+            {
+                        "name": "Alter Friedhof Ludwigsburg - Ost",
+                        "district": "Ludwigsburg - Ost",
+                        "group": "Ludwigsburg",
+                        "address": "Schorndorfer Straße 71, 71638 Ludwigsburg",
+                        "types": [
+                                    "Historisch"
+                        ],
+                        "desc": "Historische Anlage in Ludwigsburg - Ost."
+            },
+            {
+                        "name": "Neuer Friedhof Ludwigsburg - Ost",
+                        "district": "Ludwigsburg - Ost",
+                        "group": "Ludwigsburg",
+                        "address": "Harteneckstraße 46, 71640 Ludwigsburg",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Ludwigsburg - Ost."
+            },
+            {
+                        "name": "Friedhof Neckarweihingen",
+                        "district": "Neckarweihingen",
+                        "group": "Ludwigsburg",
+                        "address": "Gerokstraße 2, 71642 Ludwigsburg",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Neckarweihingen."
+            },
+            {
+                        "name": "Friedhof Scholppenäcker",
+                        "district": "Neckarweihingen",
+                        "group": "Ludwigsburg",
+                        "address": "Hauptstraße 200, 71642 Ludwigsburg",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Neckarweihingen."
+            },
+            {
+                        "name": "Friedhof Oßweil",
+                        "district": "Oßweil",
+                        "group": "Ludwigsburg",
+                        "address": "Neckarweihinger Straße 34, 71640 Ludwigsburg",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Oßweil."
+            },
+            {
+                        "name": "Ostfriedhof Oßweil",
+                        "district": "Oßweil",
+                        "group": "Ludwigsburg",
+                        "address": "Schmidener Straße 35, 71640 Ludwigsburg",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Oßweil."
+            },
+            {
+                        "name": "Friedhof Pflugfelden",
+                        "district": "Pflugfelden",
+                        "group": "Ludwigsburg",
+                        "address": "Turmstraße 14, 71636 Ludwigsburg",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Pflugfelden."
+            },
+            {
+                        "name": "Friedhof Poppenweiler",
+                        "district": "Poppenweiler",
+                        "group": "Ludwigsburg",
+                        "address": "Hochdorfer Straße 36, 71642 Ludwigsburg",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Poppenweiler."
+            },
+            {
+                        "name": "Friedhof Löchgau",
+                        "district": "Löchgau",
+                        "group": "Löchgau",
+                        "address": "Amselweg 7, 74369 Löchgau",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Löchgau."
+            },
+            {
+                        "name": "Friedhof Marbach",
+                        "district": "Marbach",
+                        "group": "Marbach am Neckar",
+                        "address": "Am alten Markt, 71672 Marbach am Neckar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Marbach."
+            },
+            {
+                        "name": "Friedhof Markgröningen",
+                        "district": "Markgröningen",
+                        "group": "Markgröningen",
+                        "address": "Sudetenstraße 2, 71706 Markgröningen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Markgröningen."
+            },
+            {
+                        "name": "Frauenkirche Unterriexingen",
+                        "district": "Unterriexingen",
+                        "group": "Markgröningen",
+                        "address": "Frauenweg, 71706 Markgröningen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Unterriexingen."
+            },
+            {
+                        "name": "Friedhof Unterriexingen",
+                        "district": "Unterriexingen",
+                        "group": "Markgröningen",
+                        "address": "Kirchhalde, 71706 Markgröningen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Unterriexingen."
+            },
+            {
+                        "name": "Friedhof Mundelsheim",
+                        "district": "Mundelsheim",
+                        "group": "Mundelsheim",
+                        "address": "Kirchhofgasse 16, 74395 Mundelsheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Mundelsheim."
+            },
+            {
+                        "name": "Alter Friedhof Murr",
+                        "district": "Murr",
+                        "group": "Murr",
+                        "address": "Bottwarer Weg, 71711 Murr",
+                        "types": [
+                                    "Historisch"
+                        ],
+                        "desc": "Historische Anlage in Murr."
+            },
+            {
+                        "name": "Neuer Friedhof Murr/M.",
+                        "district": "Murr",
+                        "group": "Murr",
+                        "address": "Pleidelsheimer Weg, 71711 Murr",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Murr."
+            },
+            {
+                        "name": "Friedhof Möglingen",
+                        "district": "Möglingen",
+                        "group": "Möglingen",
+                        "address": "Münchinger Straße 47, 71696 Möglingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Möglingen."
+            },
+            {
+                        "name": "Friedhof Oberriexingen",
+                        "district": "Oberriexingen",
+                        "group": "Oberriexingen",
+                        "address": "Kernerstraße, 71739 Oberriexingen",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Oberriexingen."
+            },
+            {
+                        "name": "Ortsfriedhof Gronau",
+                        "district": "Gronau",
+                        "group": "Oberstenfeld",
+                        "address": "Forststraße 37, 71720 Oberstenfeld",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Gronau."
+            },
+            {
+                        "name": "Petersbergfriedhof",
+                        "district": "Gronau",
+                        "group": "Oberstenfeld",
+                        "address": "Am Petersberg, 71720 Oberstenfeld",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Gronau."
+            },
+            {
+                        "name": "Friedhof Gronau",
+                        "district": "Gronau/Prevorst",
+                        "group": "Oberstenfeld",
+                        "address": "Buchenstraße 6, 71720 Oberstenfeld",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Gronau/Prevorst."
+            },
+            {
+                        "name": "Friedhof Prevorst",
+                        "district": "Gronau/Prevorst",
+                        "group": "Oberstenfeld",
+                        "address": "Ortsstraße 11, 71720 Oberstenfeld",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Gronau/Prevorst."
+            },
+            {
+                        "name": "Friedhof Pleidelsheim",
+                        "district": "Pleidelsheim",
+                        "group": "Pleidelsheim",
+                        "address": "Hauptstraße 115, 74385 Pleidelsheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Pleidelsheim."
+            },
+            {
+                        "name": "Friedhof Aldingen",
+                        "district": "Aldingen",
+                        "group": "Remseck am Neckar",
+                        "address": "Ludwigsburger Steige, 71686 Remseck am Neckar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Aldingen."
+            },
+            {
+                        "name": "Friedhof Hochberg",
+                        "district": "Hochberg",
+                        "group": "Remseck am Neckar",
+                        "address": "Haldenstraße 7, 71686 Remseck am Neckar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Hochberg."
+            },
+            {
+                        "name": "Jüdischer Friedhof Hochberg",
+                        "district": "Hochberg",
+                        "group": "Remseck am Neckar",
+                        "address": "Sonnenhalde 30, 71686 Remseck am Neckar",
+                        "types": [
+                                    "Jüdischer Friedhof"
+                        ],
+                        "desc": "Jüdischer Friedhof in Hochberg."
+            },
+            {
+                        "name": "Alter Friedhof Hochdorf",
+                        "district": "Hochdorf",
+                        "group": "Remseck am Neckar",
+                        "address": "Schulweg 7, 71686 Remseck am Neckar",
+                        "types": [
+                                    "Historisch"
+                        ],
+                        "desc": "Historische Anlage in Hochdorf."
+            },
+            {
+                        "name": "Neuer Friedhof Hochdorf",
+                        "district": "Hochdorf",
+                        "group": "Remseck am Neckar",
+                        "address": "Schlossstraße 36, 71686 Remseck am Neckar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Hochdorf."
+            },
+            {
+                        "name": "Friedhof Neckargröningen",
+                        "district": "Neckargröningen",
+                        "group": "Remseck am Neckar",
+                        "address": "Am Friedhof 6, 71686 Remseck am Neckar",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Neckargröningen."
+            },
+            {
+                        "name": "Friedhof Großsachsenheim",
+                        "district": "Großsachsenheim",
+                        "group": "Sachsenheim",
+                        "address": "Kirchhofstraße 51, 74343 Sachsenheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Großsachsenheim."
+            },
+            {
+                        "name": "Friedhof Häfnerhaslach",
+                        "district": "Häfnerhaslach",
+                        "group": "Sachsenheim",
+                        "address": "Häfnerstraße, 74343 Sachsenheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Häfnerhaslach."
+            },
+            {
+                        "name": "Friedhof Ochsenbach",
+                        "district": "Ochsenbach",
+                        "group": "Sachsenheim",
+                        "address": "Spielberger Straße 30, 74343 Sachsenheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Ochsenbach."
+            },
+            {
+                        "name": "Friedhof Spielberg",
+                        "district": "Spielberg",
+                        "group": "Sachsenheim",
+                        "address": "Weinbergstraße 26, 74343 Sachsenheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Spielberg."
+            },
+            {
+                        "name": "Friedhof Hägnachhof",
+                        "district": "Hägnachhof",
+                        "group": "Steinheim an der Murr",
+                        "address": "Friedhofweg 25, 71711 Steinheim an der Murr",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Hägnachhof."
+            },
+            {
+                        "name": "Friedhof Höpfigheim",
+                        "district": "Höpfigheim",
+                        "group": "Steinheim an der Murr",
+                        "address": "Friedhofsweg, 71711 Steinheim an der Murr",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Höpfigheim."
+            },
+            {
+                        "name": "Friedhof Kleinbottwar",
+                        "district": "Kleinbottwar",
+                        "group": "Steinheim an der Murr",
+                        "address": "Friedhofstraße, 71711 Steinheim an der Murr",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Kleinbottwar."
+            },
+            {
+                        "name": "Friedhof Tamm",
+                        "district": "Tamm",
+                        "group": "Tamm",
+                        "address": "Grundweg 2, 71732 Tamm",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Tamm."
+            },
+            {
+                        "name": "Alter Friedhof Ensingen",
+                        "district": "Ensingen",
+                        "group": "Vaihingen an der Enz",
+                        "address": "Friedhofweg 7, 71665 Vaihingen an der Enz",
+                        "types": [
+                                    "Historisch"
+                        ],
+                        "desc": "Historische Anlage in Ensingen."
+            },
+            {
+                        "name": "Friedhof Ensingen",
+                        "district": "Ensingen",
+                        "group": "Vaihingen an der Enz",
+                        "address": "Rosentalweg 1, 71665 Vaihingen an der Enz",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Ensingen."
+            },
+            {
+                        "name": "Friedhof Enzweihingen",
+                        "district": "Enzweihingen",
+                        "group": "Vaihingen an der Enz",
+                        "address": "Hindenburgstraße 46, 71665 Vaihingen an der Enz",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Enzweihingen."
+            },
+            {
+                        "name": "Friedhof Gündelbach",
+                        "district": "Gündelbach",
+                        "group": "Vaihingen an der Enz",
+                        "address": "Schützinger Straße 26, 71665 Vaihingen an der Enz",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Gündelbach."
+            },
+            {
+                        "name": "Friedhof Horrheim",
+                        "district": "Horrheim",
+                        "group": "Vaihingen an der Enz",
+                        "address": "Klosterbergstraße 7, 71665 Vaihingen an der Enz",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Horrheim."
+            },
+            {
+                        "name": "Friedhof Riet",
+                        "district": "Riet",
+                        "group": "Vaihingen an der Enz",
+                        "address": "Enzweihinger Straße 18, 71665 Vaihingen an der Enz",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Riet."
+            },
+            {
+                        "name": "Friedhof Roßwag",
+                        "district": "Roßwag",
+                        "group": "Vaihingen an der Enz",
+                        "address": "Strebelstraße 7, 71665 Vaihingen an der Enz",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Roßwag."
+            },
+            {
+                        "name": "Stadtfriedhof Vaihingen",
+                        "district": "Vaihingen",
+                        "group": "Vaihingen an der Enz",
+                        "address": "Steinbeisstraße 19, 71665 Vaihingen an der Enz",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Vaihingen."
+            },
+            {
+                        "name": "Neuer Friedhof Walheim",
+                        "district": "Walheim",
+                        "group": "Walheim",
+                        "address": "Hölderlinweg, 74399 Walheim",
+                        "types": [
+                                    "Kommunal"
+                        ],
+                        "desc": "Friedhof in Walheim."
+            },
+            {
+                        "name": "Urnengräber Walheim",
+                        "district": "Walheim",
+                        "group": "Walheim",
+                        "address": "Hölderlinweg, 74399 Walheim",
+                        "types": [
+                                    "Urnenanlage"
+                        ],
+                        "desc": "Urnenanlage in Walheim."
+            }
+];
+
+        function boegelLageplan(file, title) {
+            return {
+                src: "../assets/friedhoefe/lageplaene-clean/" + file + "?v=2",
+                kind: "Lageplan",
+                title: title,
+                credit: "Till Boegel Steinmetzbetrieb, Ludwigsburg",
+                license: "mit Quellenangabe eingebunden",
+                sourceUrl: "https://steinmetz-boegel.de/friedhoefe-in-ludwigsburg/",
+                sourceLabel: "steinmetz-boegel.de",
+                cropped: true
+            };
+        }
+
+        function stadtLageplan(file, title, credit, sourceUrl, sourceLabel) {
+            return {
+                src: "../assets/friedhoefe/lageplaene-clean/" + file + "?v=2",
+                kind: "Lageplan",
+                title: title,
+                credit: credit,
+                license: "öffentlich bereitgestellt, mit Quellenangabe eingebunden",
+                sourceUrl: sourceUrl,
+                sourceLabel: sourceLabel,
+                cropped: true
+            };
+        }
+
+        const friedhofBilder = {
+            "Neuer Friedhof Ludwigsburg - Ost": [
+                stadtLageplan(
+                    "ludwigsburg-neuer-friedhof-lageplan-stadt.jpg",
+                    "Lageplan mit Grabfeldern: Neuer Friedhof Ludwigsburg",
+                    "Stadt Ludwigsburg, Fachbereich Stadtplanung und Vermessung, Stand Juli 2012",
+                    "https://www.ludwigsburg.de/webadmin/binary/documents/lb/dictionaries/Pdf-Dokumente/Neuer-Friedhof.pdf",
+                    "ludwigsburg.de"
+                )
+            ],
+            "Friedhof Scholppenäcker": [
+                boegelLageplan("ludwigsburg-scholppenaecker-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Scholppenäcker-Neckarweihingen")
+            ],
+            "Friedhof Eglosheim": [
+                boegelLageplan("ludwigsburg-eglosheim-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Eglosheim")
+            ],
+            "Friedhof Poppenweiler": [
+                boegelLageplan("ludwigsburg-poppenweiler-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Poppenweiler")
+            ],
+            "Friedhof Pflugfelden": [
+                boegelLageplan("ludwigsburg-pflugfelden-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Pflugfelden")
+            ],
+            "Ostfriedhof Oßweil": [
+                boegelLageplan("ludwigsburg-ostfriedhof-ossweil-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Ost-Oßweil")
+            ],
+            "Friedhof Oßweil": [
+                boegelLageplan("ludwigsburg-ossweil-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Oßweil")
+            ],
+            "Friedhof Neckarweihingen": [
+                boegelLageplan("ludwigsburg-neckarweihingen-au-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Neckarweihingen-Au")
+            ],
+            "Friedhof Hoheneck": [
+                boegelLageplan("ludwigsburg-hoheneck-lageplan.jpg", "Lageplan mit Grabfeldern: Friedhof Hoheneck")
+            ],
+            "Neuer Friedhof Kornwestheim": [
+                stadtLageplan(
+                    "kornwestheim-neuer-friedhof-lageplan.jpg",
+                    "Übersichtsplan mit Grabfeldern: Friedhof Kornwestheim",
+                    "Stadt Kornwestheim, Friedhofsverwaltung",
+                    "https://www.kornwestheim.de/start/rathaus/friedhof.html",
+                    "kornwestheim.de"
+                )
+            ],
+            "Waldfriedhof Gerlingen": [
+                stadtLageplan(
+                    "gerlingen-waldfriedhof-lageplan.jpg",
+                    "Lageplan mit Grabfeldern: Waldfriedhof Gerlingen",
+                    "Stadt Gerlingen, Friedhofsverwaltung",
+                    "https://www.gerlingen.de/start/Friedhoefe",
+                    "gerlingen.de"
+                )
+            ]
+        };
+
+        function friedhofBildCaption(p) {
+            const cropped = p.cropped ? ", zugeschnitten" : "";
+            const license = p.licenseUrl
+                ? `<a href="${p.licenseUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">${p.license}</a>`
+                : p.license;
+            const source = p.sourceUrl
+                ? `<a href="${p.sourceUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--brandblue);">${p.sourceLabel || "Quelle"}</a>`
+                : (p.sourceLabel || "");
+            return `<strong>${p.kind}:</strong> ${p.title}. Quelle: ${p.credit}${cropped}. Status: ${license}${source ? ". " + source : ""}.`;
+        }
+
+        function fillFriedhofFilter() {
+            const select = document.getElementById('district-friedhof');
+            if (!select) return;
+            const groups = [...new Set(friedhofData.map(f => f.group))].sort((a, b) => a.localeCompare(b, 'de'));
+            groups.forEach(group => {
+                const opt = document.createElement('option');
+                opt.value = group;
+                opt.textContent = group;
+                select.appendChild(opt);
+            });
+        }
+
+        function grabfelderFor(f) {
+            const typeStr = ((f.types || []).join(" ")).toLowerCase();
+            if (typeStr.includes("jüdisch")) return ["Jüdische Grabstätten"];
+            if (typeStr.includes("historisch")) return ["Historische Grabstätten (meist keine Neubelegung)"];
+            if (typeStr.includes("urnenanlage")) return ["Urnenreihengrab", "Urnenwahlgrab"];
+            if (f.name === "Russischer Friedhof") return ["Soldatengräber / Sonderbereich"];
+
+            const graves = ["Erd-Reihengrab", "Erd-Wahlgrab", "Urnenreihengrab", "Urnenwahlgrab"];
+            const extrasByName = {
+                "Friedhof Affalterbach": ["Rasengrab"],
+                "Friedhof St. Peter": ["Rasengrab", "Gemeinschaftsanlage"],
+                "Friedhof Erdmannhausen": ["Rasengrab"],
+                "Waldfriedhof Gerlingen": ["Rasengrab"],
+                "Neuer Friedhof Korntal": ["Rasengrab", "Gemeinschaftsanlage"],
+                "Neuer Friedhof Kornwestheim": ["Rasengrab", "Gemeinschaftsanlage"],
+                "Friedhof Eglosheim": ["Rasengrab"],
+                "Neuer Friedhof Ludwigsburg - Ost": ["Gemeinschaftsanlage"],
+                "Friedhof Oßweil": ["Rasengrab"],
+                "Ostfriedhof Oßweil": ["Rasengrab"],
+                "Friedhof Pflugfelden": ["Rasengrab"],
+                "Friedhof Poppenweiler": ["Rasengrab"],
+                "Friedhof Marbach": ["Rasengrab", "Gemeinschaftsanlage"],
+                "Friedhof Möglingen": ["Rasengrab", "Gemeinschaftsanlage"],
+                "Friedhof Aldingen": ["Gemeinschaftsanlage"],
+                "Neuer Friedhof Hochdorf": ["Gemeinschaftsanlage"]
+            };
+            const extrasByGroup = {
+                "Steinheim an der Murr": ["Rasengrab"]
+            };
+            const extras = extrasByName[f.name] || extrasByGroup[f.group] || [];
+            return graves.concat(extras);
+        }
+
+        function mapUrlFor(f) {
+            return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(f.name + ', ' + f.address);
+        }
+
+        function renderFriedhoefe(items) {
+            const grid = document.getElementById('friedhof-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-1 md:col-span-2 lg:col-span-3 py-10 text-center bg-sand-50 rounded-2xl border border-dashed border-gray-300">
+                        <i class="fa-solid fa-monument text-3xl text-gray-400 mb-2"></i>
+                        <p class="text-gray-700 font-bold">Keine Friedhöfe gefunden</p>
+                        <p class="text-gray-500 text-xs mt-1">Bitte passen Sie Ihre Suchanfrage an.</p>
+                    </div>`;
+                return;
+            }
+            items.forEach(f => {
+                const typesHtml = (f.types || []).map(t => `<span class="inline-block text-[11px] bg-white border border-gray-200 px-2 py-0.5 rounded-md text-gray-700 mr-1 mb-1">${t}</span>`).join('');
+                const gravesHtml = grabfelderFor(f).map(g => `<span class="inline-block text-[11px] bg-white border border-gray-200 px-2 py-0.5 rounded-md text-gray-700 mr-1 mb-1">${g}</span>`).join('');
+                const mapUrl = mapUrlFor(f);
+                const photos = friedhofBilder[f.name] || [];
+                const previewPhoto = photos.find(p => p.kind === "Lageplan") || photos[0];
+                const preview = previewPhoto ? `<img src="${previewPhoto.src}" alt="${previewPhoto.title}" class="friedhof-photo mb-3">` : '';
+                const card = document.createElement('div');
+                card.className = "friedhof-card border border-sand-200 rounded-xl p-5 bg-sand-50 flex flex-col justify-between";
+                if (previewPhoto) card.className += " md:col-span-2 lg:col-span-3";
+                card.innerHTML = `
+                    <div>
+                        ${preview}
+                        <div class="flex justify-between items-start mb-1">
+                            <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--primary);">${f.district}</span>
+                            <span class="text-[10px] text-gray-400 font-medium bg-white px-2 py-0.5 rounded border">${f.group}</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900" style="margin: 0 0 4px 0;">${f.name}</h3>
+                        <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-location-dot mr-1" style="color: var(--brandblue);"></i>${f.address}</p>
+                        <p class="text-xs text-gray-600 mt-2 leading-relaxed">${f.desc}</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-sand-200">
+                        <p class="text-[11px] font-semibold text-gray-700" style="margin: 0 0 6px 0;">Grabfelder</p>
+                        <div class="flex flex-wrap">${gravesHtml}</div>
+                        <div class="flex flex-wrap mt-2">${typesHtml}</div>
+                        <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="btn-outline mt-2 w-full js-map-link">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <span>Karte öffnen</span>
+                        </a>
+                    </div>`;
+                card.querySelector('.js-map-link').addEventListener('click', (e) => e.stopPropagation());
+                card.addEventListener('click', () => setTimeout(() => openFriedhofDetail(f), 0));
+                grid.appendChild(card);
+            });
+        }
+
+        function filterFriedhoefe() {
+            const searchVal = (document.getElementById('search-friedhof')?.value || '').toLowerCase().trim();
+            const groupVal = document.getElementById('district-friedhof')?.value || 'all';
+            const filtered = friedhofData.filter(f => {
+                const matchGroup = (groupVal === 'all') || (f.group === groupVal);
+                const hay = [f.name, f.district, f.group, f.address, f.desc, ...(f.types || []), ...grabfelderFor(f)].join(' ').toLowerCase();
+                const matchSearch = (searchVal === '') || hay.includes(searchVal);
+                return matchGroup && matchSearch;
+            });
+            renderFriedhoefe(filtered);
+        }
+
+        function openFriedhofDetail(f) {
+            const modal = document.getElementById('friedhof-modal');
+            const title = document.getElementById('friedhof-modal-title');
+            const content = document.getElementById('friedhof-modal-content');
+            if (!modal || !title || !content) return;
+            const mapUrl = mapUrlFor(f);
+            const photos = friedhofBilder[f.name] || [];
+            const gravesHtml = grabfelderFor(f).map(g => `<span class="inline-block text-[11px] bg-sand-50 border border-gray-200 px-2 py-0.5 rounded-md text-gray-700 mr-1 mb-1">${g}</span>`).join('');
+            const photosHtml = photos.length ? photos.map(p => `
+                <figure style="margin: 0 0 16px 0;">
+                    <img src="${p.src}" alt="${p.title}" class="friedhof-photo">
+                    <figcaption class="friedhof-caption">${friedhofBildCaption(p)}</figcaption>
+                </figure>
+            `).join('') : '';
+            title.textContent = f.name;
+            content.innerHTML = `
+                <p class="text-xs text-gray-500" style="margin: 0 0 12px 0;"><i class="fa-solid fa-location-dot mr-1" style="color: var(--brandblue);"></i>${f.address}</p>
+                <p class="text-sm text-gray-600" style="margin: 0 0 16px 0;">${f.desc}</p>
+                ${photosHtml}
+                <p class="text-[11px] font-semibold text-gray-700" style="margin: 0 0 6px 0;">Grabfelder</p>
+                <div class="flex flex-wrap" style="margin-bottom: 16px;">${gravesHtml}</div>
+                <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="btn-outline w-full">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>Karte öffnen</span>
+                </a>`;
+            modal.classList.remove('hidden');
+        }
+
+        function closeFriedhofModal() {
+            const modal = document.getElementById('friedhof-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('button.tab-btn').forEach(btn => btn.classList.remove('tab-active'));
+            const targetContent = document.getElementById('tab-' + tabId);
+            if (targetContent) targetContent.classList.remove('hidden');
+            const targetBtn = document.getElementById('tab-btn-' + tabId);
+            if (targetBtn) targetBtn.classList.add('tab-active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        const bestatterData = [
+            {
+                id: "haefner-zuefle",
+                name: "Häfner & Züfle Bestattungen",
+                district: "Stuttgart, im Ländle und überall",
+                established: "Inhabergeführt seit 2006",
+                logo: "../assets/logos/haefner-zuefle.png?v=3",
+                address: "Breitscheidstraße 44 u. 44a, 70176 Stuttgart",
+                phone: "0711 2318120",
+                email: "bestattungen@haefner-zuefle.de",
+                website: "https://bestattungen-haefner-zuefle.de",
+                desc: "Inhabergeführtes Bestattungshaus von Chantal Häfner & Ute Züfle. Eigene Feierhallen in Stuttgart-West und Plieningen, Abschiedsräume.",
+                tags: ["Inhabergeführt seit 2006", "24h Service"],
+                placeholder: false,
+                branches: [
+                    { name: "Filiale Stuttgart-West (Zentrale)", address: "Breitscheidstraße 44 & 44a, 70176 Stuttgart", note: "Mit Feierhalle und 6 Parkplätzen im Hof" },
+                    { name: "Filiale Stuttgart-Möhringen", address: "Hechinger Straße 24, 70567 Stuttgart", note: "Filiale & Beratungsbüro" },
+                    { name: "Filiale Stuttgart-Plieningen", address: "Filderhauptstraße 7, 70599 Stuttgart", note: "Mit Feierhalle" },
+                    { name: "Stuttgart-Wangen (Mobil)", address: "Telefonische Beratung & Hausbesuche in Wangen", note: "Mobil erreichbar unter 0711 2318120 (derzeit kein festes Büro vor Ort)" }
+                ]
+            },
+            {
+                id: "mustermann",
+                name: "Mustermann Bestattungen " + REGION_NAME,
+                district: "Beispiel / Werbung",
+                established: "Platz für Logo",
+                address: "Beispielstandort " + REGION_NAME,
+                phone: "",
+                email: "office@trauerohr.com",
+                website: "https://trauerohr.com",
+                desc: "Hier kann ein Bestattungsunternehmen Werbung für sein Haus in " + REGION_NAME + " machen. Eine Zusammenarbeit mit weiteren Bestattern ist möglich. Bei Interesse einfach bei TrauerOhr melden.",
+                tags: ["Beispielkarte", "Werbung möglich", "Platzhalter"],
+                placeholder: true,
+                branches: []
+            }
+            ,
+            {
+                id: "grabmalgestaltung",
+                name: "Das letzte Möbelstück",
+                district: "Grabmalgestaltung",
+                established: "TrauerOhr",
+                logo: "../assets/logos/trauerohr.png?v=3",
+                address: "Inhaberin Stephanie Schmidt",
+                phone: "0176 41796132",
+                phoneLabel: "0176 41796132 · Mobil &amp; WhatsApp",
+                email: "office@trauerohr.com",
+                website: "https://www.trauerohr.com/grabmalgestaltung",
+                desc: "Ein Grabmal darf so individuell sein wie der Mensch, an den es erinnert. TrauerOhr entwickelt Ideen, Konzepte und erste Entwürfe für persönliche Grabmale aus Holz, Stein, Faserzement, Metall oder einer Verbindung verschiedener Materialien. Die handwerkliche Umsetzung erfolgt gemeinsam mit passenden Fachbetrieben.",
+                tags: ["Holz (Eiche)", "Naturstein", "Faserzement", "Metall / Aluminium", "Materialkombinationen", "Für Menschen &amp; Tiere"],
+                adCard: true,
+                placeholder: false,
+                branches: []
+            }
+            ,
+            {
+                id: "ihre-werbung",
+                name: "Hier könnte Ihre Werbung stehen",
+                district: "Ihre Anzeige",
+                established: "Platz für Logo",
+                address: "Ihre Angaben in " + REGION_NAME,
+                phone: "",
+                email: "office@trauerohr.com",
+                website: "https://trauerohr.com",
+                desc: "Hier könnte auch Ihre Werbung stehen. Eine Zusammenarbeit mit Bestattern, Steinmetzen, Floristik und weiteren Partnern ist möglich. Bei Interesse einfach bei TrauerOhr melden.",
+                tags: ["Werbung möglich", "Platzhalter"],
+                placeholder: true,
+                branches: []
+            }
+        ];
+        function renderBestatter(items) {
+            const grid = document.getElementById('bestatter-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            items.forEach(b => {
+                const card = document.createElement('div');
+                card.className = (b.placeholder || b.adCard) ? "card-bestatter card-bestatter-ad" : "card-bestatter";
+                const tagsHtml = b.tags.map(t => `<span class="bg-white border border-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded-md">${t}</span>`).join(' ');
+                let branchBtnHtml = '';
+                if (b.branches && b.branches.length > 0) {
+                    branchBtnHtml = `<button type="button" onclick="openBranchModal('${b.id}')" class="text-xs font-semibold underline my-2 flex items-center space-x-1 cursor-pointer" style="color: var(--primary); background: none; border: none; padding: 0;"><i class="fa-solid fa-location-dot"></i><span>Alle ${b.branches.length} Standorte &amp; Filialen anzeigen</span></button>`;
+                }
+                const phoneHtml = b.phone
+                    ? `<a href="tel:${b.phone.replace(/\s/g, '')}" class="btn-primary" style="grid-column: span 2;"><i class="fa-solid fa-phone text-xs"></i><span>${b.phoneLabel || (b.phone + " (Tag &amp; Nacht)")}</span></a>`
+                    : `<a href="mailto:${b.email}" class="btn-primary" style="grid-column: span 2;"><i class="fa-solid fa-envelope text-xs"></i><span>Bei TrauerOhr melden</span></a>`;
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-2 gap-2" style="min-width: 0;">
+                            <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--brandblue); min-width: 0;">${b.district}</span>
+                            ${b.logo ? `<img src="${b.logo}" alt="${b.name}" class="bestatter-logo">` : `<span class="text-xs text-gray-400 font-medium">${b.established}</span>`}
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-lg mb-1" style="margin: 0 0 6px 0;">${b.name}</h3>
+                        ${b.adCard ? `<p class="text-xs text-gray-600 mb-1" style="margin: 0 0 4px 0;"><i class="fa-solid fa-user mr-1" style="color: var(--primary);"></i><strong>TrauerOhr</strong> – Inhaberin Stephanie Schmidt</p>` : `<p class="text-xs text-gray-600 mb-1" style="margin: 0 0 4px 0;"><i class="fa-solid fa-building-user mr-1" style="color: var(--primary);"></i><strong>Adresse:</strong> ${b.address}</p>`}
+                        ${branchBtnHtml}
+                        <p class="text-sm text-gray-600 mb-4 mt-2 leading-relaxed" style="line-height: 1.5; margin-top: 8px;">${b.desc}</p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1 mb-4" style="gap: 4px;">${tagsHtml}</div>
+                        <div class="grid grid-cols-2 gap-2 mt-3" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                            ${phoneHtml}
+                            <a href="${b.website}" target="_blank" rel="noopener noreferrer" class="btn-outline"><i class="fa-solid fa-globe"></i><span>${b.placeholder ? "TrauerOhr.com" : "Webseite"}</span></a>
+                            <a href="mailto:${b.email}" class="btn-outline"><i class="fa-solid fa-envelope"></i><span>E-Mail</span></a>
+                        </div>
+                    </div>`;
+                grid.appendChild(card);
+            });
+        }
+        function openBranchModal(bestatterId) {
+            const b = bestatterData.find(item => item.id === bestatterId);
+            if (!b) return;
+            const modal = document.getElementById('branch-modal');
+            document.getElementById('modal-title').textContent = b.name + ' - Standorte & Filialen';
+            const branchesHtml = b.branches.map(br => `
+                <div class="p-4 rounded-xl" style="padding: 12px; background: var(--sand-50); border: 1px solid var(--sand-200); border-radius: 12px;">
+                    <h4 class="font-bold text-gray-900 text-sm" style="margin: 0 0 4px 0;"><i class="fa-solid fa-location-dot mr-2" style="color: var(--primary);"></i>${br.name}</h4>
+                    <p class="text-sm text-gray-700" style="margin: 2px 0;">${br.address}</p>
+                    ${br.note ? `<p class="text-xs text-gray-500" style="margin: 0;">${br.note}</p>` : ''}
+                </div>`).join('');
+            document.getElementById('modal-content').innerHTML = `
+                <div class="text-xs mb-4 flex items-center space-x-2" style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px; padding: 10px;">
+                    <i class="fa-solid fa-phone shrink-0" style="color: #b45309;"></i>
+                    <span>Zentrale 24h-Bereitschaftsnummer: <strong>${b.phone}</strong></span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">${branchesHtml}</div>`;
+            modal.classList.remove('hidden');
+        }
+        function closeModal() {
+            const modal = document.getElementById('branch-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+        function initApp() {
+            const startTab = (location.hash || '').replace('#', '');
+            switchTab(startTab === 'ratgeber' || startTab === 'friedhoefe' ? startTab : 'bestatter');
+            renderBestatter(bestatterData);
+            fillFriedhofFilter();
+            renderFriedhoefe(friedhofData);
+            document.addEventListener('click', (event) => {
+                document.querySelectorAll('.regionen-menu').forEach((menu) => {
+                    if (!menu.contains(event.target)) menu.removeAttribute('open');
+                });
+            });
+        }
+        if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', initApp);
+        else initApp();
+    </script>
+</body>
+</html>

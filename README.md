@@ -4,7 +4,10 @@ Statische Startversion fuer den TrauerOhr TrauerGuide Stuttgart.
 
 ## Dateien
 
-- `index.html` ist die aktuell lauffaehige Seite.
+- `index.html` ist die Startseite mit Einleitung und Karte.
+- `regionen/index.html` ist die Regionen-Uebersicht.
+- `stuttgart/index.html` ist der bestehende TrauerGuide Stuttgart.
+- `ratgeber/index.html` ist der Ratgeber als eigener Menuepunkt.
 - `.cursor/rules/trauerohr-kompass.mdc` enthaelt die Grundregeln fuer Cursor.
 - `CURSOR_START_HERE.md` ist die Startdatei fuer die Weiterarbeit in Cursor.
 - `CLOUDFLARE_GITHUB_DEPLOYMENT.md` beschreibt den einfachen GitHub-/Cloudflare-Weg.
@@ -15,7 +18,7 @@ Der Stuttgart-Kompass bleibt die Vorlage fuer weitere regionale Kompasse. Das Er
 
 ## Aktueller Stand
 
-- Navigation, Bestatter, Friedhoefe und Ratgeber sind in einer einzelnen HTML-Datei enthalten.
+- Regionen enthalten Bestatter und Friedhoefe. Der Ratgeber liegt extra im Menue unter `/ratgeber/`.
 - Der Kostenrechner ist entfernt.
 - Sichtbar sind Häfner & Züfle sowie eine Beispielkarte fuer weitere Bestatter-Werbung.
 - Die Werbung fuer die Digitale Bestattungsvorsorge steht unten unter den Bestatter-Karten als kleiner Hinweis, nicht als Hauptbanner.

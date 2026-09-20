@@ -1,0 +1,16 @@
+---
+description: Nur das aendern, was ausdruecklich genannt wird. Vorsorge-Hinweis auf jeder Seite behalten.
+alwaysApply: true
+---
+
+# Nur das Genannte aendern
+
+Wenn die Nutzerin oder der Nutzer sagt: nichts sonst aendern, nur X, alles andere nicht, keine Karten, oder aehnlich: genau das umsetzen und sonst nichts anfassen.
+
+Nicht entfernen, verschieben oder umbauen:
+
+- Digitale Bestattungsvorsorge (Karte mit Button Zur Vorsorge-App)
+- Link `https://digitale-bestattungsvorsorge.de` mit `target="_blank"` und `rel="noopener noreferrer"`
+- Bestehende Bestatter-Karten, Menues, Footer und Impressum, wenn sie nicht Teil der Aufgabe sind
+
+Die Vorsorge-Karte gehoert auf jede oeffentliche Seite: Start, Regionen BW, Ratgeber und alle Regionsseiten. Klein, ruhig, blauer Rahmen `#1C00CC`, ergaenzend, nicht als Hauptfunktion.
