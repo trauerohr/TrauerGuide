@@ -1,4 +1,4 @@
-name: Deploy TrauerOhr App to Cloudflare Pages
+name: Deploy TrauerGuide to Cloudflare Pages
 
 on:
   push:
