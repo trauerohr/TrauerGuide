@@ -220,22 +220,12 @@
         .friedhof-card { cursor: pointer; }
         .friedhof-card:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
         .friedhof-photo {
-            width: min(100%, 560px);
-            height: 560px;
-            max-height: 560px;
-            margin-left: auto;
-            margin-right: auto;
+            width: 100%;
             border-radius: 12px;
             border: 1px solid var(--sand-200);
             display: block;
             background: #fff;
             object-fit: contain;
-            object-position: center;
-        }
-        #friedhof-modal .friedhof-photo {
-            width: min(100%, 560px);
-            height: 560px;
-            max-height: 560px;
         }
         .friedhof-caption {
             font-size: 11px;
@@ -502,7 +492,7 @@
         </section>
 
         <div id="friedhof-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 hidden" onclick="if(event.target === this) closeFriedhofModal()">
-            <div class="bg-white rounded-2xl max-w-5xl w-full p-6 shadow-2xl max-h-[92vh] overflow-y-auto relative" onclick="event.stopPropagation()">
+            <div class="bg-white rounded-2xl max-w-3xl w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto relative" onclick="event.stopPropagation()">
                 <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
                     <h3 id="friedhof-modal-title" class="text-xl font-bold text-gray-900" style="margin: 0;"></h3>
                     <button onclick="closeFriedhofModal()" class="text-gray-400 hover:text-gray-600 text-2xl p-1 leading-none rounded-lg hover:bg-gray-100">
@@ -1645,10 +1635,9 @@
                 const mapUrl = mapUrlFor(f);
                 const photos = friedhofBilder[f.name] || [];
                 const previewPhoto = photos.find(p => p.kind === "Lageplan") || photos[0];
-                const preview = previewPhoto ? `<img src="${previewPhoto.src}" alt="${previewPhoto.title}" class="friedhof-photo mb-3">` : '';
+                const preview = previewPhoto ? `<img src="${previewPhoto.src}" alt="${previewPhoto.title}" class="friedhof-photo mb-3" style="max-height: 160px; object-fit: contain;">` : '';
                 const card = document.createElement('div');
                 card.className = "friedhof-card border border-sand-200 rounded-xl p-5 bg-sand-50 flex flex-col justify-between";
-                if (previewPhoto) card.className += " md:col-span-2 lg:col-span-3";
                 card.innerHTML = `
                     <div>
                         ${preview}
