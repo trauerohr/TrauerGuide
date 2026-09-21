@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrauerGuide · Ostalbkreis</title>
+    <title>TrauerGuide · Freudenstadt</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -245,10 +245,6 @@
                         <i class="fa-solid fa-monument"></i>
                         <span>Friedhöfe</span>
                     </button>
-                    <button id="tab-btn-ratgeber" onclick="switchTab('ratgeber')" class="tab-btn">
-                        <i class="fa-solid fa-book-open"></i>
-                        <span>Ratgeber</span>
-                    </button>
                     <details class="regionen-menu">
                         <summary class="tab-btn">
                             <i class="fa-solid fa-map"></i>
@@ -291,9 +287,9 @@
                                 <span>Schwäbisch Hall</span>
                                 <span class="regionen-status">öffnen</span>
                             </a>
-                            <a href="../ostalbkreis/" class="regionen-item is-active">
+                            <a href="../ostalbkreis/" class="regionen-item">
                                 <span>Ostalbkreis</span>
-                                <span class="regionen-status">aktuell</span>
+                                <span class="regionen-status">öffnen</span>
                             </a>
                             <a href="../heidenheim/" class="regionen-item">
                                 <span>Heidenheim</span>
@@ -339,9 +335,9 @@
                                 <span>Freiburg</span>
                                 <span class="regionen-status">öffnen</span>
                             </a>
-                            <a href="../freudenstadt/" class="regionen-item">
+                            <a href="../freudenstadt/" class="regionen-item is-active">
                                 <span>Freudenstadt</span>
-                                <span class="regionen-status">öffnen</span>
+                                <span class="regionen-status">aktuell</span>
                             </a>
                             <a href="../heidelberg/" class="regionen-item">
                                 <span>Heidelberg</span>
@@ -433,6 +429,10 @@
                             </a>
                         </div>
                     </details>
+                    <a href="../ratgeber/" class="tab-btn">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Ratgeber</span>
+                    </a>
                 </nav>
             </div>
         </div>
@@ -442,8 +442,8 @@
         <section id="tab-bestatter" class="tab-content">
             <div class="space-y-6">
                 <div class="intro-trauerguide">
-                    <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Region Ostalbkreis</p>
-                    <h2 class="text-xl font-bold text-gray-900" style="margin: 0 0 8px 0;">Bestatter in Ostalbkreis</h2>
+                    <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Region Freudenstadt</p>
+                    <h2 class="text-xl font-bold text-gray-900" style="margin: 0 0 8px 0;">Bestatter in Freudenstadt</h2>
                     <p class="text-sm text-gray-600 leading-relaxed" style="margin: 0;">
                         Hier finden Sie Bestatter und ergänzende Angebote aus der Region. Weitere Bestattungsunternehmen und Partner können aufgenommen werden.
                         Eine Zusammenarbeit ist möglich. Bei Interesse einfach bei
@@ -474,86 +474,15 @@
         <section id="tab-friedhoefe" class="tab-content hidden">
             <div class="placeholder-panel">
                 <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Friedhof TO GO</p>
-                <h2 class="text-xl font-bold text-gray-900" style="margin: 0 0 8px 0;">Friedhöfe in Ostalbkreis</h2>
-                <p class="text-sm text-gray-600 leading-relaxed" style="margin: 0;">Der regionale Friedhof TO GO für Ostalbkreis wird vorbereitet. Lagepläne und Grabfelder folgen, sobald die Angaben für diese Region vorliegen.</p>
+                <h2 class="text-xl font-bold text-gray-900" style="margin: 0 0 8px 0;">Friedhöfe in Freudenstadt</h2>
+                <p class="text-sm text-gray-600 leading-relaxed" style="margin: 0 0 14px 0;">Bestatter und Friedhöfe folgen.</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Freudenstadt%2C%20Baden-W%C3%BCrttemberg" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>Karte öffnen</span>
+                </a>
             </div>
         </section>
 
-
-        <section id="tab-ratgeber" class="tab-content hidden">
-            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-sand-200">
-                <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Region Ostalbkreis</p>
-                <h2 class="text-2xl font-bold text-gray-900 mb-4" style="margin-top: 0;">Ratgeber für Ostalbkreis</h2>
-                <p class="text-sm text-gray-600 leading-relaxed" style="margin: 0 0 20px 0;">
-                    Erste Schritte und wichtige Fragen für Angehörige und Besuchende in Ostalbkreis.
-                    Bestatter und Friedhöfe dieser Region finden Sie in den anderen Reitern.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
-                        <h3 class="font-bold text-primary-700 text-lg mb-3 flex items-center" style="color: var(--primary);">
-                            <i class="fa-solid fa-file-invoice mr-2"></i>Erforderliche Dokumente (Interaktiv abhakbar)
-                        </h3>
-                        <div class="space-y-2 text-sm">
-                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                            <span class="ml-2">Personalausweis des/der Verstorbenen</span>
-                        </label>
-                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                            <span class="ml-2">Todesbescheinigung (vom Arzt ausgestellt)</span>
-                        </label>
-                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                            <span class="ml-2">Geburtsurkunde (bei Ledigen)</span>
-                        </label>
-                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                            <span class="ml-2">Heiratsurkunde / Stammbuch der Familie</span>
-                        </label>
-                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                            <span class="ml-2">ggf. Sterbeurkunde des Ehepartners / Scheidungsurteil</span>
-                        </label>
-                        <label class="flex items-center space-x-2.5 p-2 bg-white rounded-lg border border-gray-200 cursor-pointer hover:border-primary-600">
-                            <input type="checkbox" class="rounded text-primary-600 w-4 h-4">
-                            <span class="ml-2">Rentenversicherungsnummer &amp; Krankenversichertenkarte</span>
-                        </label>
-                        </div>
-                    </div>
-                    <div class="bg-sand-50 p-5 rounded-xl border border-sand-200">
-                        <h3 class="font-bold text-primary-700 text-lg mb-3" style="color: var(--primary);"><i class="fa-solid fa-phone-volume mr-2"></i>Wichtige Telefonnummern</h3>
-                        <div class="text-sm text-gray-600 space-y-3">
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <p class="font-bold text-gray-900" style="margin: 0;">Notruf Rettungsdienst / Feuerwehr:</p>
-                            <a href="tel:112" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>112</a>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <p class="font-bold text-gray-900" style="margin: 0;">Polizei:</p>
-                            <a href="tel:110" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>110</a>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <p class="font-bold text-gray-900" style="margin: 0;">Ärztlicher Bereitschaftsdienst:</p>
-                            <a href="tel:116117" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>116 117</a>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <p class="font-bold text-gray-900" style="margin: 0;">Standesamt Aalen:</p>
-                            <p class="text-xs text-gray-600" style="margin: 2px 0;">Kreisstadt Aalen · Sterbefälle und Sterbeurkunden. Die örtliche Nummer wird ergänzt, sobald sie mit Quellenstand vorliegt.</p>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <p class="font-bold text-gray-900" style="margin: 0;">Friedhofsverwaltung Ostalbkreis:</p>
-                            <p class="text-xs text-gray-600" style="margin: 2px 0;">Zuständig ist in der Regel die Gemeinde oder der Landkreis. Die konkreten Nummern folgen mit Quellenstand, sobald sie geprüft sind.</p>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <p class="font-bold text-gray-900" style="margin: 0;">Telefonseelsorge (24h kostenlos):</p>
-                            <a href="tel:08001110111" class="inline-block text-xs font-bold hover:underline mr-3" style="color: var(--brandblue);"><i class="fa-solid fa-phone mr-1"></i>0800 111 0 111</a>
-                            <a href="tel:08001110222" class="inline-block text-xs font-bold hover:underline" style="color: var(--brandblue);"><i class="fa-solid fa-phone mr-1"></i>0800 111 0 222</a>
-                        </div>
-                            <p class="text-[11px] text-gray-500" style="margin: 0;">Angaben zur Orientierung. Bundesweite Notrufe sind aktuell. Örtliche Behördennummern in Ostalbkreis nur mit Quellenstand.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <div id="branch-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 hidden" onclick="if(event.target === this) closeModal()">
             <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl max-h-[85vh] overflow-y-auto relative">
@@ -580,7 +509,7 @@
     </footer>
 
     <script>
-        const REGION_NAME = 'Ostalbkreis';
+        const REGION_NAME = "Freudenstadt";
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('button.tab-btn').forEach(btn => btn.classList.remove('tab-active'));
@@ -720,8 +649,7 @@
             if (modal) modal.classList.add('hidden');
         }
         function initApp() {
-            const startTab = (location.hash || '').replace('#', '');
-            switchTab(startTab === 'ratgeber' || startTab === 'friedhoefe' ? startTab : 'bestatter');
+            switchTab('bestatter');
             renderBestatter(bestatterData);
             document.addEventListener('click', (event) => {
                 document.querySelectorAll('.regionen-menu').forEach((menu) => {
