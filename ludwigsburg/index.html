@@ -217,6 +217,31 @@
             border-radius: 16px;
             padding: 28px 24px;
         }
+
+        .kom-kontakt {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--sand-200);
+        }
+        .kom-kontakt p { margin: 0 0 6px 0; font-size: 11px; color: #4b5563; line-height: 1.45; }
+        .kom-links { display: flex; flex-wrap: wrap; gap: 6px; }
+        .anlauf-card {
+            border: 1px solid var(--sand-200);
+            border-radius: 12px;
+            padding: 14px 16px;
+            background: #ffffff;
+        }
+        .anlauf-card .kom-kontakt {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+        .hinweis-wegweiser {
+            font-size: 11px;
+            color: #6b6b6b;
+            line-height: 1.55;
+            margin: 8px 0 0 0;
+        }
         .friedhof-card { cursor: pointer; }
         .friedhof-card:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
         .friedhof-photo {
@@ -497,7 +522,9 @@
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900" style="margin: 0;">Friedhof TO GO Ludwigsburg</h2>
-                            <p class="text-gray-600 text-sm mt-0.5">Adresse, Grabfelder und Lageplan wo verfügbar. Angaben zur Orientierung, Stand 20.09.2026.</p>
+                            <p class="text-gray-600 text-sm mt-0.5">Adresse, Grabfelder, Karte und kommunale Anlaufstelle. Angaben zur Orientierung, Stand 21.09.2026.</p>
+                            <p class="hinweis-wegweiser">Der TrauerGuide ist ein unverbindlicher digitaler Wegweiser. Alle Angaben, Adressen, Telefonnummern und Verlinkungen werden nach bestem Wissen aus öffentlich zugänglichen Quellen zusammengestellt, jedoch ohne Gewähr für Vollständigkeit, Richtigkeit oder Aktualität. Zuständigkeiten, Öffnungszeiten, Satzungen und Kontaktdaten können sich jederzeit ändern. Verbindlich sind ausschließlich die aktuellen Auskünfte und Veröffentlichungen der jeweils zuständigen Stadt, Gemeinde oder Behörde. Bitte prüfen Sie wichtige Angaben vor einer Entscheidung direkt bei der zuständigen Stelle.</p>
+                            <p class="hinweis-wegweiser">Gebühren und Kosten können je nach Stadt, Gemeinde, Friedhof und Leistungsumfang unterschiedlich sein. Bitte erfragen Sie die jeweils gültigen Kosten direkt bei der zuständigen Verwaltung oder dem jeweiligen Anbieter.</p>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-2">
                             <div class="relative min-w-[200px]">
@@ -512,10 +539,22 @@
                     <div id="friedhof-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
                 </div>
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200">
+                    <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Landkreis Ludwigsburg</p>
+                    <h3 class="text-lg font-bold text-gray-900" style="margin: 0 0 4px 0;">Kommunale Anlaufstellen</h3>
+                    <p class="text-sm text-gray-600" style="margin: 0 0 14px 0;">Alle 39 Städte und Gemeinden. Die Nummer ist die kommunale Zentrale. Friedhofswesen und Standesamt über die Zentrale erfragen.</p>
+                    <div id="anlauf-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-sand-200">
                     <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 6px 0; color: var(--brandblue);">Quellen</p>
                     <h3 class="text-sm font-bold text-gray-900" style="margin: 0 0 4px 0;">Verwendete Quellen</h3>
-                    <p class="text-[11px] text-gray-500" style="margin: 0 0 10px 0;">Recherchestand 20.09.2026. Angaben zur Orientierung, keine amtliche Auskunft.</p>
+                    <p class="text-[11px] text-gray-500" style="margin: 0 0 10px 0;">Recherchestand 21.09.2026. Angaben zur Orientierung, keine amtliche Auskunft. Keine Kosten- oder Gebührenangaben.</p>
                     <div class="text-[11px] text-gray-500 leading-relaxed space-y-1.5">
+                        <p style="margin: 0;">Landkreis Ludwigsburg - Städte und Gemeinden A–E<br>https://www.landkreis-ludwigsburg.de/landratsamt-landkreis/ueber-den-landkreis/staedte-gemeinden/von-a-e/</p>
+                        <p style="margin: 0;">Landkreis Ludwigsburg - Städte und Gemeinden F–K<br>https://www.landkreis-ludwigsburg.de/landratsamt-landkreis/ueber-den-landkreis/staedte-gemeinden/von-f-k/</p>
+                        <p style="margin: 0;">Landkreis Ludwigsburg - Städte und Gemeinden L–R<br>https://www.landkreis-ludwigsburg.de/landratsamt-landkreis/ueber-den-landkreis/staedte-gemeinden/von-l-r/</p>
+                        <p style="margin: 0;">Landkreis Ludwigsburg - Städte und Gemeinden S–Z<br>https://www.landkreis-ludwigsburg.de/landratsamt-landkreis/ueber-den-landkreis/staedte-gemeinden/von-s-z/</p>
+                        <p style="margin: 0;">Stadt Asperg - Stadtrecht<br>https://www.asperg.de/rathaus-service/gemeinderat/stadtrecht</p>
+                        <p style="margin: 0;">Stadt Bietigheim-Bissingen - Satzungen &amp; Verordnungen<br>https://www.bietigheim-bissingen.de/rathaus-politik/finanzen-stadtrecht/satzungen-verordnungen/</p>
                         <p style="margin: 0;">Stadt Ludwigsburg - Bestattungstermine<br>https://www.ludwigsburg.de/start/rathaus%2Bund%2Bservice/bestattungstermine.html</p>
                         <p style="margin: 0;">Amtliche Infokarte Stadt Ludwigsburg<br>https://logis2.ludwigsburg.de/</p>
                         <p style="margin: 0;">OpenStreetMap / Overpass API - Kartendaten<br>https://www.openstreetmap.org/</p>
@@ -524,16 +563,11 @@
                         <p style="margin: 0;">Stadt Gerlingen - Bestattung unter Bäumen, Waldfriedhof<br>https://www.gerlingen.de/start/Friedhoefe</p>
                         <p style="margin: 0;">Till Boegel Steinmetzbetrieb Ludwigsburg - Friedhofspläne<br>https://steinmetz-boegel.de/friedhoefe-in-ludwigsburg/</p>
                         <p style="margin: 0;">Till Boegel - öffentlich dokumentierte Grabarten in Ludwigsburg<br>https://steinmetz-boegel.de/kolumbarium/</p>
-                        <p style="margin: 0;">Stadt Ludwigsburg - Friedhofsordnung, Grabstättenarten<br>https://www.ludwigsburg.de/site/Ludwigsburg-Internet-2020/get/params_E-253400014/18116328/Friedhofsordnung_final_100222.pdf</p>
                         <p style="margin: 0;">Stadt Bietigheim-Bissingen - Grabarten und Bestattungsformen<br>https://buergerservice.bietigheim-bissingen.de/friedhofsamt/grabarten-und-bestattungsformen/</p>
-                        <p style="margin: 0;">Stadt Gerlingen - Friedhofsatzung<br>https://www.gerlingen.de/site/Gerlingen-Internet-2021/get/params_E-1239241763/1325424/Friedhofsatzung_barrierefrei.pdf</p>
-                        <p style="margin: 0;">Stadt Kornwestheim - Friedhofsordnung ab 15.07.2023<br>https://www.kornwestheim.de/site/Kornwestheim_Internet/get/params_E-1539937896/21212754/Friedhofsordnung_ab%2015.07.2023.pdf</p>
-                        <p style="margin: 0;">Stadt Ditzingen - Friedhofsordnung<br>https://www.ditzingen.de/fileadmin/Dateien/Dateien/Ortsrecht/7_07_Friedhofsordnung.pdf</p>
-                        <p style="margin: 0;">Stadt Korntal-Münchingen - Friedhofssatzung<br>https://www.korntal-muenchingen.de/ceasy/resource/?id=1104</p>
-                        <p style="margin: 0;">Gemeinde Möglingen - Friedhofssatzung<br>https://www.moeglingen.de/ceasy/resource/?id=4638</p>
-                        <p style="margin: 0;">Stadt Marbach am Neckar - Friedhofsordnung<br>https://www.schillerstadt-marbach.de/fileadmin/standard/inhalt/bilder/B%C3%BCrger/Was_kostet_wie_viel/Friedhofsgeb%C3%BChren/Friedhofsordnung.PDF</p>
                         <p style="margin: 0;">Stadt Remseck am Neckar - Bestattungsformen und Grabarten<br>https://www.stadt-remseck.de/rathaus-service/oeffentliche-einrichtungen/friedhoefe/Bestattungsformen-und-Grabarten</p>
-                        <p style="margin: 0;">Neuer Friedhof Ludwigsburg - historische und bauliche Angaben<br>https://de.wikipedia.org/wiki/Neuer_Friedhof_(Ludwigsburg)</p>
+                        <p style="margin: 0;">116117 - ärztlicher Bereitschaftsdienst<br>https://www.116117.de/de/index.php</p>
+                        <p style="margin: 0;">115 - Behördennummer<br>https://www.115.de/</p>
+                        <p style="margin: 0;">TelefonSeelsorge<br>https://www.telefonseelsorge.de/</p>
                     </div>
                 </div>
             </div>
@@ -596,19 +630,24 @@
                             <a href="tel:116117" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>116 117</a>
                         </div>
                         <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <p class="font-bold text-gray-900" style="margin: 0;">Standesamt Ludwigsburg:</p>
-                            <p class="text-xs text-gray-600" style="margin: 2px 0;">Kreisstadt Ludwigsburg · Sterbefälle und Sterbeurkunden. Die örtliche Nummer wird ergänzt, sobald sie mit Quellenstand vorliegt.</p>
+                            <p class="font-bold text-gray-900" style="margin: 0;">Behördennummer:</p>
+                            <a href="tel:115" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>115</a>
+                            <p class="text-xs text-gray-600" style="margin: 2px 0;">Allgemeine Verwaltungsfragen, Zuständigkeiten und Öffnungszeiten.</p>
                         </div>
                         <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <p class="font-bold text-gray-900" style="margin: 0;">Friedhofsverwaltung Ludwigsburg:</p>
-                            <p class="text-xs text-gray-600" style="margin: 2px 0;">Zuständig ist in der Regel die Gemeinde oder der Landkreis. Die konkreten Nummern folgen mit Quellenstand, sobald sie geprüft sind.</p>
+                            <p class="font-bold text-gray-900" style="margin: 0;">Standesamt / Friedhofswesen Ludwigsburg:</p>
+                            <p class="text-xs text-gray-600" style="margin: 2px 0;">Stadt Ludwigsburg, Wilhelmstraße 11, 71638 Ludwigsburg. Kommunale Zentrale:</p>
+                            <a href="tel:071419100" class="inline-block text-xs font-bold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>07141 910-0</a>
+                            <p class="text-xs text-gray-600" style="margin: 2px 0;">Friedhofswesen und Standesamt über die Zentrale erfragen.</p>
+                            <a href="https://www.ludwigsburg.de" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold hover:underline" style="color: var(--brandblue);">www.ludwigsburg.de</a>
                         </div>
                         <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <p class="font-bold text-gray-900" style="margin: 0;">Telefonseelsorge (24h kostenlos):</p>
+                            <p class="font-bold text-gray-900" style="margin: 0;">TelefonSeelsorge (rund um die Uhr, anonym und kostenfrei):</p>
                             <a href="tel:08001110111" class="inline-block text-xs font-bold hover:underline mr-3" style="color: var(--brandblue);"><i class="fa-solid fa-phone mr-1"></i>0800 111 0 111</a>
-                            <a href="tel:08001110222" class="inline-block text-xs font-bold hover:underline" style="color: var(--brandblue);"><i class="fa-solid fa-phone mr-1"></i>0800 111 0 222</a>
+                            <a href="tel:08001110222" class="inline-block text-xs font-bold hover:underline mr-3" style="color: var(--brandblue);"><i class="fa-solid fa-phone mr-1"></i>0800 111 0 222</a>
+                            <a href="tel:116123" class="inline-block text-xs font-bold hover:underline" style="color: var(--brandblue);"><i class="fa-solid fa-phone mr-1"></i>116 123</a>
                         </div>
-                            <p class="text-[11px] text-gray-500" style="margin: 0;">Angaben zur Orientierung. Bundesweite Notrufe sind aktuell. Örtliche Behördennummern in Ludwigsburg nur mit Quellenstand.</p>
+                            <p class="text-[11px] text-gray-500" style="margin: 0;">Angaben zur Orientierung. Der TrauerGuide ist ein unverbindlicher digitaler Wegweiser ohne Gewähr für Vollständigkeit, Richtigkeit oder Aktualität. Verbindlich sind nur die aktuellen Auskünfte der zuständigen Stelle. Gebühren und Kosten bitte direkt bei der zuständigen Verwaltung oder dem jeweiligen Anbieter erfragen.</p>
                         </div>
                     </div>
                 </div>
@@ -1600,6 +1639,321 @@
             }
 ];
 
+        const kommuneKontakte = {
+            'Affalterbach': {
+                name: 'Affalterbach',
+                address: '71563 Affalterbach, Marbacher Straße 17',
+                phone: '07144 8353-0',
+                website: 'https://www.affalterbach.de',
+                satzungUrl: 'https://www.affalterbach.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Asperg': {
+                name: 'Asperg',
+                address: '71679 Asperg, Marktplatz 1',
+                phone: '07141 269-0',
+                website: 'https://www.asperg.de',
+                satzungUrl: 'https://www.asperg.de/rathaus-service/gemeinderat/stadtrecht',
+                satzungLabel: 'Amtliche Stadtrecht-Seite mit Eintrag Friedhofssatzung.'
+            },
+            'Benningen am Neckar': {
+                name: 'Benningen am Neckar',
+                address: '71726 Benningen am Neckar, Studionstraße 10',
+                phone: '07144 906-0',
+                website: 'https://www.benningen.de',
+                satzungUrl: 'https://www.benningen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Besigheim': {
+                name: 'Besigheim',
+                address: '74354 Besigheim, Marktplatz 12',
+                phone: '07143 8078-0',
+                website: 'https://www.besigheim.de',
+                satzungUrl: 'https://www.besigheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Bietigheim-Bissingen': {
+                name: 'Bietigheim-Bissingen',
+                address: '74321 Bietigheim-Bissingen, Marktplatz 8',
+                phone: '07142 74-0',
+                website: 'https://www.bietigheim-bissingen.de',
+                satzungUrl: 'https://www.bietigheim-bissingen.de/rathaus-politik/finanzen-stadtrecht/satzungen-verordnungen/',
+                satzungLabel: 'Amtliche Seite Satzungen & Verordnungen mit Eintrag Friedhofssatzung.'
+            },
+            'Bönnigheim': {
+                name: 'Bönnigheim',
+                address: '74357 Bönnigheim, Kirchheimer Straße 1',
+                phone: '07143 273-0',
+                website: 'https://www.boennigheim.de',
+                satzungUrl: 'https://www.boennigheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Ditzingen': {
+                name: 'Ditzingen',
+                address: '71254 Ditzingen, Am Laien 1',
+                phone: '07156 164-0',
+                website: 'https://www.ditzingen.de',
+                satzungUrl: 'https://www.ditzingen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Eberdingen': {
+                name: 'Eberdingen',
+                address: '71735 Eberdingen, Stuttgarter Straße 34',
+                phone: '07042 799-0',
+                website: 'https://www.eberdingen.de',
+                satzungUrl: 'https://www.eberdingen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Erdmannhausen': {
+                name: 'Erdmannhausen',
+                address: '71729 Erdmannhausen, Pflasterstraße 15',
+                phone: '07144 308-0',
+                website: 'https://www.erdmannhausen.de',
+                satzungUrl: 'https://www.erdmannhausen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Erligheim': {
+                name: 'Erligheim',
+                address: '74391 Erligheim, Rathausstraße 7',
+                phone: '07143 8840-0',
+                website: 'https://www.erligheim.de',
+                satzungUrl: 'https://www.erligheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Freiberg am Neckar': {
+                name: 'Freiberg am Neckar',
+                address: '71691 Freiberg am Neckar, Marktplatz 2',
+                phone: '07141 278-0',
+                website: 'https://www.freiberg-an.de',
+                satzungUrl: 'https://www.freiberg-an.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Freudental': {
+                name: 'Freudental',
+                address: '74392 Freudental, Schloßplatz 1',
+                phone: '07143 88303-0',
+                website: 'https://www.freudental.de',
+                satzungUrl: 'https://freudental.de/rathaus/',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Gemmrigheim': {
+                name: 'Gemmrigheim',
+                address: '74376 Gemmrigheim, Ottmarsheimer Straße 1',
+                phone: '07143 972-0',
+                website: 'https://www.gemmrigheim.de',
+                satzungUrl: 'https://www.gemmrigheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Gerlingen': {
+                name: 'Gerlingen',
+                address: '70839 Gerlingen, Hauptstraße 42',
+                phone: '07156 205-0',
+                website: 'https://www.gerlingen.de',
+                satzungUrl: 'https://www.gerlingen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Großbottwar': {
+                name: 'Großbottwar',
+                address: '71723 Großbottwar, Marktplatz 1',
+                phone: '07148 31-0',
+                website: 'https://www.grossbottwar.de',
+                satzungUrl: 'https://www.grossbottwar.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Hemmingen': {
+                name: 'Hemmingen',
+                address: '71282 Hemmingen, Münchinger Straße 5',
+                phone: '07150 9203-0',
+                website: 'https://www.hemmingen.de',
+                satzungUrl: 'https://www.hemmingen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Hessigheim': {
+                name: 'Hessigheim',
+                address: '74394 Hessigheim, Besigheimer Straße 17',
+                phone: '07143 8143-0',
+                website: 'https://www.hessigheim.de',
+                satzungUrl: 'https://www.hessigheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Ingersheim': {
+                name: 'Ingersheim',
+                address: '74379 Ingersheim, Hindenburgplatz 10',
+                phone: '07142 9745-0',
+                website: 'https://www.ingersheim.de',
+                satzungUrl: 'https://www.ingersheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Kirchheim am Neckar': {
+                name: 'Kirchheim am Neckar',
+                address: '74366 Kirchheim am Neckar, Hauptstraße 78',
+                phone: '07143 8955-0',
+                website: 'https://www.kirchheim-neckar.de',
+                satzungUrl: 'https://www.kirchheim-neckar.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Korntal-Münchingen': {
+                name: 'Korntal-Münchingen',
+                address: '70825 Korntal-Münchingen, Saalplatz 4',
+                phone: '0711 8367-0',
+                website: 'https://www.korntal-muenchingen.de',
+                satzungUrl: 'https://www.korntal-muenchingen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Kornwestheim': {
+                name: 'Kornwestheim',
+                address: '70806 Kornwestheim, Jakob-Sigle-Platz 1',
+                phone: '07154 202-0',
+                website: 'https://www.kornwestheim.de',
+                satzungUrl: 'https://www.kornwestheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Löchgau': {
+                name: 'Löchgau',
+                address: '74369 Löchgau, Hauptstraße 49',
+                phone: '07143 2709-0',
+                website: 'https://www.loechgau.de',
+                satzungUrl: 'https://www.loechgau.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Ludwigsburg': {
+                name: 'Ludwigsburg',
+                address: '71638 Ludwigsburg, Wilhelmstraße 11',
+                phone: '07141 910-0',
+                website: 'https://www.ludwigsburg.de',
+                satzungUrl: 'https://www.ludwigsburg.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Marbach am Neckar': {
+                name: 'Marbach am Neckar',
+                address: '71672 Marbach am Neckar, Marktstraße 23',
+                phone: '07144 102-0',
+                website: 'https://www.schillerstadt-marbach.de',
+                satzungUrl: 'https://www.schillerstadt-marbach.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Markgröningen': {
+                name: 'Markgröningen',
+                address: '71706 Markgröningen, Marktplatz 1',
+                phone: '07145 13-0',
+                website: 'https://www.markgroeningen.de',
+                satzungUrl: 'https://www.markgroeningen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Möglingen': {
+                name: 'Möglingen',
+                address: '71696 Möglingen, Rathausplatz 3',
+                phone: '07141 4864-0',
+                website: 'https://www.moeglingen.de',
+                satzungUrl: 'https://www.moeglingen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Mundelsheim': {
+                name: 'Mundelsheim',
+                address: '74395 Mundelsheim, Hindenburgstraße 1',
+                phone: '07143 8177-0',
+                website: 'https://www.mundelsheim.de',
+                satzungUrl: 'https://www.mundelsheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Murr': {
+                name: 'Murr',
+                address: '71711 Murr, Hindenburgstraße 60',
+                phone: '07144 2699-0',
+                website: 'https://www.gemeinde-murr.de',
+                satzungUrl: 'https://www.gemeinde-murr.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Oberriexingen': {
+                name: 'Oberriexingen',
+                address: '71739 Oberriexingen, Hauptstraße 14',
+                phone: '07042 909-0',
+                website: 'https://www.oberriexingen.de',
+                satzungUrl: 'https://www.oberriexingen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Oberstenfeld': {
+                name: 'Oberstenfeld',
+                address: '71720 Oberstenfeld, Großbottwarer Straße 20',
+                phone: '07062 261-0',
+                website: 'https://www.oberstenfeld.de',
+                satzungUrl: 'https://www.oberstenfeld.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Pleidelsheim': {
+                name: 'Pleidelsheim',
+                address: '74385 Pleidelsheim, Marbacher Straße 5',
+                phone: '07144 264-0',
+                website: 'https://www.pleidelsheim.de',
+                satzungUrl: 'https://www.pleidelsheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Remseck am Neckar': {
+                name: 'Remseck am Neckar',
+                address: '71686 Remseck am Neckar, Marktplatz 1',
+                phone: '07146 2809-0',
+                website: 'https://www.stadt-remseck.de',
+                satzungUrl: 'https://www.stadt-remseck.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Sachsenheim': {
+                name: 'Sachsenheim',
+                address: '74343 Sachsenheim, Äußerer Schloßhof 5',
+                phone: '07147 28-0',
+                website: 'https://www.sachsenheim.de',
+                satzungUrl: 'https://www.sachsenheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Schwieberdingen': {
+                name: 'Schwieberdingen',
+                address: '71701 Schwieberdingen, Schloßhof 1',
+                phone: '07150 305-0',
+                website: 'https://www.schwieberdingen.de',
+                satzungUrl: 'https://www.schwieberdingen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Sersheim': {
+                name: 'Sersheim',
+                address: '74372 Sersheim, Schloßstraße 21',
+                phone: '07042 372-0',
+                website: 'https://www.sersheim.de',
+                satzungUrl: 'https://www.sersheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Steinheim an der Murr': {
+                name: 'Steinheim an der Murr',
+                address: '71711 Steinheim an der Murr, Marktstraße 29',
+                phone: '07144 263-0',
+                website: 'https://www.stadt-steinheim.de',
+                satzungUrl: 'https://www.stadt-steinheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Tamm': {
+                name: 'Tamm',
+                address: '71732 Tamm, Hauptstraße 100',
+                phone: '07141 606-0',
+                website: 'https://www.tamm.org',
+                satzungUrl: 'https://www.tamm.org',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Vaihingen an der Enz': {
+                name: 'Vaihingen an der Enz',
+                address: '71665 Vaihingen an der Enz, Marktplatz 1',
+                phone: '07042 18-0',
+                website: 'https://www.vaihingen.de',
+                satzungUrl: 'https://www.vaihingen.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+            'Walheim': {
+                name: 'Walheim',
+                address: '74399 Walheim, Hauptstraße 68',
+                phone: '07143 8041-0',
+                website: 'https://www.walheim.de',
+                satzungUrl: 'https://www.walheim.de',
+                satzungLabel: 'Friedhofssatzung/Ortsrecht auf der offiziellen Seite der Kommune öffnen.'
+            },
+        };
+
         function boegelLageplan(file, title) {
             return {
                 src: "../assets/friedhoefe/lageplaene-clean/" + file + "?v=2",
@@ -1691,10 +2045,39 @@
             return `<strong>${p.kind}:</strong> ${p.title}. Quelle: ${p.credit}${cropped}. Status: ${license}${source ? ". " + source : ""}.`;
         }
 
+
+        function telHref(phone) {
+            return 'tel:' + String(phone || '').replace(/[^\d+]/g, '');
+        }
+        function escHtml(value) {
+            return String(value || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+        function kommuneFor(name) {
+            return kommuneKontakte[name] || null;
+        }
+        function kontaktHtml(k) {
+            if (!k) return '';
+            return `
+                <div class="kom-kontakt" onclick="event.stopPropagation()">
+                    <p><strong>Kommunale Zentrale</strong><br>${escHtml(k.address)}<br>
+                        <a href="${telHref(k.phone)}" class="font-semibold hover:underline" style="color: var(--primary);"><i class="fa-solid fa-phone mr-1"></i>${escHtml(k.phone)}</a>
+                    </p>
+                    <p>Friedhofswesen/Standesamt über die Zentrale erfragen.</p>
+                    <div class="kom-links">
+                        <a href="${k.website}" target="_blank" rel="noopener noreferrer" class="btn-outline"><i class="fa-solid fa-globe"></i><span>Offizielle Website</span></a>
+                        <a href="${k.satzungUrl}" target="_blank" rel="noopener noreferrer" class="btn-outline"><i class="fa-solid fa-file-lines"></i><span>Friedhofssatzung / Ortsrecht</span></a>
+                    </div>
+                    <p style="margin-top: 6px;">${escHtml(k.satzungLabel)}</p>
+                </div>`;
+        }
+
         function fillFriedhofFilter() {
             const select = document.getElementById('district-friedhof');
             if (!select) return;
-            const groups = [...new Set(friedhofData.map(f => f.group))].sort((a, b) => a.localeCompare(b, 'de'));
+            const groups = [...new Set([
+                ...friedhofData.map(f => f.group),
+                ...Object.keys(kommuneKontakte)
+            ])].sort((a, b) => a.localeCompare(b, 'de'));
             groups.forEach(group => {
                 const opt = document.createElement('option');
                 opt.value = group;
@@ -1781,6 +2164,7 @@
                             <i class="fa-solid fa-map-location-dot"></i>
                             <span>Karte öffnen</span>
                         </a>
+                        ${kontaktHtml(kommuneFor(f.group))}
                     </div>`;
                 card.querySelector('.js-map-link').addEventListener('click', (e) => e.stopPropagation());
                 card.addEventListener('click', () => setTimeout(() => openFriedhofDetail(f), 0));
@@ -1798,6 +2182,26 @@
                 return matchGroup && matchSearch;
             });
             renderFriedhoefe(filtered);
+            renderAnlaufstellen(groupVal, searchVal);
+        }
+        function renderAnlaufstellen(groupVal, searchVal) {
+            const grid = document.getElementById('anlauf-grid');
+            if (!grid) return;
+            const items = Object.values(kommuneKontakte).filter(k => {
+                const matchGroup = (groupVal === 'all') || (k.name === groupVal);
+                const hay = [k.name, k.address, k.phone].join(' ').toLowerCase();
+                const matchSearch = (searchVal === '') || hay.includes(searchVal);
+                return matchGroup && matchSearch;
+            }).sort((a, b) => a.name.localeCompare(b.name, 'de'));
+            if (!items.length) {
+                grid.innerHTML = '<p class="text-sm text-gray-500" style="margin: 0;">Keine Anlaufstelle zu dieser Suche.</p>';
+                return;
+            }
+            grid.innerHTML = items.map(k => `
+                <div class="anlauf-card">
+                    <p class="text-xs font-bold uppercase tracking-wider" style="margin: 0 0 4px 0; color: var(--primary);">${k.name}</p>
+                    ${kontaktHtml(k)}
+                </div>`).join('');
         }
 
         function openFriedhofDetail(f) {
@@ -1824,7 +2228,8 @@
                 <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="btn-outline w-full">
                     <i class="fa-solid fa-map-location-dot"></i>
                     <span>Karte öffnen</span>
-                </a>`;
+                </a>
+                ${kontaktHtml(kommuneFor(f.group))}`;
             modal.classList.remove('hidden');
         }
 
@@ -1976,6 +2381,7 @@
             renderBestatter(bestatterData);
             fillFriedhofFilter();
             renderFriedhoefe(friedhofData);
+            renderAnlaufstellen('all', '');
             document.addEventListener('click', (event) => {
                 document.querySelectorAll('.regionen-menu').forEach((menu) => {
                     if (!menu.contains(event.target)) menu.removeAttribute('open');
